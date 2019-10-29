@@ -12,10 +12,11 @@
     "redux": "^4.0.4"
   },
   "scripts": {
-    "start": "react-app-rewired start",
+    "client": "react-app-rewired start",
     "build": "react-app-rewired build",
     "test": "react-app-rewired test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "server": "cd server && nodemon index.ts"
   },
   "eslintConfig": {
     "extends": "react-app"
