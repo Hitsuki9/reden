@@ -33,6 +33,8 @@ function reducer (state: State = initialState, action: Action): State {
       return {
         ...state
       };
+    default:
+      return state;
   }
 }
 
