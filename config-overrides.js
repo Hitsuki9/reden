@@ -1,5 +1,12 @@
+const path = require('path');
+
 module.exports = {
   webpack (config, env) {
+    // resolve
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      '@': path.resolve(__dirname, 'src')
+    };
     // loader
     config.module.rules[2].oneOf.unshift({
       test: /\.less$/,

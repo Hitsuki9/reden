@@ -3,6 +3,6 @@ import Style from './Chat.less';
 
 export default function Chat () {
   return (
-    <p className={Style.chat}>Chat</p>
+    <div className={Style.chat}>Chat</div>
   );
 }

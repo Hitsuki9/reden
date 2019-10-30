@@ -8,10 +8,12 @@ function App() {
   const contextValue = null;
   return (
     <div className={Style.app}>
-      <ShowUserOrGroupInfoContext.Provider value={contextValue}>
-        <Sidebar />
-        <Chat />
-      </ShowUserOrGroupInfoContext.Provider>
+      <div className={Style.container}>
+        <ShowUserOrGroupInfoContext.Provider value={contextValue}>
+          <Sidebar />
+          <Chat />
+        </ShowUserOrGroupInfoContext.Provider>
+      </div>
     </div>
   );
 }
