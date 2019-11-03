@@ -1,10 +1,11 @@
+import { hot } from 'react-hot-loader/root';
 import React from 'react';
 import Style from './App.less';
 import { ShowUserOrGroupInfoContext } from './context';
-import Sidebar from './pages/Sidebar';
-import Chat from './pages/Chat';
+import Sidebar from './modules/Sidebar';
+import Chat from './modules/Chat';
 
-function App() {
+function App () {
   const contextValue = null;
   return (
     <div className={Style.app}>
@@ -18,4 +19,4 @@ function App() {
   );
 }
 
-export default App;
+export default hot(App);

@@ -1,9 +1,12 @@
 import React from 'react';
 
 interface AvatarProps {
-  src: string, // 头像链接
-  size: number, // 头像大小
-  className: string, // 额外类名
+  /** 头像链接 */
+  src: string;
+  /** 头像大小 */
+  size?: number;
+  /** 额外类名 */
+  className?: string;
 }
 
 export default function Avatar (props: AvatarProps) {
@@ -11,7 +14,7 @@ export default function Avatar (props: AvatarProps) {
     src,
     size = 60,
     className = ''
-  } = props
+  } = props;
 
   return (
     <img

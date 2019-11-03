@@ -5,11 +5,11 @@ import {
 
 interface State {
   user: {
-    id: string,
-    username: string,
-    avatar: string
-  } | null,
-  connect: boolean
+    id: string;
+    username: string;
+    avatar: string;
+  } | null;
+  connect: boolean;
 }
 
 const initialState: State = {

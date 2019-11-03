@@ -1,7 +1,6 @@
 import React from 'react';
 import Style from './Sidebar.less';
 import avatar from '@/assets/images/Hitsuki9.jpg';
-// @ts-ignore
 import Avatar from '@/components/common/Avatar';
 
 export default function Sidebar () {
