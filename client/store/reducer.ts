@@ -3,7 +3,7 @@ import {
   ActionTypes
 } from './action';
 
-interface State {
+export interface State {
   user: {
     id: string;
     username: string;
