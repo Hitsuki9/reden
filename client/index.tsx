@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 
 import './index.less';
+import '@/assets/styles/common.less';
 import 'normalize.css';
 
 import App from './App';

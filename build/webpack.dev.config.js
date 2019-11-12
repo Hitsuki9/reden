@@ -46,7 +46,17 @@ module.exports = {
           },
           'postcss-loader',
           'less-loader'
-        ]
+        ],
+        exclude: path.resolve(__dirname, '../client/assets/styles')
+      }, {
+        test: /\.less$/,
+        use: [
+          'style-loader',
+          'css-loader',
+          'postcss-loader',
+          'less-loader'
+        ],
+        include: path.resolve(__dirname, '../client/assets/styles')
       }, {
         test: /\.css$/,
         use: [

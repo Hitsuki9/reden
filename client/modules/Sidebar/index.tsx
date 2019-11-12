@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 import { Avatar, Tooltip, Button } from 'antd';
 import useLogin from '@/hooks/useLogin';
 import Style from './Sidebar.less';
@@ -31,21 +32,26 @@ export default function Sidebar () {
 
   return (
     <div className={Style.sidebar}>
-      {
-        isLogin && <Avatar className={Style.avatar} src={avatar} size={60} />
-      }
-      {
-        btnGroup.map((item) => {
-          if (!isLogin && item.title === '设置') {
-            return null;
-          }
-          return (
-            <Tooltip placement="right" title={item.title} key={item.title}>
-              <Button shape="circle" icon={item.icon} onClick={() => handleClick(item.href)} />
-            </Tooltip>
-          );
-        })
-      }
+      <div className={Style['avatar-wrap']}>
+        {
+          isLogin
+          && <Avatar className={Style.avatar} src={avatar} size={60} />
+        }
+      </div>
+      <div className={classNames(Style['btn-group-wrap'], 'flex-v-center')}>
+        {
+          btnGroup.map((item) => {
+            if (!isLogin && item.title === '设置') {
+              return null;
+            }
+            return (
+              <Tooltip placement="right" title={item.title} key={item.title}>
+                <Button shape="circle" icon={item.icon} onClick={() => handleClick(item.href)} />
+              </Tooltip>
+            );
+          })
+        }
+      </div>
     </div>
   );
 }
