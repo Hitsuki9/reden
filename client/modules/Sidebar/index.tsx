@@ -1,8 +1,8 @@
 import React from 'react';
 import classNames from 'classnames';
-import { Avatar, Tooltip, Button } from 'antd';
+import { Avatar, Tooltip, Icon } from 'antd';
 import useLogin from '@/hooks/useLogin';
-import Style from './Sidebar.less';
+import styles from './Sidebar.less';
 import avatar from '@/assets/images/Hitsuki9.jpg';
 
 interface BtnItem {
@@ -31,14 +31,14 @@ export default function Sidebar () {
   const isLogin = useLogin();
 
   return (
-    <div className={Style.sidebar}>
-      <div className={Style['avatar-wrap']}>
+    <div className={styles.sidebar}>
+      <div className={styles.avatarWrap}>
         {
           isLogin
-          && <Avatar className={Style.avatar} src={avatar} size={60} />
+          && <Avatar className={styles.avatar} src={avatar} size={60} />
         }
       </div>
-      <div className={classNames(Style['btn-group-wrap'], 'flex-v-center')}>
+      <div className={classNames(styles.btnGroupWrap, 'flex-v-center')}>
         {
           btnGroup.map((item) => {
             if (!isLogin && item.title === '设置') {
@@ -46,7 +46,11 @@ export default function Sidebar () {
             }
             return (
               <Tooltip placement="right" title={item.title} key={item.title}>
-                <Button shape="circle" icon={item.icon} onClick={() => handleClick(item.href)} />
+                <Icon
+                  className={styles.btnItem}
+                  type={item.icon}
+                  onClick={() => handleClick(item.href)}
+                />
               </Tooltip>
             );
           })

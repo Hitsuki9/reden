@@ -78,7 +78,10 @@ module.exports = {
   devServer: {
     host: '127.0.0.1',
     port: 3000,
-    hot: true
+    hot: true,
+    open: true,
+    compress: true,
+    quiet: true
   },
   plugins: [
     new HtmlWebpackPlugin({
