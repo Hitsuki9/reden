@@ -16,8 +16,11 @@ export default function Input () {
   }
 
   return (
-    <>
-      input
-    </>
+    <div className={styles.inputWrap}>
+      <input
+        className={styles.input}
+        type="text"
+      />
+    </div>
   );
 }
