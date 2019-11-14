@@ -49,6 +49,7 @@ export default function Sidebar () {
                 <Icon
                   className={styles.btnItem}
                   type={item.icon}
+                  role="button"
                   onClick={() => handleClick(item.href)}
                 />
               </Tooltip>

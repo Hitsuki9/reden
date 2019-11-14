@@ -8,10 +8,10 @@ import 'normalize.css';
 
 import App from './App';
 import store from './store';
-import { getLocalData } from './utils';
+import { getLocalData, setCssVariable } from './utils';
 
 const { primaryColor, primaryTextColor } = getLocalData();
-console.log(primaryColor, primaryTextColor);
+setCssVariable(primaryColor, primaryTextColor);
 
 // 请求 Notification 授权
 if (

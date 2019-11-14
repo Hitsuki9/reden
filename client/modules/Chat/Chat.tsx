@@ -1,21 +1,16 @@
 import React from 'react';
+import classNames from 'classnames';
 import styles from './Chat.less';
-import useLogin from '@/hooks/useLogin';
+import Input from '@/components/Input';
 
 export default function Chat () {
-  const isLogin = useLogin();
-
   return (
     <div className={styles.chat}>
       <div className={styles.chatPanel}>
         chatPanel
       </div>
-      <div className={styles.inputBar}>
-        {
-          isLogin
-            ? 'input'
-            : 'login'
-        }
+      <div className={classNames(styles.inputBar, 'flex-center')}>
+        <Input />
       </div>
     </div>
   );

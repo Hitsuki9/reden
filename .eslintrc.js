@@ -14,13 +14,16 @@ module.exports = {
   },
   rules: {
     'linebreak-style': [1, 'windows'],
-    'react/jsx-filename-extension': [1, {
-      extensions: ['.tsx']
+    'no-plusplus': [1, {
+      'allowForLoopAfterthoughts': true
     }],
     'comma-dangle': [1, 'never'],
     'space-before-function-paren': [1, 'always'],
     'no-underscore-dangle': [1, {
       allow: ['__REDUX_DEVTOOLS_EXTENSION__']
+    }],
+    'react/jsx-filename-extension': [1, {
+      extensions: ['.tsx']
     }],
     'import/no-unresolved': 0,
     'import/prefer-default-export': 0,
