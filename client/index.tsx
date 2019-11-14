@@ -10,6 +10,7 @@ import App from './App';
 import store from './store';
 import { getLocalData, setCssVariable } from './utils';
 
+// 设置 CSS 变量
 const { primaryColor, primaryTextColor } = getLocalData();
 setCssVariable(primaryColor, primaryTextColor);
 
