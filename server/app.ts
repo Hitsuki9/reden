@@ -2,6 +2,9 @@ import Koa from 'koa';
 
 const app = new Koa();
 
-app.listen(9000, () => {
-  console.log(` >>> server listen on http://localhost:9000`);
+app.use(async (ctx, next) => {
+  console.log(ctx);
+  ctx.body = 'index';
 });
+
+export default app;

@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "client": "cross-env NODE_ENV=development webpack-dev-server --config build/webpack.dev.config.js",
-    "server": "nodemon server/index.ts"
+    "server": "cross-env NODE_ENV=development nodemon server/index.ts",
+    "lint": "eslint server/** --ext .ts,.js"
   },
   "keywords": [],
   "author": "Hitsuki9",
@@ -55,6 +56,7 @@
   "dependencies": {
     "@babel/runtime": "^7.7.2",
     "antd": "^3.25.1",
+    "bcrypt": "^3.0.6",
     "classnames": "^2.2.6",
     "core-js": "^3.4.1",
     "koa": "^2.11.0",

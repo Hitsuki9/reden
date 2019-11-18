@@ -10,9 +10,13 @@ module.exports = {
     sourceType: 'module'
   },
   env: {
-    browser: true
+    browser: true,
+    node: true
   },
   rules: {
+    'no-console': [1, {
+      allow: ['log', 'error']
+    }],
     'linebreak-style': [1, 'windows'],
     'no-plusplus': [1, {
       'allowForLoopAfterthoughts': true
