@@ -26,12 +26,15 @@ module.exports = {
     'no-underscore-dangle': [1, {
       allow: ['__REDUX_DEVTOOLS_EXTENSION__']
     }],
+    'no-case-declarations': 0,
     'react/jsx-filename-extension': [1, {
       extensions: ['.tsx']
     }],
+    'jsx-a11y/interactive-supports-focus': 0,
     'import/no-unresolved': 0,
     'import/prefer-default-export': 0,
     '@typescript-eslint/explicit-function-return-type': 0,
-    '@typescript-eslint/ban-ts-ignore': 0
+    '@typescript-eslint/ban-ts-ignore': 0,
+    '@typescript-eslint/no-explicit-any': 0
   }
 }

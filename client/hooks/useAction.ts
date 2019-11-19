@@ -7,11 +7,20 @@ import { ActionTypes } from '@/store/action';
 export default function useAction () {
   const dispatch = useDispatch();
   return {
-    setUser (payload: Object) {
+    setUser (payload: any) {
       dispatch({
         type: ActionTypes.SetUser,
         payload
-      })
+      });
+    },
+    setStatus (key: string, value: any) {
+      dispatch({
+        type: ActionTypes.SetStatus,
+        payload: {
+          key,
+          value
+        }
+      });
     }
-  }
+  };
 }

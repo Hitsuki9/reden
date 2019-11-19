@@ -4,9 +4,12 @@ export enum ActionTypes {
   /** socket 连接成功 */
   Connect = 'Connect',
   /** socket 断开连接 */
-  Disconnect = 'Disconnect'
+  Disconnect = 'Disconnect',
+  /** 更新客户端状态 */
+  SetStatus = 'SetStatus'
 }
 
-export interface Action {
+export interface Action<T = { [key: string]: any }> {
   type: ActionTypes;
+  payload: T;
 }
