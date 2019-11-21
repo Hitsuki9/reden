@@ -8,7 +8,11 @@
     "server": "cross-env NODE_ENV=development nodemon server/index.ts",
     "lint": "eslint server/** --ext .ts,.js"
   },
-  "keywords": [],
+  "keywords": [
+    "fiora",
+    "chat",
+    "socket"
+  ],
   "author": "Hitsuki9",
   "license": "MIT",
   "devDependencies": {
