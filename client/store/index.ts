@@ -6,11 +6,15 @@ import saga from './saga';
 const sagaMiddleware = createSagaMiddleware();
 const store = createStore(
   reducer,
-  compose(
-    applyMiddleware(sagaMiddleware),
-    // @ts-ignore
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-  )
+  // @ts-ignore
+  window.__REDUX_DEVTOOLS_EXTENSION__
+    ? compose(
+      applyMiddleware(sagaMiddleware),
+      // @ts-ignore
+      window.__REDUX_DEVTOOLS_EXTENSION__()
+    ) : compose(
+      applyMiddleware(sagaMiddleware)
+    )
 );
 
 sagaMiddleware.run(saga);
