@@ -10,7 +10,7 @@ import config from '../config/server';
         useNewUrlParser: true,
         useUnifiedTopology: true
       }
-    )
+    );
     console.log('connect database success!');
     app.listen(9000, () => {
       console.log('>>> server listen on http://localhost:9000');
