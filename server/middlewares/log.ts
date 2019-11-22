@@ -5,8 +5,8 @@ import { Context } from 'koa';
  */
 export default function log () {
   return async (ctx: Context, next: Function) => {
-    console.log(ctx, '->');
+    console.log('-->');
     await next();
-    console.log(ctx, '<-');
+    console.log('<--\n');
   };
 }
