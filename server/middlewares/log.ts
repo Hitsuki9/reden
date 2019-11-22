@@ -8,5 +8,5 @@ export default function log () {
     console.log(ctx, '->');
     await next();
     console.log(ctx, '<-');
-  }
+  };
 }
