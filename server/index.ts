@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import app from './app';
+import server from './server';
 import config from '../config/server';
 
 (async () => {
@@ -12,7 +12,7 @@ import config from '../config/server';
       }
     );
     console.log('connect database success!');
-    app.listen(9000, () => {
+    server.listen(9000, () => {
       console.log('>>> server listen on http://localhost:9000\n');
     });
   } catch (err) {
