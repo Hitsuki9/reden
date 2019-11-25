@@ -14,6 +14,8 @@ app.use(async (ctx, next) => {
   ctx.body = ctx.request.url;
 });
 
+socket.use(log());
+
 socket.on('connection', (client) => {
   console.log('socket connect!');
   client.on('disconnect', () => {
