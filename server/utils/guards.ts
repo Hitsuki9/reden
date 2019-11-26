@@ -1,10 +1,6 @@
-import { Context } from 'koa';
-import { Socket } from 'socket.io';
+import { Server } from "socket.io";
+import { EnhancedServer } from "./enhancer";
 
-export function isContext (ctx: Context | Socket): ctx is Context {
-  return !!ctx;
-}
-
-export function isSocket (ctx: Socket | Socket): ctx is Socket {
-  return !!ctx;
+export function isEnhancedServer (socket: Server): socket is EnhancedServer {
+  return (socket as EnhancedServer)._use !== undefined;
 }

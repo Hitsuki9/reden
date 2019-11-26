@@ -1,21 +1,17 @@
 import http from 'http';
 import Koa from 'koa';
 import io from 'socket.io';
-import log from './middlewares/log';
+import logger from './middlewares/logger';
+import { enhancer, isEnhancedServer } from './utils';
 
 const app = new Koa();
 const server = http.createServer(app.callback());
 const socket = io(server);
+enhancer(socket);
 
-app.use(log());
-
-app.use(async (ctx, next) => {
-  console.log(ctx.request.url);
-  ctx.body = ctx.request.url;
-});
-
-socket.use(log());
-
+if (isEnhancedServer(socket)) {
+  socket._use(logger());
+}
 socket.on('connection', (client) => {
   console.log('socket connect!');
   client.on('disconnect', () => {

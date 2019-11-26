@@ -13,7 +13,7 @@ import config from '../config/server';
     );
     console.log('connect database success!');
     server.listen(9000, () => {
-      console.log('>>> server listen on http://localhost:9000\n');
+      console.log('server listen on http://localhost:9000\n');
     });
   } catch (err) {
     console.error('connect database error!');
