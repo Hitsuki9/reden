@@ -21,7 +21,7 @@
     "@babel/plugin-transform-runtime": "^7.7.4",
     "@babel/preset-env": "^7.7.4",
     "@babel/preset-react": "^7.7.4",
-    "@babel/preset-typescript": "^7.7.2",
+    "@babel/preset-typescript": "^7.7.4",
     "@types/classnames": "^2.2.9",
     "@types/koa": "^2.0.52",
     "@types/mongoose": "^5.5.32",
