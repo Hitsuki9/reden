@@ -16,7 +16,15 @@ interface EnhancedSocket extends Socket {
  * @param client 客户端连接实例
  */
 function onConnection (client: Socket) {
-  (client as EnhancedSocket)._on = (event, handler) => client.on(event, (data) => {
+  compose(
+    {
+      event: 'connection',
+      data: {},
+      socket: client
+    },
+    ...middlewares
+  )
+  ;(client as EnhancedSocket)._on = (event) => client.on(event, (data) => {
     const packet = {
       event,
       data,
