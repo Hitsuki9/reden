@@ -7,7 +7,6 @@ import(
 )
 
 func main()  {
-	var str string
-	str = strings.Join(os.Args[1:], " ")
+	str := strings.Join(os.Args[1:], " ")
 	fmt.Println(str)
 }
