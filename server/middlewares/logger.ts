@@ -1,11 +1,11 @@
-import { Socket } from 'socket.io';
+import { Packet } from '../utils';
 
 /**
  * 打印请求日志
  */
 export default function logger () {
-  return async (packet: Socket, next: Function) => {
-    console.log(`<-- ${JSON.stringify(packet.eventNames())}`);
+  return async (packet: Packet, next: Function) => {
+    console.log(`<-- ${packet.event}`);
     await next();
     console.log('-->\n');
   };

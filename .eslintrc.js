@@ -24,9 +24,12 @@ module.exports = {
     'comma-dangle': [1, 'never'],
     'space-before-function-paren': [1, 'always'],
     'no-underscore-dangle': [1, {
-      allow: ['__REDUX_DEVTOOLS_EXTENSION__']
+      allow: ['__REDUX_DEVTOOLS_EXTENSION__', '_use', '_on']
     }],
     'no-case-declarations': 0,
+    'no-param-reassign': [1, {
+      props: false
+    }],
     'react/jsx-filename-extension': [1, {
       extensions: ['.tsx']
     }],

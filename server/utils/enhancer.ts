@@ -1,5 +1,5 @@
-import { Server, Socket } from "socket.io";
-import { compose } from "./compose";
+import { Server, Socket } from 'socket.io';
+import { compose } from './compose';
 
 const middlewares: Function[] = [];
 
@@ -8,7 +8,16 @@ export interface EnhancedServer extends Server {
 }
 
 interface EnhancedSocket extends Socket {
-  _on: (event: string, handler: Function) => Socket;
+  _on: (event: string) => Socket;
+}
+
+export interface Packet {
+  /** 事件名 */
+  event: string;
+  /** 负载数据 */
+  data?: any;
+  /** socket */
+  socket: EnhancedSocket;
 }
 
 /**
@@ -16,27 +25,26 @@ interface EnhancedSocket extends Socket {
  * @param client 客户端连接实例
  */
 function onConnection (client: Socket) {
-  compose(
-    {
-      event: 'connection',
-      data: {},
-      socket: client
-    },
-    ...middlewares
-  )
-  ;(client as EnhancedSocket)._on = (event) => client.on(event, (data) => {
+  (client as EnhancedSocket)._on = (event) => client.on(event, (data) => {
     const packet = {
       event,
       data,
-      socket: client
+      socket: client as EnhancedSocket
     };
     compose(packet, ...middlewares);
   });
+  compose(
+    {
+      event: 'connection',
+      socket: client as EnhancedSocket
+    },
+    ...middlewares
+  );
 }
 
 /**
  * 增强 socket.io 功能
- * @param socket 
+ * @param socket
  */
 export function enhancer (socket: Server) {
   socket.on('connection', onConnection);

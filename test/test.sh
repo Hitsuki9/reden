@@ -1,4 +1,4 @@
-#!/usr/bin/sh
+#!/usr/bin/bash
 for file_name in `ls client`
 do
   echo $file_name
