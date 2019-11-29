@@ -6,6 +6,12 @@
 # install dependencies
 yarn
 
-# serve with hot reload at localhost:3000
+# client with hot reload at localhost:3000
 yarn run client
+
+# server at localhost:9000
+yarn run server
+
+# run client and server concurrently
+yarn start
 ```
