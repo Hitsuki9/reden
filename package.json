@@ -69,7 +69,7 @@
     "classnames": "^2.2.6",
     "core-js": "^3.4.5",
     "koa": "^2.11.0",
-    "mongoose": "^5.7.12",
+    "mongoose": "^5.7.13",
     "normalize.css": "^8.0.1",
     "react": "^16.12.0",
     "react-dom": "npm:@hot-loader/react-dom",
