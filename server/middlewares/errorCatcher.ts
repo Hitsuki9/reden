@@ -1,3 +1,4 @@
+import assert from 'assert';
 import { Packet } from '../utils';
 
 /**
@@ -8,7 +9,13 @@ export default function errorCatcher () {
     try {
       await next();
     } catch (err) {
-      console.log(err.message);
+      if (err instanceof assert.AssertionError) {
+        console.log(err.message);
+        packet.res = err.message;
+        return;
+      }
+      packet.res = `Server Error: ${err.message}`;
+      console.log(`Unhandled Error:\n\t${err}\n`);
     }
   };
 }

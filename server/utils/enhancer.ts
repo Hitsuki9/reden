@@ -14,10 +14,14 @@ interface EnhancedSocket extends Socket {
 export interface Packet {
   /** 事件名 */
   event: string;
-  /** 负载数据 */
-  data?: any;
   /** socket */
   socket: EnhancedSocket;
+  /** 负载数据 */
+  data?: any;
+  /** 事件响应函数 */
+  acknowledge?: Function;
+  /** 响应内容 */
+  res?: string | Record<string, any>;
 }
 
 /**
@@ -25,11 +29,12 @@ export interface Packet {
  * @param client 客户端连接实例
  */
 function onConnection (client: Socket) {
-  (client as EnhancedSocket)._on = (event) => client.on(event, (data) => {
-    const packet = {
+  (client as EnhancedSocket)._on = (event) => client.on(event, (data, ack) => {
+    const packet: Packet = {
       event,
+      socket: client as EnhancedSocket,
       data,
-      socket: client as EnhancedSocket
+      acknowledge: ack
     };
     compose(packet, ...middlewares);
   });
