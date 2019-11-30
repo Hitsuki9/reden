@@ -1,12 +1,18 @@
 import { Packet } from './enhancer';
 
+/**
+ * 洋葱圈聚合
+ * @param packet
+ * @param fns 中间件
+ */
 export function compose (packet: Packet, ...fns: Function[]) {
-  console.log(`middleware num: ${fns.length}`);
-  fns[0](packet, async () => {
-    await fns[1](packet, async () => {
-      await fns[2](packet, async () => {
-        await fns[3](packet);
+  async function dispatch (i: number) {
+    const fn = fns[i];
+    if (fn) {
+      await fns[i](packet, async () => {
+        await dispatch(i + 1);
       });
-    });
-  });
+    }
+  }
+  dispatch(0);
 }

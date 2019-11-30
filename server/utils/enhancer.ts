@@ -11,13 +11,13 @@ interface EnhancedSocket extends Socket {
   _on: (event: string) => Socket;
 }
 
-export interface Packet {
+export interface Packet<T = string> {
   /** 事件名 */
   event: string;
   /** socket */
   socket: EnhancedSocket;
   /** 负载数据 */
-  data?: any;
+  data: T;
   /** 事件响应函数 */
   acknowledge?: Function;
   /** 响应内容 */
@@ -41,7 +41,8 @@ function onConnection (client: Socket) {
   compose(
     {
       event: 'connection',
-      socket: client as EnhancedSocket
+      socket: client as EnhancedSocket,
+      data: ''
     },
     ...middlewares
   );

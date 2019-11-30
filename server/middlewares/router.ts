@@ -14,7 +14,7 @@ export default function router (routes: Routes) {
       Object.keys(routes).forEach((routeName) => packet.socket._on(routeName));
     }
     if (routes[packet.event]) {
-      await routes[packet.event](packet);
+      packet.res = await routes[packet.event](packet);
     }
   };
 }

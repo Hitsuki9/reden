@@ -5,7 +5,7 @@ import { Packet } from '../utils';
  */
 export default function logger () {
   return async (packet: Packet, next: Function) => {
-    console.log(`<-- ${packet.event}`);
+    console.log(`<-- ${packet.event} ${packet.socket.id}`);
     await next();
     console.log('-->\n');
   };

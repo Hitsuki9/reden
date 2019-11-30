@@ -20,7 +20,7 @@ if (isEnhancedServer(socket)) {
   socket._use(router(routes));
 }
 socket.on('connection', (client) => {
-  console.log(`connection info:\n\tid ${client.id}\n\tip ${client.request.connection.remoteAddress}`);
+  console.log(`connection info:\n\tip ${client.request.connection.remoteAddress}`);
   client.on('disconnect', () => {
     console.log('socket disconnect!\n');
   });

@@ -12,6 +12,7 @@ function App () {
   const contextValue = null;
   return (
     <div className={classNames(styles.app, 'flex-center')}>
+      <div className={styles.blur} />
       <div className={styles.container}>
         <ShowUserOrGroupInfoContext.Provider value={contextValue}>
           <Sidebar />
