@@ -65,7 +65,7 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.7.4",
-    "antd": "^3.25.3",
+    "antd": "^3.26.0",
     "bcryptjs": "^2.4.3",
     "classnames": "^2.2.6",
     "core-js": "^3.4.5",
