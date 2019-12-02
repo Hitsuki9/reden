@@ -1,23 +1,47 @@
 package main
 
 import(
-	"bufio"
 	"fmt"
+	"io/ioutil"
 	"os"
 	"strings"
+	"flag"
 )
 
-func main()  {
-	str := strings.Join(os.Args[1:], " ")
-	fmt.Println(str)
-	counts := make(map[string]int)
-	input := bufio.NewScanner(os.Stdin)
-	for input.Scan() {
-		counts[input.Text()]++
+var n = flag.Bool("n", false, "omit trailing newline")
+var sep = flag.String("s", "sep", "separator")
+
+// MtoS is a type
+type MtoS bool
+
+func (m MtoS) String() string {
+	if m {
+		return "MtoS true"
 	}
-	for line, n := range counts {
-		if n > 0 {
-			fmt.Printf("%d\t%s\n", n, line)
+	return "MtoS false"
+}
+
+func main() {
+	fmt.Println(test("1"))
+	for _, filename := range os.Args[1:] {
+		data, err := ioutil.ReadFile(filename)
+		if err != nil {
+			fmt.Println(err)
+			continue
+		}
+		for _, line := range strings.Split(string(data), "\n") {
+			fmt.Println(line)
 		}
 	}
+}
+
+func test(v string) *string {
+	var m MtoS = false
+	fmt.Println(m)
+	flag.Parse()
+	if !*n {
+		fmt.Println(*sep)
+	}
+	p := &v
+	return p
 }

@@ -2,7 +2,7 @@ import { Schema, model, Document } from 'mongoose';
 
 export interface UserDocument extends Document {
   /** id */
-  _id: string;
+  _id: Schema.Types.ObjectId;
   /** 用户名 */
   username: string;
   /** 密码 */
@@ -15,7 +15,7 @@ export interface UserDocument extends Document {
   lastLoginTime: Date;
 }
 
-const UserSchema = new Schema({
+const userSchema = new Schema({
   username: { type: String },
   password: { type: String },
   avatar: String,
@@ -23,6 +23,6 @@ const UserSchema = new Schema({
   lastLoginTime: { type: Date, default: Date.now }
 });
 
-const User = model<UserDocument>('User', UserSchema);
+const User = model<UserDocument>('User', userSchema);
 
 export default User;

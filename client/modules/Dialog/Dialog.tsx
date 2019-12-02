@@ -19,9 +19,9 @@ export default function Dialog () {
   const actions = useAction();
 
   const login = async () => {
-    const [err, res] = await fetch('login', {
-      username: '',
-      password: ''
+    const [err, res] = await fetch('register', {
+      username: 'hitsuki9',
+      password: 't8e8a8c0h2'
     });
     console.log(err, res);
   };

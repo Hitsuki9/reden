@@ -1,7 +1,7 @@
 import assert from 'assert';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
-import { Packet } from '../utils';
+import { Packet, getRandomAvatar } from '../utils';
 import config from '../../config/server';
 import User from '../models/user';
 
@@ -54,6 +54,25 @@ export async function register (packet: Packet<UserData>) {
   assert(password, '密码不可为空');
   const user = await User.findOne({ username });
   assert(!user, '用户名已存在');
+
+  const salt = await bcrypt.genSalt(config.rounds);
+  const hash = await bcrypt.hash(password, salt);
+
+  console.log({
+    username,
+    password: hash,
+    avatar: getRandomAvatar()
+  });
+
+  // try {
+  //   await User.create({
+  //     username,
+  //     password: hash,
+  //     avatar: getRandomAvatar()
+  //   });
+  // } catch (err) {
+
+  // }
 }
 
 /**
