@@ -1,55 +1,87 @@
-import React, { useState } from 'react';
+import React, { FormEvent } from 'react';
 import {
   Form,
   Input,
   Icon,
   Button
 } from 'antd';
+import { FormComponentProps } from 'antd/lib/form/Form';
 import { noop } from '@/utils';
 import styles from './Sign.less';
 
-interface SignProps {
+interface SignProps extends FormComponentProps {
   /** 按钮名 */
   btnName?: string;
   /** 表单提交回调 */
   handleSubmit?: (username: string, password: string) => void;
 }
 
-export default function Sign (props: SignProps) {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const { btnName = '提交', handleSubmit = noop } = props;
+function Sign (props: SignProps) {
+  const {
+    btnName = '提交',
+    handleSubmit = noop,
+    form: { getFieldDecorator, validateFields }
+  } = props;
+
+  const submitHandler = (event: FormEvent) => {
+    event.preventDefault();
+    validateFields((err, values) => {
+      if (!err) {
+        handleSubmit(values.username, values.password);
+      }
+    });
+  };
 
   return (
-    <Form onSubmit={noop}>
+    <Form onSubmit={submitHandler}>
       <Form.Item>
-        <Input
-          value={username}
-          prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
-          placeholder="用户名"
-          allowClear
-          onChange={(event) => setUsername(event.target.value)}
-          onPressEnter={() => handleSubmit(username, password)}
-        />
+        {
+          getFieldDecorator(
+            'username',
+            {
+              rules: [
+                { required: true, message: '请填写用户名' }
+              ]
+            }
+          )(
+            <Input
+              prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
+              placeholder="用户名"
+              allowClear
+              autoComplete="off"
+              onPressEnter={submitHandler}
+            />
+          )
+        }
       </Form.Item>
 
       <Form.Item>
-        <Input
-          value={password}
-          prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
-          type="password"
-          placeholder="密码"
-          allowClear
-          onChange={(event) => setPassword(event.target.value)}
-          onPressEnter={() => handleSubmit(username, password)}
-        />
+        {
+          getFieldDecorator(
+            'password',
+            {
+              rules: [
+                { required: true, message: '请填写密码' }
+              ]
+            }
+          )(
+            <Input
+              prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
+              type="password"
+              placeholder="密码"
+              allowClear
+              autoComplete="off"
+              onPressEnter={submitHandler}
+            />
+          )
+        }
       </Form.Item>
 
       <Form.Item>
         <Button
           className={styles.dialogBtn}
           type="primary"
-          onClick={() => handleSubmit(username, password)}
+          htmlType="submit"
         >
           {btnName}
         </Button>
@@ -57,3 +89,5 @@ export default function Sign (props: SignProps) {
     </Form>
   );
 }
+
+export default Form.create<SignProps>()(Sign);

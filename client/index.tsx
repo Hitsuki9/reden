@@ -1,14 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-
-import './index.less';
-import '@/assets/styles/common.less';
-import 'normalize.css';
-
+import { BrowserRouter as Router } from 'react-router-dom';
 import App from './App';
 import store from './store';
 import { getLocalData, setCssVariable } from './utils';
+import './index.less';
+import '@/assets/styles/common.less';
+import 'normalize.css';
 
 // 设置 CSS 变量
 const { primaryColor, primaryTextColor } = getLocalData();
@@ -24,7 +23,9 @@ if (
 
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <Router>
+      <App />
+    </Router>
   </Provider>,
   document.getElementById('app')
 );

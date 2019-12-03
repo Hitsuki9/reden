@@ -9,7 +9,7 @@ interface Environment {
   /** 客户端操作系统 */
   os: string;
   /** 客户端浏览器 */
-  broswer: string;
+  browser: string;
   /** 客户端环境信息 */
   environment: string;
 }
@@ -46,7 +46,7 @@ export async function register (packet: Packet<UserData>) {
     username,
     password,
     os,
-    broswer,
+    browser,
     environment
   } = packet.data;
 

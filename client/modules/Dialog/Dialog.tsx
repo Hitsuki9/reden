@@ -1,15 +1,15 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { useSelector } from 'react-redux';
-import {
-  Modal,
-  Tabs
-} from 'antd';
+import { Modal, Tabs } from 'antd';
+import platform from 'platform';
 import Sign from '@/components/Sign';
 import { State } from '@/store/reducer';
 import useAction from '@/hooks/useAction';
-import { noop, fetch } from '@/utils';
+import { setValue, noop } from '@/utils';
+import { register, login } from '@/services';
 
 const { TabPane } = Tabs;
+const refInitialValue = { resetFields: noop };
 
 /**
  * 登录注册框
@@ -17,57 +17,58 @@ const { TabPane } = Tabs;
 export default function Dialog () {
   const visible = useSelector((state: State) => state.status.loginAndRegisterDialogVisible);
   const actions = useAction();
+  const loginRef = useRef<any>(refInitialValue);
+  const registerRef = useRef<any>(refInitialValue);
 
-  async function login (username: string, password: string) {
-    const [err, res] = await fetch('login', {
+  const loginHandler = async (username: string, password: string) => {
+    const res = await login(
       username,
-      password
-    });
-    console.log(err, res);
-  }
+      password,
+      platform.os ? platform.os.family : undefined,
+      platform.name,
+      platform.description
+    );
+    if (res) {
+      actions.setStatus('loginAndRegisterDialogVisible', false);
+      setValue('token', res.token);
+    }
+  };
 
-  async function register (username: string, password: string) {
-    const [err, res] = await fetch('register', {
+  const registerHandler = async (username: string, password: string) => {
+    const res = await register(
       username,
-      password
-    });
-    console.log(err, res);
-  }
+      password,
+      platform.os ? platform.os.family : undefined,
+      platform.name,
+      platform.description
+    );
+    if (res) {
+      console.log(res);
+    }
+  };
 
-  // const loginProps = {
-  //   btnName: '登录',
-  //   handleSubmit: login
-  // };
-
-  // const registerProps = {
-  //   btnName: '注册',
-  //   handleSubmit: register
-  // };
+  const closeHandler = () => {
+    loginRef.current.resetFields();
+    registerRef.current.resetFields();
+  };
 
   return (
-    <>
-      {
-        visible
-        && (
-          <Modal
-            title=""
-            visible={visible}
-            footer={null}
-            onOk={noop}
-            onCancel={() => actions.setStatus('loginAndRegisterDialogVisible', false)}
-          >
-            <Tabs defaultActiveKey="1" onChange={noop} tabBarStyle={{ textAlign: 'center' }}>
-              <TabPane tab="登录" key="1">
-                <Sign btnName="登录" handleSubmit={login} />
-              </TabPane>
+    <Modal
+      title=""
+      visible={visible}
+      footer={null}
+      afterClose={closeHandler}
+      onCancel={() => actions.setStatus('loginAndRegisterDialogVisible', false)}
+    >
+      <Tabs defaultActiveKey="login" tabBarStyle={{ textAlign: 'center' }}>
+        <TabPane tab="登录" key="login">
+          <Sign ref={loginRef} btnName="登录" handleSubmit={loginHandler} />
+        </TabPane>
 
-              <TabPane tab="注册" key="2">
-                <Sign btnName="注册" handleSubmit={register} />
-              </TabPane>
-            </Tabs>
-          </Modal>
-        )
-      }
-    </>
+        <TabPane tab="注册" key="register">
+          <Sign ref={registerRef} btnName="注册" handleSubmit={registerHandler} />
+        </TabPane>
+      </Tabs>
+    </Modal>
   );
 }

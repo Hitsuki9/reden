@@ -14,6 +14,15 @@ export enum LocalStorageKeys {
 }
 
 /**
+ * 设置 localStorage 中的值
+ * @param key 键值
+ * @param value 值
+ */
+export function setValue (key: string, value: string) {
+  window.localStorage.setItem(key, value);
+}
+
+/**
  * 获取 localStorage 中的值
  * @param key 键值
  * @param defaultValue 默认值

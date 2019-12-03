@@ -6,6 +6,7 @@ import(
 	"os"
 	"strings"
 	"flag"
+	"test/mypck"
 )
 
 var n = flag.Bool("n", false, "omit trailing newline")
@@ -22,6 +23,7 @@ func (m MtoS) String() string {
 }
 
 func main() {
+	fmt.Println(mypck.Interfas("Interfas"))
 	fmt.Println(test("1"))
 	for _, filename := range os.Args[1:] {
 		data, err := ioutil.ReadFile(filename)
