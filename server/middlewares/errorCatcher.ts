@@ -14,7 +14,7 @@ export default function errorCatcher () {
         packet.res = err.message;
         return;
       }
-      packet.res = `Server Error: ${err.message}`;
+      packet.res = `Internal Server Error: ${err.message}`;
       console.log(`Unhandled Error:\n\t${err}\n`);
     }
   };

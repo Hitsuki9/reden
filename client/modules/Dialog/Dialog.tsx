@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Modal, Tabs } from 'antd';
 import platform from 'platform';
@@ -7,6 +7,7 @@ import { State } from '@/store/reducer';
 import useAction from '@/hooks/useAction';
 import { setValue, noop } from '@/utils';
 import { register, login } from '@/services';
+import styles from './Dialog.less';
 
 const { TabPane } = Tabs;
 const refInitialValue = { resetFields: noop };
@@ -17,6 +18,7 @@ const refInitialValue = { resetFields: noop };
 export default function Dialog () {
   const visible = useSelector((state: State) => state.status.loginAndRegisterDialogVisible);
   const actions = useAction();
+  const [activeKey, setActiveKey] = useState('login');
   const loginRef = useRef<any>(refInitialValue);
   const registerRef = useRef<any>(refInitialValue);
 
@@ -47,20 +49,31 @@ export default function Dialog () {
     }
   };
 
+  const changeHandler = (key: string) => {
+    setActiveKey(key);
+  };
+
   const closeHandler = () => {
     loginRef.current.resetFields();
     registerRef.current.resetFields();
+    setActiveKey('login');
   };
 
   return (
     <Modal
+      className={styles.dialog}
+      width="400px"
       title=""
       visible={visible}
       footer={null}
       afterClose={closeHandler}
       onCancel={() => actions.setStatus('loginAndRegisterDialogVisible', false)}
     >
-      <Tabs defaultActiveKey="login" tabBarStyle={{ textAlign: 'center' }}>
+      <Tabs
+        activeKey={activeKey}
+        tabBarStyle={{ textAlign: 'center' }}
+        onChange={changeHandler}
+      >
         <TabPane tab="登录" key="login">
           <Sign ref={loginRef} btnName="登录" handleSubmit={loginHandler} />
         </TabPane>

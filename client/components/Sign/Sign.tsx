@@ -49,6 +49,7 @@ function Sign (props: SignProps) {
               placeholder="用户名"
               allowClear
               autoComplete="off"
+              maxLength={30}
               onPressEnter={submitHandler}
             />
           )
@@ -70,7 +71,7 @@ function Sign (props: SignProps) {
               type="password"
               placeholder="密码"
               allowClear
-              autoComplete="off"
+              maxLength={10}
               onPressEnter={submitHandler}
             />
           )
