@@ -34,7 +34,7 @@
     "@types/socket.io-client": "^1.4.32",
     "@typescript-eslint/eslint-plugin": "^2.10.0",
     "@typescript-eslint/parser": "^2.10.0",
-    "autoprefixer": "^9.7.2",
+    "autoprefixer": "^9.7.3",
     "babel-loader": "^8.0.6",
     "babel-plugin-import": "^1.13.0",
     "concurrently": "^5.0.0",
