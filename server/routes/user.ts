@@ -51,6 +51,7 @@ export async function register (packet: Packet<UserData>) {
     browser,
     environment
   } = packet.data;
+  let isAdmin = false;
 
   assert(username, '用户名不可为空');
   assert(password, '密码不可为空');
@@ -59,8 +60,9 @@ export async function register (packet: Packet<UserData>) {
 
   let defaultGroup = await Group.findOne({ isDefault: true });
   if (!defaultGroup) {
+    isAdmin = true
     defaultGroup = await Group.create({
-      name: '默认群组',
+      name: 'fiora',
       avatar: getRandomAvatar(),
       isDefault: true
     });
@@ -73,7 +75,8 @@ export async function register (packet: Packet<UserData>) {
     newUser = await User.create({
       username,
       password: hash,
-      avatar: getRandomAvatar()
+      avatar: getRandomAvatar(),
+      admin: isAdmin
     });
   } catch (err) {
     if (err.name === 'ValidationError') {
@@ -86,7 +89,7 @@ export async function register (packet: Packet<UserData>) {
     defaultGroup.creator = newUser._id;
   }
   defaultGroup.members.push(newUser._id);
-  defaultGroup.save();
+  await defaultGroup.save();
 
   const token = generateToken(newUser._id, environment);
 
@@ -131,7 +134,7 @@ export async function login (packet: Packet<UserData>) {
     assert(validateRes, '密码错误');
 
     user.lastLoginTime = new Date();
-    user.save();
+    await user.save();
 
     const token = generateToken(user._id, environment);
 
