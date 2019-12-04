@@ -8,7 +8,8 @@ import config from '../config/server';
       `mongodb://${config.dbuser}:${config.dbpassword}@ds053937.mlab.com:53937/fiora`,
       {
         useNewUrlParser: true,
-        useUnifiedTopology: true
+        useUnifiedTopology: true,
+        useCreateIndex: true
       }
     );
     console.log('connect database success!');

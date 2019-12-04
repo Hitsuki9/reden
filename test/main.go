@@ -23,7 +23,10 @@ func (m MtoS) String() string {
 }
 
 func main() {
+	fmt.Println(mypck.Tag)
+	fmt.Println(mypck.Tag2)
 	fmt.Println(mypck.Interfas("Interfas"))
+	fmt.Println(mypck.Interfas2("Interfas2"))
 	fmt.Println(test("1"))
 	for _, filename := range os.Args[1:] {
 		data, err := ioutil.ReadFile(filename)

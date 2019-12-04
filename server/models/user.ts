@@ -9,6 +9,8 @@ export interface UserDocument extends Document {
   password: string;
   /** 头像 */
   avatar: string;
+  /** 标签 */
+  tag: string;
   /** 创建时间 */
   createTime: Date;
   /** 最后登录时间 */
@@ -16,9 +18,26 @@ export interface UserDocument extends Document {
 }
 
 const userSchema = new Schema({
-  username: { type: String },
-  password: { type: String },
+  username: {
+    type: String,
+    index: true,
+    unique: true,
+    required: true,
+    trim: true,
+    match: /^[0-9a-zA-Z\u4e00-\u9fd5]{1,30}$/
+  },
+  password: {
+    type: String,
+    required: true,
+    maxLength: 100
+  },
   avatar: String,
+  tag: {
+    type: String,
+    default: '',
+    trim: true,
+    match: /^[0-9a-zA-Z\u4e00-\u9fd5]{1,10}$/
+  },
   createTime: { type: Date, default: Date.now },
   lastLoginTime: { type: Date, default: Date.now }
 });

@@ -1,9 +1,21 @@
+import message from './message';
 import socket from './socket';
 
-export function fetch (event: string, data = {}): Promise<Array<any>> {
+export function fetch<T = any> (
+  event: string,
+  data = {},
+  toast = true
+): Promise<[string | null, T | null]> {
   return new Promise((resolve) => {
-    socket.emit(event, data, (res: any) => {
-      resolve([null, res]);
+    socket.emit(event, data, (res: T) => {
+      if (typeof res === 'string') {
+        if (toast) {
+          message.error(res);
+        }
+        resolve([res, null]);
+      } else {
+        resolve([null, res]);
+      }
     });
   });
 }

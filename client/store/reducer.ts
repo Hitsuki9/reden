@@ -12,7 +12,7 @@ export interface SetStatusPayload {
 export interface State {
   /** 用户信息 */
   user: {
-    _id: string;
+    id: string;
     username: string;
     avatar: string;
   } | null;

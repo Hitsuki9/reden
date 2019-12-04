@@ -21,7 +21,7 @@ export interface Packet<T = string> {
   /** 事件响应函数 */
   acknowledge?: Function;
   /** 响应内容 */
-  res?: string | Record<string, any>;
+  res?: any;
 }
 
 /**

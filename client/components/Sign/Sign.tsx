@@ -1,4 +1,4 @@
-import React, { FormEvent } from 'react';
+import React, { FormEvent, useState } from 'react';
 import {
   Form,
   Input,
@@ -13,21 +13,27 @@ interface SignProps extends FormComponentProps {
   /** 按钮名 */
   btnName?: string;
   /** 表单提交回调 */
-  handleSubmit?: (username: string, password: string) => void;
+  onSubmit?: (username: string, password: string) => Promise<any>;
 }
 
 function Sign (props: SignProps) {
+  const [loading, setLoading] = useState(false);
   const {
     btnName = '提交',
-    handleSubmit = noop,
+    onSubmit: handleSubmit = noop,
     form: { getFieldDecorator, validateFields }
   } = props;
 
   const submitHandler = (event: FormEvent) => {
     event.preventDefault();
-    validateFields((err, values) => {
+    if (loading) {
+      return;
+    }
+    validateFields(async (err, values) => {
       if (!err) {
-        handleSubmit(values.username, values.password);
+        setLoading(true);
+        await handleSubmit(values.username, values.password);
+        setLoading(false);
       }
     });
   };
@@ -83,6 +89,7 @@ function Sign (props: SignProps) {
           className={styles.dialogBtn}
           type="primary"
           htmlType="submit"
+          loading={loading}
         >
           {btnName}
         </Button>

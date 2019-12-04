@@ -24,7 +24,7 @@ module.exports = {
     'comma-dangle': [1, 'never'],
     'space-before-function-paren': [1, 'always'],
     'no-underscore-dangle': [1, {
-      allow: ['__REDUX_DEVTOOLS_EXTENSION__', '_use', '_on']
+      allow: ['__REDUX_DEVTOOLS_EXTENSION__', '_use', '_on', '_id']
     }],
     'no-param-reassign': [1, {
       props: false
