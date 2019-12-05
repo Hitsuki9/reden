@@ -2,10 +2,16 @@ import assert from 'assert';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 import { Schema } from 'mongoose';
-import { Packet, getRandomAvatar, isUser } from '../utils';
+import {
+  Packet,
+  getRandomAvatar,
+  isUser,
+  isGroup
+} from '../utils';
 import config from '../../config/server';
 import User, { UserDocument } from '../models/user';
 import Group from '../models/group';
+import Socket from '../models/socket';
 
 interface Environment {
   /** 客户端操作系统 */
@@ -60,8 +66,8 @@ export async function register (packet: Packet<UserData>) {
 
   let defaultGroup = await Group.findOne({ isDefault: true });
   if (!defaultGroup) {
-    isAdmin = true
-    defaultGroup = await Group.create({
+    isAdmin = true;
+    defaultGroup = new Group({
       name: 'fiora',
       avatar: getRandomAvatar(),
       isDefault: true
@@ -93,19 +99,29 @@ export async function register (packet: Packet<UserData>) {
 
   const token = generateToken(newUser._id, environment);
 
+  packet.socket.user = newUser._id;
+  await Socket.updateOne({
+    id: packet.socket.id
+  }, {
+    user: newUser._id,
+    os,
+    browser,
+    environment
+  });
+
   return {
     id: newUser._id,
     avatar: newUser.avatar,
     username: newUser.username,
+    tag: newUser.tag,
+    admin: newUser.admin,
     token,
-    admin: false,
     friends: [],
     groups: [
       {
         id: defaultGroup._id,
         name: defaultGroup.name,
         avatar: defaultGroup.avatar,
-        creator: defaultGroup.creator,
         messages: []
       }
     ]
@@ -117,6 +133,7 @@ export async function register (packet: Packet<UserData>) {
  * @param packet
  */
 export async function login (packet: Packet<UserData>) {
+  assert(!packet.socket.user, '请不要重复登录');
   const {
     username,
     password,
@@ -136,14 +153,62 @@ export async function login (packet: Packet<UserData>) {
     user.lastLoginTime = new Date();
     await user.save();
 
+    const groups = await Group.find({
+      members: user._id
+    }, 'name avatar');
+    // TODO: socket.join
+    // TODO: Message
+
     const token = generateToken(user._id, environment);
+
+    packet.socket.user = user._id;
+    await Socket.updateOne({
+      id: packet.socket.id
+    }, {
+      user: user._id,
+      os,
+      browser,
+      environment
+    });
 
     return {
       id: user._id,
       avatar: user.avatar,
       username: user.username,
       tag: user.tag,
-      token
+      admin: user.admin,
+      token,
+      groups
+    };
+  }
+  return null;
+}
+
+/**
+ * 游客
+ * @param packet
+ */
+export async function guest (packet: Packet<Environment>) {
+  const {
+    os,
+    browser,
+    environment
+  } = packet.data;
+
+  await Socket.updateOne({
+    id: packet.socket.id
+  }, {
+    os,
+    browser,
+    environment
+  });
+
+  const group = await Group.findOne({
+    isDefault: true
+  }, 'name avatar');
+  if (isGroup(group)) {
+    return {
+      ...group.toObject()
     };
   }
   return null;

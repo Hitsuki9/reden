@@ -5,8 +5,12 @@ import { Packet } from '../utils';
  */
 export default function logger () {
   return async (packet: Packet, next: Function) => {
-    console.log(`<-- ${packet.event} ${packet.socket.id}`);
+    // 事件名   socket id   用户 id
+    console.log(`<-- ${packet.event} ${packet.socket.id} ${packet.socket.user || ''}`);
+    const before = Date.now();
     await next();
-    console.log('-->\n');
+    const after = Date.now();
+    // 事件名   耗时  错误信息
+    console.log(`--> ${packet.event} ${after - before}ms ${typeof packet.res === 'string' ? packet.res : ''}\n`);
   };
 }

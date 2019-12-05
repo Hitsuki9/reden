@@ -10,12 +10,11 @@ export default function errorCatcher () {
       await next();
     } catch (err) {
       if (err instanceof assert.AssertionError) {
-        console.log(err.message);
         packet.res = err.message;
         return;
       }
       packet.res = `Internal Server Error: ${err.message}`;
-      console.log(`Unhandled Error:\n\t${err}\n`);
+      console.error(`Unhandled Error:\n\t${err}\n`);
     }
   };
 }

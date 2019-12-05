@@ -4,6 +4,7 @@ import { Modal, Tabs } from 'antd';
 import platform from 'platform';
 import Sign from '@/components/Sign';
 import { State } from '@/store/reducer';
+import { SetUserPayload } from '@/store/action';
 import useAction from '@/hooks/useAction';
 import { setValue, noop } from '@/utils';
 import { register, login } from '@/services';
@@ -22,6 +23,17 @@ export default function Dialog () {
   const loginRef = useRef<any>(refInitialValue);
   const registerRef = useRef<any>(refInitialValue);
 
+  const callback = (user: SetUserPayload) => {
+    actions.setUser(user);
+    actions.setStatus('loginAndRegisterDialogVisible', false);
+    setValue('token', user.token);
+
+    const linkmanIds = [
+      ...user.groups.map((group) => group.id)
+    ];
+    console.log(linkmanIds);
+  };
+
   const loginHandler = async (username: string, password: string) => {
     const res = await login(
       username,
@@ -31,8 +43,7 @@ export default function Dialog () {
       platform.description
     );
     if (res) {
-      actions.setStatus('loginAndRegisterDialogVisible', false);
-      setValue('token', res.token);
+      callback(res);
     }
   };
 
@@ -45,7 +56,7 @@ export default function Dialog () {
       platform.description
     );
     if (res) {
-      console.log(res);
+      callback(res);
     }
   };
 

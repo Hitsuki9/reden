@@ -1,5 +1,5 @@
 import { useDispatch } from 'react-redux';
-import { ActionTypes } from '@/store/action';
+import { ActionTypes, SetUserPayload } from '@/store/action';
 
 /**
  * 获取 actions
@@ -7,10 +7,10 @@ import { ActionTypes } from '@/store/action';
 export default function useAction () {
   const dispatch = useDispatch();
   return {
-    setUser (payload: any) {
+    setUser (user: SetUserPayload) {
       dispatch({
         type: ActionTypes.SetUser,
-        payload
+        payload: user
       });
     },
     setStatus (key: string, value: any) {

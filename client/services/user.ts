@@ -51,3 +51,23 @@ export async function login (
   if (err) return null;
   return res;
 }
+
+/**
+ * 游客
+ * @param os 操作系统
+ * @param browser 浏览器
+ * @param environment 环境信息
+ */
+export async function guest (
+  os: string | undefined,
+  browser: string | undefined,
+  environment: string | undefined
+) {
+  const [err, res] = await fetch('guest', {
+    os,
+    browser,
+    environment
+  });
+  if (err) return null;
+  return res;
+}

@@ -1,6 +1,6 @@
 import { Schema, model, Document } from 'mongoose';
 
-interface GroupDocument extends Document {
+export interface GroupDocument extends Document {
   /** id */
   _id: Schema.Types.ObjectId;
   /** 群组名 */

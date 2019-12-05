@@ -1,21 +1,36 @@
 import {
   Action,
-  ActionTypes
+  ActionTypes,
+  SetUserPayload,
+  SetStatusPayload
 } from './action';
 
+/** 用户 */
+export interface User {
+  id: string;
+  username: string;
+  avatar: string;
+  tag: string;
+  admin: boolean;
+}
 
-export interface SetStatusPayload {
-  key: string;
-  value: any;
+/** 群组 */
+export interface Group {
+  id: string;
+  name: string;
+  avatar: string;
+}
+
+/** 好友 */
+export interface Friend {
+  id: string;
+  name: string;
+  avatar: string;
 }
 
 export interface State {
   /** 用户信息 */
-  user: {
-    id: string;
-    username: string;
-    avatar: string;
-  } | null;
+  user: User | null;
   /** socket 连接状态 */
   connect: boolean;
   /** 客户端状态 */
@@ -35,21 +50,38 @@ const initialState: State = {
 
 function reducer (state: State = initialState, action: Action): State {
   switch (action.type) {
-    case ActionTypes.Connect:
+    case ActionTypes.Connect: {
       return {
         ...state,
         connect: true
       };
-    case ActionTypes.Disconnect:
+    }
+    case ActionTypes.Disconnect: {
       return {
         ...state,
         connect: false
       };
-    case ActionTypes.SetUser:
+    }
+    case ActionTypes.SetUser: {
+      const {
+        id,
+        username,
+        avatar,
+        tag,
+        admin
+      } = (action as Action<SetUserPayload>).payload;
       return {
-        ...state
+        ...state,
+        user: {
+          id,
+          username,
+          avatar,
+          tag,
+          admin
+        }
       };
-    case ActionTypes.SetStatus:
+    }
+    case ActionTypes.SetStatus: {
       const { payload } = action as Action<SetStatusPayload>;
       return {
         ...state,
@@ -58,8 +90,10 @@ function reducer (state: State = initialState, action: Action): State {
           [payload.key]: payload.value
         }
       };
-    default:
+    }
+    default: {
       return state;
+    }
   }
 }
 

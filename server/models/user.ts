@@ -11,6 +11,8 @@ export interface UserDocument extends Document {
   avatar: string;
   /** 标签 */
   tag: string;
+  /** 是否是管理员 */
+  admin: boolean;
   /** 创建时间 */
   createTime: Date;
   /** 最后登录时间 */
@@ -38,6 +40,7 @@ const userSchema = new Schema({
     trim: true,
     match: /^[0-9a-zA-Z\u4e00-\u9fd5]{1,10}$/
   },
+  admin: Boolean,
   createTime: { type: Date, default: Date.now },
   lastLoginTime: { type: Date, default: Date.now }
 });

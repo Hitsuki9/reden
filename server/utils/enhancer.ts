@@ -1,4 +1,5 @@
 import { Server, Socket } from 'socket.io';
+import { Schema } from 'mongoose';
 import { compose } from './compose';
 
 const middlewares: Function[] = [];
@@ -9,6 +10,8 @@ export interface EnhancedServer extends Server {
 
 interface EnhancedSocket extends Socket {
   _on: (event: string) => Socket;
+  /** socket 关联用户 id */
+  user?: Schema.Types.ObjectId;
 }
 
 export interface Packet<T = string> {
