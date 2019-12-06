@@ -1,7 +1,8 @@
 import {
   Group,
   Friend,
-  User
+  User,
+  Linkman
 } from './reducer';
 
 export enum ActionTypes {
@@ -12,7 +13,9 @@ export enum ActionTypes {
   /** socket 断开连接 */
   Disconnect = 'Disconnect',
   /** 更新客户端状态 */
-  SetStatus = 'SetStatus'
+  SetStatus = 'SetStatus',
+  /** 设置游客信息 */
+  SetGuest = 'SetGuest'
 }
 
 export interface Action<T = { [key: string]: any }> {
@@ -30,3 +33,5 @@ export interface SetUserPayload extends User {
   friends: Friend[];
   token: string;
 }
+
+export type SetGuestPayload = Linkman;

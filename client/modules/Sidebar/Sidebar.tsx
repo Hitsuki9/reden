@@ -1,9 +1,10 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import classNames from 'classnames';
 import { Avatar, Tooltip, Icon } from 'antd';
-import useLogin from '@/hooks/useLogin';
 import styles from './Sidebar.less';
-import avatar from '@/assets/images/Hitsuki9.jpg';
+import { State } from '@/store/reducer';
+import useLogin from '@/hooks/useLogin';
 
 interface BtnItem {
   /** Tooltip 提示文字 */
@@ -16,7 +17,8 @@ interface BtnItem {
 
 const btnGroup: BtnItem[] = [
   { title: 'GitHub', icon: 'github', href: 'https://github.com/Hitsuki9/fiora-v9' },
-  { title: '设置', icon: 'setting' }
+  { title: '设置', icon: 'setting' },
+  { title: '注销', icon: 'logout' }
 ];
 
 /**
@@ -29,6 +31,7 @@ const handleClick = (href?: string) => {
 
 export default function Sidebar () {
   const isLogin = useLogin();
+  const avatar = useSelector((state: State) => (state.user ? state.user.avatar : undefined));
 
   return (
     <div className={styles.sidebar}>
@@ -41,7 +44,7 @@ export default function Sidebar () {
       <div className={classNames(styles.btnGroupWrap, 'flex-v-center')}>
         {
           btnGroup.map((item) => {
-            if (!isLogin && item.title === '设置') {
+            if (!isLogin && (item.title === '设置' || item.title === '注销')) {
               return null;
             }
             return (

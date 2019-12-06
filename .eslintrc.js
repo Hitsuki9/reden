@@ -29,6 +29,9 @@ module.exports = {
     'no-param-reassign': [1, {
       props: false
     }],
+    'no-confusing-arrow': [1, {
+      allowParens: true
+    }],
     'no-case-declarations': 0,
     'react/jsx-filename-extension': [1, {
       extensions: ['.tsx']

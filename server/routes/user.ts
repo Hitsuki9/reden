@@ -4,9 +4,7 @@ import bcrypt from 'bcryptjs';
 import { Schema } from 'mongoose';
 import {
   Packet,
-  getRandomAvatar,
-  isUser,
-  isGroup
+  getRandomAvatar
 } from '../utils';
 import config from '../../config/server';
 import User, { UserDocument } from '../models/user';
@@ -27,6 +25,11 @@ interface UserData extends Environment {
   username: string;
   /** 密码 */
   password: string;
+}
+
+interface TokenData extends Environment {
+  /** token */
+  token: string;
 }
 
 /**
@@ -146,7 +149,7 @@ export async function login (packet: Packet<UserData>) {
   assert(password, '密码不可为空');
   const user = await User.findOne({ username });
   assert(user, '用户不存在');
-  if (isUser(user)) {
+  if (user) {
     const validateRes = await bcrypt.compare(password, user.password);
     assert(validateRes, '密码错误');
 
@@ -178,8 +181,70 @@ export async function login (packet: Packet<UserData>) {
       tag: user.tag,
       admin: user.admin,
       token,
-      groups
+      groups: groups.map((group) => ({
+        id: group._id,
+        name: group.name,
+        avatar: group.avatar
+      }))
     };
+  }
+  return null;
+}
+
+/**
+ * 通过 token 登录
+ * @param packet
+ */
+export async function loginByToken (packet: Packet<TokenData>) {
+  assert(!packet.socket.user, '请不要重复登录');
+  const {
+    token,
+    os,
+    browser,
+    environment
+  } = packet.data;
+
+  assert(token, 'token 不可为空');
+  const payload = jwt.decode(token);
+  assert(payload, '无效 token');
+  if (payload && typeof payload !== 'string') {
+    assert(Math.floor(Date.now() / 1000) < payload.exp, 'token 已过期');
+    assert.equal(environment, payload.environment, '非法登录');
+
+    const user = await User.findOne({ _id: payload.userId });
+    assert(user, '用户不存在');
+    if (user) {
+      user.lastLoginTime = new Date();
+      await user.save();
+
+      const groups = await Group.find({
+        members: user._id
+      }, 'name avatar');
+
+      packet.socket.user = user._id;
+      await Socket.updateOne({
+        id: packet.socket.id
+      }, {
+        user: user._id,
+        os,
+        browser,
+        environment
+      });
+
+      return {
+        id: user._id,
+        avatar: user.avatar,
+        username: user.username,
+        tag: user.tag,
+        admin: user.admin,
+        groups: groups.map((group) => ({
+          id: group._id,
+          name: group.name,
+          avatar: group.avatar
+        }))
+      };
+    }
+    return null;
   }
   return null;
 }
@@ -206,9 +271,13 @@ export async function guest (packet: Packet<Environment>) {
   const group = await Group.findOne({
     isDefault: true
   }, 'name avatar');
-  if (isGroup(group)) {
+  if (group) {
     return {
-      ...group.toObject()
+      ...{
+        id: group._id,
+        name: group.name,
+        avatar: group.avatar
+      }
     };
   }
   return null;

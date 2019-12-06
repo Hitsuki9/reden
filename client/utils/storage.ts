@@ -27,7 +27,7 @@ export function setValue (key: string, value: string) {
  * @param key 键值
  * @param defaultValue 默认值
  */
-function getValue (key: string, defaultValue = 'default') {
+export function getValue (key: string, defaultValue = 'default') {
   const value = window.localStorage.getItem(key);
   return value || defaultValue;
 }

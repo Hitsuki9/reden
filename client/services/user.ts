@@ -1,4 +1,5 @@
 import { fetch } from '@/utils';
+import { SetUserPayload } from '@/store/action';
 
 /**
  * 注册
@@ -48,6 +49,29 @@ export async function login (
     browser,
     environment
   });
+  if (err) return null;
+  return res;
+}
+
+/**
+ * 使用 token 登录
+ * @param token
+ * @param os 操作系统
+ * @param browser 浏览器
+ * @param environment 环境信息
+ */
+export async function loginByToken (
+  token: string,
+  os: string | undefined,
+  browser: string | undefined,
+  environment: string | undefined
+) {
+  const [err, res] = await fetch<SetUserPayload>('loginByToken', {
+    token,
+    os,
+    browser,
+    environment
+  }, false);
   if (err) return null;
   return res;
 }
