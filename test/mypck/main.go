@@ -20,7 +20,15 @@ func init() {
 
 // Interfas is a function
 func Interfas(str string) string {
-	p := new(*string)
-	fmt.Println(*p)
+	var x int8 = 15
+	var y int8 = 3
+	z, w := 0.1, 0.2
+	v := 1 + 2i
+	fmt.Println("=====")
+	fmt.Printf("%08b\t%08b\t%#[1]o\t%#[1]x\n", x, y)
+	fmt.Printf("%08b\t%#[1]o\n", x &^ y)
+	fmt.Printf("%8.20f\n", z + w)
+	fmt.Println("复数", v, "的虚部为", imag(v))
+	fmt.Println("=====")
 	return str
 }
