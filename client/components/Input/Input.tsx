@@ -29,6 +29,7 @@ export default function Input () {
     <div className={styles.inputWrap}>
       <input
         className={styles.input}
+        onKeyUp={noop}
         type="text"
       />
     </div>
