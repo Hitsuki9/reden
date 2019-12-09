@@ -2,6 +2,8 @@ package mypck
 
 import(
 	"fmt"
+	"strings"
+	"unicode/utf8"
 )
 
 // Tag is a string
@@ -19,16 +21,30 @@ func init() {
 }
 
 // Interfas is a function
+// str = "Interfas"
 func Interfas(str string) string {
 	var x int8 = 15
 	var y int8 = 3
+	var runeType rune = 10
+	var int32Type int32 = 10
 	z, w := 0.1, 0.2
 	v := 1 + 2i
+	s := "中日英文混合プログラムwords"
 	fmt.Println("=====")
+	fmt.Println("HasPrefix", strings.HasPrefix(str, "Inter"))
+	fmt.Println("HasSuffix", strings.HasSuffix(str, "fas"))
+	fmt.Println("Contains", strings.Contains(str, "ter"))
+	fmt.Println("rune === int32", runeType == int32Type)
 	fmt.Printf("%08b\t%08b\t%#[1]o\t%#[1]x\n", x, y)
 	fmt.Printf("%08b\t%#[1]o\n", x &^ y)
 	fmt.Printf("%8.20f\n", z + w)
 	fmt.Println("复数", v, "的虚部为", imag(v))
+	fmt.Println(`多行
+测试`, "字节数：", len("测试"), "码点数：", utf8.RuneCountInString("测试"))
+	fmt.Println(string(1234567))
+	for i, r := range s {
+		fmt.Printf("%d\t%c\t%d\n", i, r, r)
+	}
 	fmt.Println("=====")
 	return str
 }
