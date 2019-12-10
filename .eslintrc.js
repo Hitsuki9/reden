@@ -37,6 +37,9 @@ module.exports = {
       extensions: ['.tsx']
     }],
     'jsx-a11y/interactive-supports-focus': 0,
+    'import/extensions': [1, {
+      extensions: ['.js', '.ts']
+    }],
     'import/no-unresolved': 0,
     'import/prefer-default-export': 0,
     '@typescript-eslint/no-empty-function': [1, {
