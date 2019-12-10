@@ -38,7 +38,8 @@ module.exports = {
     }],
     'jsx-a11y/interactive-supports-focus': 0,
     'import/extensions': [1, {
-      extensions: ['.js', '.ts']
+      ts: 'never',
+      less: 'always'
     }],
     'import/no-unresolved': 0,
     'import/prefer-default-export': 0,
