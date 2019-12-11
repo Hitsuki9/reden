@@ -1,11 +1,11 @@
 package main
 
-import(
+import (
+	"flag"
 	"fmt"
 	"io/ioutil"
 	"os"
 	"strings"
-	"flag"
 	"test/mypck"
 )
 
