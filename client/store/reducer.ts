@@ -139,9 +139,21 @@ function reducer (state: State = initialState, action: Action): State {
       const linkman = transformGroup(payload);
       return {
         ...state,
+        user: {
+          id: '',
+          username: '',
+          avatar: '',
+          tag: '',
+          admin: false
+        },
         linkmans: {
           [linkman.id]: linkman
         }
+      };
+    }
+    case ActionTypes.Logout: {
+      return {
+        ...initialState
       };
     }
     case ActionTypes.SetStatus: {

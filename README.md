@@ -14,4 +14,7 @@ yarn run server
 
 # run client and server concurrently
 yarn start
+
+# run linter
+yarn run lint
 ```

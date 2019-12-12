@@ -33,6 +33,14 @@ export function getValue (key: string, defaultValue = 'default') {
 }
 
 /**
+ * 删除 localStorage 中的项
+ * @param key 键值
+ */
+export function removeItem (key: string) {
+  window.localStorage.removeItem(key);
+}
+
+/**
  * 获取 localStorage 数据
  */
 export function getLocalData () {

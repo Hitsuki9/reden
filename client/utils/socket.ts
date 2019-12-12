@@ -52,4 +52,11 @@ socket.on('connect', async () => {
   return null;
 });
 
+socket.on('disconnect', () => {
+  dispatch({
+    type: ActionTypes.Disconnect,
+    payload: {}
+  });
+});
+
 export default socket;

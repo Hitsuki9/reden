@@ -13,6 +13,11 @@ export default function useAction () {
         payload: user
       });
     },
+    logout () {
+      dispatch({
+        type: ActionTypes.Logout
+      });
+    },
     setStatus (key: string, value: any) {
       dispatch({
         type: ActionTypes.SetStatus,

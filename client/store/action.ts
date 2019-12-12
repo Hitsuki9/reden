@@ -8,6 +8,8 @@ import {
 export enum ActionTypes {
   /** 设置用户信息 */
   SetUser = 'SetUser',
+  /** 退出登录 */
+  Logout = 'Logout',
   /** socket 连接成功 */
   Connect = 'Connect',
   /** socket 断开连接 */

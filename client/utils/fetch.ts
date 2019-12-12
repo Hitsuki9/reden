@@ -8,6 +8,7 @@ export function fetch<T = any> (
 ): Promise<[string | null, T | null]> {
   return new Promise((resolve) => {
     socket.emit(event, data, (res: T) => {
+      console.log(res);
       if (typeof res === 'string') {
         if (toast) {
           message.error(res);
