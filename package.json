@@ -70,7 +70,7 @@
     "antd": "^3.26.2",
     "bcryptjs": "^2.4.3",
     "classnames": "^2.2.6",
-    "core-js": "^3.4.8",
+    "core-js": "^3.5.0",
     "jsonwebtoken": "^8.5.1",
     "koa": "^2.11.0",
     "mongoose": "^5.8.0",
