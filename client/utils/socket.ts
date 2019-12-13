@@ -3,7 +3,7 @@ import platform from 'platform';
 import config from '@/../config/client';
 import store from '@/store';
 import { ActionTypes } from '@/store/action';
-import { guest, loginByToken } from '@/services';
+import { guest, loginByToken, getHistoryMessages } from '@/services';
 import { getValue } from './storage';
 
 const socket = io(config.server);
@@ -19,6 +19,14 @@ async function loginFailback () {
     dispatch({
       type: ActionTypes.SetGuest,
       payload: defaultGroup
+    });
+    const messages = await getHistoryMessages(defaultGroup.id, 0);
+    dispatch({
+      type: ActionTypes.UpdateHistoryMessages,
+      payload: {
+        linkmanId: defaultGroup.id,
+        messages
+      }
     });
   }
 }
@@ -45,8 +53,8 @@ socket.on('connect', async () => {
         ...user.groups.map((group) => group.id)
       ];
       console.log(linkmanIds);
+      return null;
     }
-    return null;
   }
   loginFailback();
   return null;

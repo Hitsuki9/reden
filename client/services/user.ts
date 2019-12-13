@@ -1,5 +1,6 @@
 import { fetch } from '@/utils';
 import { SetUserPayload } from '@/store/action';
+import { Group } from '@/store/reducer';
 
 /**
  * 注册
@@ -16,14 +17,13 @@ export async function register (
   browser: string | undefined,
   environment: string | undefined
 ) {
-  const [err, res] = await fetch('register', {
+  const [, res] = await fetch('register', {
     username,
     password,
     os,
     browser,
     environment
   });
-  if (err) return null;
   return res;
 }
 
@@ -42,14 +42,13 @@ export async function login (
   browser: string | undefined,
   environment: string | undefined
 ) {
-  const [err, res] = await fetch('login', {
+  const [, res] = await fetch('login', {
     username,
     password,
     os,
     browser,
     environment
   });
-  if (err) return null;
   return res;
 }
 
@@ -66,13 +65,12 @@ export async function loginByToken (
   browser: string | undefined,
   environment: string | undefined
 ) {
-  const [err, res] = await fetch<SetUserPayload>('loginByToken', {
+  const [, res] = await fetch<SetUserPayload>('loginByToken', {
     token,
     os,
     browser,
     environment
   }, false);
-  if (err) return null;
   return res;
 }
 
@@ -87,11 +85,10 @@ export async function guest (
   browser: string | undefined,
   environment: string | undefined
 ) {
-  const [err, res] = await fetch('guest', {
+  const [, res] = await fetch<Group>('guest', {
     os,
     browser,
     environment
   });
-  if (err) return null;
   return res;
 }

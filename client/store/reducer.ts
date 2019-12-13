@@ -3,7 +3,8 @@ import {
   ActionTypes,
   SetUserPayload,
   SetStatusPayload,
-  SetGuestPayload
+  SetGuestPayload,
+  UpdateHistoryMessagesPayload
 } from './action';
 
 /** 用户 */
@@ -30,7 +31,7 @@ export interface Friend {
 }
 
 /** 消息 */
-interface Message {
+export interface Message {
   id: string;
   type: string;
   content: string;
@@ -67,6 +68,8 @@ export interface State {
   linkmans: LinkmansMap;
   /** socket 连接状态 */
   connect: boolean;
+  /** 聚焦的联系人 */
+  focus: string;
   /** 客户端状态 */
   status: {
     /** 登陆注册框显示状态 */
@@ -96,6 +99,7 @@ const initialState: State = {
   user: null,
   linkmans: {},
   connect: false,
+  focus: '',
   status: {
     loginAndRegisterDialogVisible: false
   }
@@ -148,12 +152,28 @@ function reducer (state: State = initialState, action: Action): State {
         },
         linkmans: {
           [linkman.id]: linkman
-        }
+        },
+        focus: linkman.id
       };
     }
     case ActionTypes.Logout: {
       return {
         ...initialState
+      };
+    }
+    case ActionTypes.UpdateHistoryMessages: {
+      const { linkmanId, messages } = (action as Action<UpdateHistoryMessagesPayload>).payload;
+      return {
+        ...state,
+        linkmans: {
+          ...state.linkmans,
+          [linkmanId]: {
+            ...state.linkmans[linkmanId],
+            messages: {
+              temp: messages[0]
+            }
+          }
+        }
       };
     }
     case ActionTypes.SetStatus: {

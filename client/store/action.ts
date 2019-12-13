@@ -2,7 +2,8 @@ import {
   Group,
   Friend,
   User,
-  Linkman
+  Linkman,
+  Message
 } from './reducer';
 
 export enum ActionTypes {
@@ -17,7 +18,9 @@ export enum ActionTypes {
   /** 更新客户端状态 */
   SetStatus = 'SetStatus',
   /** 设置游客信息 */
-  SetGuest = 'SetGuest'
+  SetGuest = 'SetGuest',
+  /** 更新联系人历史消息 */
+  UpdateHistoryMessages = 'UpdateHistoryMessages'
 }
 
 export interface Action<T = { [key: string]: any }> {
@@ -37,3 +40,8 @@ export interface SetUserPayload extends User {
 }
 
 export type SetGuestPayload = Linkman;
+
+export interface UpdateHistoryMessagesPayload {
+  linkmanId: string;
+  messages: Message[];
+}
