@@ -2,7 +2,6 @@ import {
   Group,
   Friend,
   User,
-  Linkman,
   Message
 } from './reducer';
 
@@ -39,7 +38,7 @@ export interface SetUserPayload extends User {
   token: string;
 }
 
-export type SetGuestPayload = Linkman;
+export type SetGuestPayload = Group;
 
 export interface UpdateHistoryMessagesPayload {
   linkmanId: string;

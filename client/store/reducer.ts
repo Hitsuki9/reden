@@ -78,6 +78,17 @@ export interface State {
 }
 
 /**
+ * 转换联系人数组为联系人 map
+ * @param linkmans 联系人数组
+ */
+function getLinkmansMap (linkmans: Linkman[]) {
+  return linkmans.reduce((map: LinkmansMap, linkman: Linkman) => {
+    map[linkman.id] = linkman;
+    return map;
+  }, {});
+}
+
+/**
  * 初始化联系人部分字段
  * @param linkman 联系人
  * @param type 联系人类型
@@ -90,9 +101,9 @@ function initLinkmanFields (linkman: Linkman, type: string) {
  * 转换群组数据结构
  * @param group 群组
  */
-function transformGroup (group: Linkman): Linkman {
-  initLinkmanFields(group, 'group');
-  return group;
+function transformGroup (group: Group) {
+  initLinkmanFields(group as Linkman, 'group');
+  return group as Linkman;
 }
 
 const initialState: State = {
@@ -125,8 +136,12 @@ function reducer (state: State = initialState, action: Action): State {
         username,
         avatar,
         tag,
-        admin
+        admin,
+        groups
       } = (action as Action<SetUserPayload>).payload;
+      const linkmans = [
+        ...groups.map(transformGroup)
+      ];
       return {
         ...state,
         user: {
@@ -135,7 +150,9 @@ function reducer (state: State = initialState, action: Action): State {
           avatar,
           tag,
           admin
-        }
+        },
+        linkmans: getLinkmansMap(linkmans),
+        focus: linkmans[0].id
       };
     }
     case ActionTypes.SetGuest: {
