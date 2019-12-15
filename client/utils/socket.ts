@@ -28,6 +28,11 @@ async function loginFailback () {
         messages
       }
     });
+  } else {
+    dispatch({
+      type: ActionTypes.SetGuest,
+      payload: {}
+    });
   }
 }
 

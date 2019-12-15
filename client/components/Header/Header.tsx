@@ -3,6 +3,7 @@ import { Icon } from 'antd';
 import classNames from 'classnames';
 import styles from './Header.less';
 import { noop } from '@/utils';
+import useLogin from '@/hooks/useLogin';
 
 interface HeaderProps {
   /** 联系人名称 */
@@ -18,20 +19,26 @@ const iconStyle = {
 };
 
 export default function Header (props: HeaderProps) {
-  const { name = '', clickHandler = noop } = props;
+  const { name = '', type = '', clickHandler = noop } = props;
+  const isLogin = useLogin();
 
   return (
     <div className={classNames(styles.header, 'flex-v-center')}>
       <h2 className={styles.name}>
-        <span>{name}</span>
+        {name}
       </h2>
-      <Icon
-        className="iconfont"
-        style={iconStyle}
-        role="button"
-        type="team"
-        onClick={clickHandler}
-      />
+      {
+        isLogin && type === 'group'
+        && (
+          <Icon
+            className="iconfont"
+            style={iconStyle}
+            role="button"
+            type="team"
+            onClick={clickHandler}
+          />
+        )
+      }
     </div>
   );
 }

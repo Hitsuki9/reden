@@ -157,6 +157,18 @@ function reducer (state: State = initialState, action: Action): State {
     }
     case ActionTypes.SetGuest: {
       const { payload } = action as Action<SetGuestPayload>;
+      if (!Object.keys(payload).length) {
+        return {
+          ...initialState,
+          user: {
+            id: '',
+            username: '',
+            avatar: '',
+            tag: '',
+            admin: false
+          }
+        };
+      }
       const linkman = transformGroup(payload);
       return {
         ...state,

@@ -28,7 +28,7 @@ export default function Chat () {
         list
       </Drawer>
       {
-        hasUserInfo
+        hasUserInfo && linkman
         && <Header name={linkman.name} type={linkman.type} clickHandler={clickHandle} />
       }
       <div className={styles.chatPanel}>

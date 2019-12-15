@@ -4,7 +4,8 @@ import bcrypt from 'bcryptjs';
 import { Schema } from 'mongoose';
 import {
   Packet,
-  getRandomAvatar
+  getRandomAvatar,
+  getDefaultAvatar
 } from '../utils';
 import config from '../../config/server';
 import User, { UserDocument } from '../models/user';
@@ -72,7 +73,7 @@ export async function register (packet: Packet<UserData>) {
     isAdmin = true;
     defaultGroup = new Group({
       name: 'fiora',
-      avatar: getRandomAvatar(),
+      avatar: getDefaultAvatar(),
       isDefault: true
     });
   }

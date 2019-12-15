@@ -1,8 +1,12 @@
 export * from './enhancer';
 export * from './guards';
 
-const publicPath = 'https://fiora.oss-cn-hangzhou.aliyuncs.com/avatars/';
+const publicPath = '//fiora.oss-cn-hangzhou.aliyuncs.com/avatars/';
 
 export function getRandomAvatar () {
-  return `${publicPath}1.jpg`;
+  return `${publicPath}${Math.floor(Math.random() * 10 + 1)}.jpg`;
+}
+
+export function getDefaultAvatar () {
+  return `${publicPath}default.png`;
 }
