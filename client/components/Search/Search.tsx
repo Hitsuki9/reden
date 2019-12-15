@@ -1,5 +1,6 @@
 import React from 'react';
+import styles from './Search.less';
 
 export default function Search () {
-  return <div>Search</div>;
+  return <div className={styles.search}>Search</div>;
 }

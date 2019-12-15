@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 import { Avatar } from 'antd';
 import styles from './Card.less';
 
@@ -13,9 +14,11 @@ export default function Card (props: CardProps) {
   const { name, avatar } = props;
 
   return (
-    <div className={styles.card}>
+    <div className={classNames(styles.card, 'flex-v-center')}>
       <Avatar src={avatar} size={48} />
-      <span>{name}</span>
+      <div className={styles.content}>
+        <span>{name}</span>
+      </div>
     </div>
   );
 }

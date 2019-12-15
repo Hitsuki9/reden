@@ -13,6 +13,10 @@ interface HeaderProps {
   clickHandler?: (event: MouseEvent) => void;
 }
 
+const iconStyle = {
+  fontSize: '24px'
+};
+
 export default function Header (props: HeaderProps) {
   const { name = '', clickHandler = noop } = props;
 
@@ -21,7 +25,13 @@ export default function Header (props: HeaderProps) {
       <h2 className={styles.name}>
         <span>{name}</span>
       </h2>
-      <Icon role="button" type="team" onClick={clickHandler} />
+      <Icon
+        className="iconfont"
+        style={iconStyle}
+        role="button"
+        type="team"
+        onClick={clickHandler}
+      />
     </div>
   );
 }
