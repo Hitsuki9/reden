@@ -163,6 +163,19 @@ export async function login (packet: Packet<UserData>) {
     // TODO: socket.join
     // TODO: Message
 
+    const friends = await Friend.find({
+      $and: {
+        state: 'fulfilled',
+        $or: {
+          from: user._id,
+          to: user._id
+        }
+      }
+    }).populate({
+      to: 'username avatar',
+      from: 'username avatar'
+    });
+
     const token = generateToken(user._id, environment);
 
     packet.socket.user = user._id;
