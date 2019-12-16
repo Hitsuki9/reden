@@ -152,7 +152,7 @@ function reducer (state: State = initialState, action: Action): State {
           admin
         },
         linkmans: getLinkmansMap(linkmans),
-        focus: linkmans[0].id
+        focus: linkmans[0] ? linkmans[0].id : ''
       };
     }
     case ActionTypes.SetGuest: {

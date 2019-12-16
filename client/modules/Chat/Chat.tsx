@@ -28,14 +28,21 @@ export default function Chat () {
         list
       </Drawer>
       {
-        hasUserInfo && linkman
-        && <Header name={linkman.name} type={linkman.type} clickHandler={clickHandle} />
-      }
-      <div className={styles.chatPanel}>
-        &nbsp;
-      </div>
-      {
-        hasUserInfo && <Input />
+        hasUserInfo
+        && (
+          <>
+            {
+              linkman
+              && <Header name={linkman.name} type={linkman.type} clickHandler={clickHandle} />
+            }
+            <div className={styles.chatPanel}>
+              {
+                linkman ? '历史消息' : '先加个好友或者群组才能聊天哦~'
+              }
+            </div>
+            <Input />
+          </>
+        )
       }
     </div>
   );

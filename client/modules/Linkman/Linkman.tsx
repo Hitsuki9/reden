@@ -8,6 +8,7 @@ import { State } from '@/store/reducer';
 
 export default function Linkman () {
   const isLogin = useLogin();
+  const hasUserInfo = useSelector((state: State) => !!state.user);
   const linkmans = useSelector((state: State) => state.linkmans);
 
   return (
@@ -15,17 +16,22 @@ export default function Linkman () {
       {
         isLogin && <Search />
       }
-      <div>
-        {
-          Object.values(linkmans).map((item) => (
-            <Card
-              key={item.id}
-              name={item.name}
-              avatar={item.avatar}
-            />
-          ))
-        }
-      </div>
+      {
+        hasUserInfo
+        && (
+          <div>
+            {
+              Object.values(linkmans).map((item) => (
+                <Card
+                  key={item.id}
+                  name={item.name}
+                  avatar={item.avatar}
+                />
+              ))
+            }
+          </div>
+        )
+      }
     </div>
   );
 }

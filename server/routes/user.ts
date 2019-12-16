@@ -11,6 +11,7 @@ import config from '../../config/server';
 import User, { UserDocument } from '../models/user';
 import Group from '../models/group';
 import Socket from '../models/socket';
+import Friend from '../models/friend';
 
 interface Environment {
   /** 客户端操作系统 */
@@ -164,17 +165,8 @@ export async function login (packet: Packet<UserData>) {
     // TODO: Message
 
     const friends = await Friend.find({
-      $and: {
-        state: 'fulfilled',
-        $or: {
-          from: user._id,
-          to: user._id
-        }
-      }
-    }).populate({
-      to: 'username avatar',
-      from: 'username avatar'
-    });
+      from: user._id
+    }).populate('to', 'username avatar');
 
     const token = generateToken(user._id, environment);
 
@@ -199,7 +191,8 @@ export async function login (packet: Packet<UserData>) {
         id: group._id,
         name: group.name,
         avatar: group.avatar
-      }))
+      })),
+      friends
     };
   }
   return null;
