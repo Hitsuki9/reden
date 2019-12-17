@@ -5,7 +5,9 @@ import { Schema } from 'mongoose';
 import {
   Packet,
   getRandomAvatar,
-  getDefaultAvatar
+  getDefaultAvatar,
+  EnhancedSocket,
+  isUserDocument
 } from '../utils';
 import config from '../../config/server';
 import User, { UserDocument } from '../models/user';
@@ -48,6 +50,81 @@ function generateToken (userId: Schema.Types.ObjectId, environment: string) {
     },
     config.secret
   );
+}
+
+/**
+ * 登录通用逻辑
+ * @param socket EnhancedSocket
+ * @param user UserDocument
+ * @param os 客户端操作系统
+ * @param browser 客户端浏览器
+ * @param environment 客户端环境信息
+ * @param whetherGenerateToken 是否生成 token
+ */
+async function loginLagecy (
+  socket: EnhancedSocket,
+  user: UserDocument,
+  os: string,
+  browser: string,
+  environment: string,
+  whetherGenerateToken = true
+) {
+  user.lastLoginTime = new Date();
+  await user.save();
+
+  const [groups, friends] = await Promise.all([
+    Group.find({
+      members: user._id
+    }, 'name avatar'),
+    Friend.find({
+      from: user._id
+    }).populate('to', 'username avatar')
+  ]);
+
+  groups.forEach((group) => socket.join(group._id));
+
+  let token = '';
+  if (whetherGenerateToken) {
+    token = generateToken(user._id, environment);
+  }
+
+  socket.user = user._id;
+  await Socket.updateOne({
+    id: socket.id
+  }, {
+    user: user._id,
+    os,
+    browser,
+    environment
+  });
+
+  return {
+    id: user._id,
+    avatar: user.avatar,
+    username: user.username,
+    tag: user.tag,
+    token,
+    admin: user.admin,
+    linkmans: [
+      ...groups.map((group) => ({
+        id: group._id,
+        name: group.name,
+        avatar: group.avatar,
+        type: 'group'
+      })),
+      ...friends.map((friend) => {
+        if (isUserDocument(friend.to)) {
+          return {
+            id: friend.to._id,
+            name: friend.to.username,
+            avatar: friend.to.avatar,
+            type: 'friend'
+          };
+        }
+        return null;
+      })
+    ]
+  };
 }
 
 /**
@@ -102,6 +179,8 @@ export async function register (packet: Packet<UserData>) {
   defaultGroup.members.push(newUser._id);
   await defaultGroup.save();
 
+  packet.socket.join(defaultGroup._id);
+
   const token = generateToken(newUser._id, environment);
 
   packet.socket.user = newUser._id;
@@ -121,13 +200,12 @@ export async function register (packet: Packet<UserData>) {
     tag: newUser.tag,
     admin: newUser.admin,
     token,
-    friends: [],
-    groups: [
+    linkmans: [
       {
         id: defaultGroup._id,
         name: defaultGroup.name,
         avatar: defaultGroup.avatar,
-        messages: []
+        type: 'group'
       }
     ]
   };
@@ -154,46 +232,14 @@ export async function login (packet: Packet<UserData>) {
   if (user) {
     const validateRes = await bcrypt.compare(password, user.password);
     assert(validateRes, '密码错误');
-
-    user.lastLoginTime = new Date();
-    await user.save();
-
-    const groups = await Group.find({
-      members: user._id
-    }, 'name avatar');
-    // TODO: socket.join
-    // TODO: Message
-
-    const friends = await Friend.find({
-      from: user._id
-    }).populate('to', 'username avatar');
-
-    const token = generateToken(user._id, environment);
-
-    packet.socket.user = user._id;
-    await Socket.updateOne({
-      id: packet.socket.id
-    }, {
-      user: user._id,
+    const res = await loginLagecy(
+      packet.socket,
+      user,
       os,
       browser,
       environment
-    });
-
-    return {
-      id: user._id,
-      avatar: user.avatar,
-      username: user.username,
-      tag: user.tag,
-      admin: user.admin,
-      token,
-      groups: groups.map((group) => ({
-        id: group._id,
-        name: group.name,
-        avatar: group.avatar
-      })),
-      friends
-    };
+    );
+    return res;
   }
   return null;
 }
@@ -221,35 +267,15 @@ export async function loginByToken (packet: Packet<TokenData>) {
     const user = await User.findOne({ _id: payload.userId });
     assert(user, '用户不存在');
     if (user) {
-      user.lastLoginTime = new Date();
-      await user.save();
-
-      const groups = await Group.find({
-        members: user._id
-      }, 'name avatar');
-
-      packet.socket.user = user._id;
-      await Socket.updateOne({
-        id: packet.socket.id
-      }, {
-        user: user._id,
+      const res = await loginLagecy(
+        packet.socket,
+        user,
         os,
         browser,
-        environment
-      });
-
-      return {
-        id: user._id,
-        avatar: user.avatar,
-        username: user.username,
-        tag: user.tag,
-        admin: user.admin,
-        groups: groups.map((group) => ({
-          id: group._id,
-          name: group.name,
-          avatar: group.avatar
-        }))
-      };
+        environment,
+        false
+      );
+      return res;
     }
     return null;
   }
@@ -278,13 +304,14 @@ export async function guest (packet: Packet<Environment>) {
   const group = await Group.findOne({
     isDefault: true
   }, 'name avatar');
+
   if (group) {
+    packet.socket.join(group._id);
     return {
-      ...{
-        id: group._id,
-        name: group.name,
-        avatar: group.avatar
-      }
+      id: group._id,
+      name: group.name,
+      avatar: group.avatar,
+      type: 'group'
     };
   }
   return null;

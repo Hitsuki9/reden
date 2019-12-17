@@ -1,8 +1,6 @@
 import { Schema, model, Document } from 'mongoose';
 
 export interface UserDocument extends Document {
-  /** id */
-  _id: Schema.Types.ObjectId;
   /** 用户名 */
   username: string;
   /** 密码 */
@@ -24,15 +22,10 @@ const userSchema = new Schema({
     type: String,
     index: true,
     unique: true,
-    required: true,
     trim: true,
     match: /^[0-9a-zA-Z\u4e00-\u9fd5]{1,30}$/
   },
-  password: {
-    type: String,
-    required: true,
-    maxLength: 100
-  },
+  password: String,
   avatar: String,
   tag: {
     type: String,

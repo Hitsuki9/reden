@@ -3,8 +3,6 @@ import { Schema, model, Document } from 'mongoose';
 type FriendState = 'pending' | 'fulfilled' | 'rejected';
 
 interface FriendDocument extends Document {
-  /** id */
-  _id: Schema.Types.ObjectId;
   /** 申请用户 id */
   from: Schema.Types.ObjectId;
   /** 被申请用户 id */

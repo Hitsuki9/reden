@@ -24,7 +24,7 @@ export interface Group {
 }
 
 /** 好友 */
-export interface Friend {
+interface Friend {
   id: string;
   name: string;
   avatar: string;
@@ -49,7 +49,7 @@ interface MessagesMap {
 }
 
 /** 联系人 */
-export interface Linkman extends User, Group {
+export interface Linkman extends Friend, Group {
   type: string;
   unread: number;
   messages: MessagesMap;
@@ -83,27 +83,11 @@ export interface State {
  */
 function getLinkmansMap (linkmans: Linkman[]) {
   return linkmans.reduce((map: LinkmansMap, linkman: Linkman) => {
+    linkman.unread = 0;
+    linkman.messages = {};
     map[linkman.id] = linkman;
     return map;
   }, {});
-}
-
-/**
- * 初始化联系人部分字段
- * @param linkman 联系人
- * @param type 联系人类型
- */
-function initLinkmanFields (linkman: Linkman, type: string) {
-  linkman.type = type;
-}
-
-/**
- * 转换群组数据结构
- * @param group 群组
- */
-function transformGroup (group: Group) {
-  initLinkmanFields(group as Linkman, 'group');
-  return group as Linkman;
 }
 
 const initialState: State = {
@@ -137,11 +121,9 @@ function reducer (state: State = initialState, action: Action): State {
         avatar,
         tag,
         admin,
-        groups
+        linkmans: linkmanList
       } = (action as Action<SetUserPayload>).payload;
-      const linkmans = [
-        ...groups.map(transformGroup)
-      ];
+      const linkmans = getLinkmansMap(linkmanList);
       return {
         ...state,
         user: {
@@ -151,38 +133,35 @@ function reducer (state: State = initialState, action: Action): State {
           tag,
           admin
         },
-        linkmans: getLinkmansMap(linkmans),
-        focus: linkmans[0] ? linkmans[0].id : ''
+        linkmans,
+        focus: linkmanList[0] ? linkmanList[0].id : ''
       };
     }
     case ActionTypes.SetGuest: {
       const { payload } = action as Action<SetGuestPayload>;
+      const user = {
+        id: '',
+        username: '',
+        avatar: '',
+        tag: '',
+        admin: false
+      };
       if (!Object.keys(payload).length) {
         return {
-          ...initialState,
+          ...state,
           user: {
-            id: '',
-            username: '',
-            avatar: '',
-            tag: '',
-            admin: false
+            ...user
           }
         };
       }
-      const linkman = transformGroup(payload);
+      const linkmans = getLinkmansMap([payload]);
       return {
         ...state,
         user: {
-          id: '',
-          username: '',
-          avatar: '',
-          tag: '',
-          admin: false
+          ...user
         },
-        linkmans: {
-          [linkman.id]: linkman
-        },
-        focus: linkman.id
+        linkmans,
+        focus: payload.id
       };
     }
     case ActionTypes.Logout: {

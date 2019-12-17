@@ -1,8 +1,6 @@
 import { Schema, model, Document } from 'mongoose';
 
 export interface GroupDocument extends Document {
-  /** id */
-  _id: Schema.Types.ObjectId;
   /** 群组名 */
   name: string;
   /** 群组头像 */
@@ -22,7 +20,6 @@ export interface GroupDocument extends Document {
 const groupSchema = new Schema({
   name: {
     type: String,
-    required: true,
     trim: true,
     index: true,
     unique: true,
@@ -33,12 +30,9 @@ const groupSchema = new Schema({
   createTime: { type: Date, default: Date.now },
   creator: { type: Schema.Types.ObjectId, ref: 'User' },
   isDefault: { type: Boolean, default: false },
-  members: {
-    type: [
-      { type: Schema.Types.ObjectId, ref: 'User' }
-    ],
-    default: []
-  }
+  members: [
+    { type: Schema.Types.ObjectId, ref: 'User' }
+  ]
 });
 
 const Group = model<GroupDocument>('Group', groupSchema);

@@ -28,9 +28,10 @@ export default function Dialog () {
     actions.setStatus('loginAndRegisterDialogVisible', false);
     setValue('token', user.token);
 
-    const linkmanIds = [
-      ...user.groups.map((group) => group.id)
-    ];
+    const linkmanIds = user.linkmans.map((linkman) => ({
+      type: linkman.type,
+      id: linkman.id
+    }));
     console.log(linkmanIds);
   };
 

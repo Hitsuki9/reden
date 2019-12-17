@@ -1,8 +1,6 @@
 import { Schema, model, Document } from 'mongoose';
 
 interface SocketDocument extends Document {
-  /** id */
-  _id: Schema.Types.ObjectId;
   /** socket id */
   id: string;
   /** socket 关联用户 id */
@@ -23,11 +21,10 @@ const socketSchema = new Schema({
   id: {
     type: String,
     index: true,
-    unique: true,
-    required: true
+    unique: true
   },
   user: { type: Schema.Types.ObjectId, ref: 'User' },
-  ip: { type: String, required: true },
+  ip: String,
   os: { type: String, default: '' },
   browser: { type: String, default: '' },
   environment: { type: String, default: '' },

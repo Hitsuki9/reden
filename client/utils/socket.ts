@@ -54,9 +54,10 @@ socket.on('connect', async () => {
         type: ActionTypes.SetUser,
         payload: user
       });
-      const linkmanIds = [
-        ...user.groups.map((group) => group.id)
-      ];
+      const linkmanIds = user.linkmans.map((linkman) => ({
+        type: linkman.type,
+        id: linkman.id
+      }));
       console.log(linkmanIds);
       return null;
     }

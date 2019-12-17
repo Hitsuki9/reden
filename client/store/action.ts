@@ -1,8 +1,7 @@
 import {
-  Group,
-  Friend,
   User,
-  Message
+  Message,
+  Linkman
 } from './reducer';
 
 export enum ActionTypes {
@@ -33,12 +32,11 @@ export interface SetStatusPayload {
 }
 
 export interface SetUserPayload extends User {
-  groups: Group[];
-  friends: Friend[];
+  linkmans: Linkman[];
   token: string;
 }
 
-export type SetGuestPayload = Group;
+export type SetGuestPayload = Linkman;
 
 export interface UpdateHistoryMessagesPayload {
   linkmanId: string;

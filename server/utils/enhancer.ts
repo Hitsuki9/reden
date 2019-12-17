@@ -8,7 +8,7 @@ export interface EnhancedServer extends Server {
   _use: (fn: Function) => void;
 }
 
-interface EnhancedSocket extends Socket {
+export interface EnhancedSocket extends Socket {
   _on: (event: string) => Socket;
   /** socket 关联用户 id */
   user?: Schema.Types.ObjectId;
@@ -19,6 +19,8 @@ export interface Packet<T = string> {
   event: string;
   /** socket */
   socket: EnhancedSocket;
+  /** server */
+  server: Server;
   /** 负载数据 */
   data: T;
   /** 事件响应函数 */
@@ -31,24 +33,28 @@ export interface Packet<T = string> {
  * connection 事件回调
  * @param client 客户端连接实例
  */
-function onConnection (client: Socket) {
-  (client as EnhancedSocket)._on = (event) => client.on(event, (data, ack) => {
-    const packet: Packet = {
-      event,
-      socket: client as EnhancedSocket,
-      data,
-      acknowledge: ack
-    };
-    compose(packet, ...middlewares);
-  });
-  compose(
-    {
-      event: 'connection',
-      socket: client as EnhancedSocket,
-      data: ''
-    },
-    ...middlewares
-  );
+function onConnection (socket: Server) {
+  return (client: Socket) => {
+    (client as EnhancedSocket)._on = (event) => client.on(event, (data, ack) => {
+      const packet: Packet = {
+        event,
+        socket: client as EnhancedSocket,
+        server: socket,
+        data,
+        acknowledge: ack
+      };
+      compose(packet, ...middlewares);
+    });
+    compose(
+      {
+        event: 'connection',
+        socket: client as EnhancedSocket,
+        server: socket,
+        data: ''
+      },
+      ...middlewares
+    );
+  };
 }
 
 /**
@@ -56,7 +62,7 @@ function onConnection (client: Socket) {
  * @param socket
  */
 export function enhancer (socket: Server) {
-  socket.on('connection', onConnection);
+  socket.on('connection', onConnection(socket));
   (socket as EnhancedServer)._use = (fn) => {
     middlewares.push(fn);
   };

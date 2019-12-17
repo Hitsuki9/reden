@@ -1,10 +1,8 @@
 import { Schema, model, Document } from 'mongoose';
 
-type MessageType = 'text' | 'image' | 'code' | 'invite' | 'system';
+export type MessageType = 'text' | 'image' | 'code';
 
-interface MessageDocument extends Document {
-  /** id */
-  _id: Schema.Types.ObjectId;
+export interface MessageDocument extends Document {
   /** 发送人 */
   from: Schema.Types.ObjectId;
   /** 接收者 */
