@@ -1,3 +1,6 @@
+@input-height: 26px;
+@icon-size: 20px;
+
 .input {
   background: rgba(255, 255, 255, .5);
   height: 60px;
@@ -5,7 +8,12 @@
 
 .inputWrap {
   width: 100%;
-  padding: 0 20px;
+  margin: 0 20px;
+  padding: 0 40px;
+  background: #fff;
+  border: 1px solid rgba(208, 208, 208, .5);
+  border-radius: 20px;
+  position: relative;
 }
 
 .guest {
@@ -16,12 +24,20 @@
 }
 
 .innerInput {
-  border-radius: 20px;
-  padding: 3px 15px;
-  border: 1px solid rgba(208, 208, 208, .5);
+  padding: 3px 0;
+  border: none;
   width: inherit;
-  height: 26px;
+  height: @input-height;
   &:focus {
     outline: none;
+  }
+}
+
+.post {
+  position: absolute;
+  top: (@input-height - @icon-size) / 2;
+  svg {
+    width: @icon-size;
+    height: @icon-size;
   }
 }

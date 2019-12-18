@@ -39,7 +39,7 @@ export default function Sidebar () {
       requireLogin: true
     }, {
       title: '退出登录',
-      icon: 'logout',
+      icon: 'export',
       handleClick () {
         actions.logout();
         removeItem('token');

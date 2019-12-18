@@ -61,7 +61,7 @@ function generateToken (userId: Schema.Types.ObjectId, environment: string) {
  * @param environment 客户端环境信息
  * @param whetherGenerateToken 是否生成 token
  */
-async function loginLagecy (
+async function loginLegacy (
   socket: EnhancedSocket,
   user: UserDocument,
   os: string,
@@ -232,7 +232,7 @@ export async function login (packet: Packet<UserData>) {
   if (user) {
     const validateRes = await bcrypt.compare(password, user.password);
     assert(validateRes, '密码错误');
-    const res = await loginLagecy(
+    const res = await loginLegacy(
       packet.socket,
       user,
       os,
@@ -267,7 +267,7 @@ export async function loginByToken (packet: Packet<TokenData>) {
     const user = await User.findOne({ _id: payload.userId });
     assert(user, '用户不存在');
     if (user) {
-      const res = await loginLagecy(
+      const res = await loginLegacy(
         packet.socket,
         user,
         os,

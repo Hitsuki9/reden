@@ -1,9 +1,11 @@
 import React from 'react';
 import classNames from 'classnames';
+import { Icon } from 'antd';
 import useLogin from '@/hooks/useLogin';
-import styles from './Input.less';
 import useAction from '@/hooks/useAction';
 import { noop } from '@/utils';
+import Post from '@/components/Icons/Post';
+import styles from './Input.less';
 
 export default function Input () {
   const isLogin = useLogin();
@@ -29,6 +31,7 @@ export default function Input () {
         onKeyUp={noop}
         type="text"
       />
+      <Icon className={classNames(styles.post, 'btn-pointer')} component={Post} />
     </div>
   );
 
