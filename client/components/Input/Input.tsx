@@ -1,4 +1,4 @@
-import React, { KeyboardEvent, MouseEvent } from 'react';
+import React, { KeyboardEvent, MouseEvent, useState } from 'react';
 import { useSelector } from 'react-redux';
 import classNames from 'classnames';
 import { Icon } from 'antd';
@@ -12,10 +12,13 @@ import { State } from '@/store/reducer';
 export default function Input() {
   const isLogin = useLogin();
   const actions = useAction();
+  const [content, setContent] = useState('');
   const linkman = useSelector((state: State) => state.linkmans[state.focus]);
   const sendHandler = (event: KeyboardEvent | MouseEvent) => {
-    const { keyCode } = event as KeyboardEvent;
-    if (keyCode && keyCode !== 13) return;
+    if (!content) return;
+    const { charCode } = event as KeyboardEvent;
+    if (charCode && charCode !== 13) return;
+    console.log(content);
     console.log(linkman);
   };
 
@@ -37,8 +40,11 @@ export default function Input() {
   const listedJSX = (
     <div className={styles.inputWrap}>
       <input
-        className={styles.innerInput}
+        placeholder="随便聊点啥吧~"
+        className={classNames(styles.innerInput, 'inner-input')}
+        defaultValue={content}
         onKeyPress={sendHandler}
+        onInput={(event) => setContent(event.currentTarget.value)}
         type="text"
       />
       <Icon
