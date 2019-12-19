@@ -10,7 +10,7 @@ import { Group } from '@/store/reducer';
  * @param browser 浏览器
  * @param environment 环境信息
  */
-export async function register (
+export async function register(
   username: string,
   password: string,
   os: string | undefined,
@@ -35,7 +35,7 @@ export async function register (
  * @param browser 浏览器
  * @param environment 环境信息
  */
-export async function login (
+export async function login(
   username: string,
   password: string,
   os: string | undefined,
@@ -59,18 +59,22 @@ export async function login (
  * @param browser 浏览器
  * @param environment 环境信息
  */
-export async function loginByToken (
+export async function loginByToken(
   token: string,
   os: string | undefined,
   browser: string | undefined,
   environment: string | undefined
 ) {
-  const [, res] = await fetch<SetUserPayload>('loginByToken', {
-    token,
-    os,
-    browser,
-    environment
-  }, false);
+  const [, res] = await fetch<SetUserPayload>(
+    'loginByToken',
+    {
+      token,
+      os,
+      browser,
+      environment
+    },
+    false
+  );
   return res;
 }
 
@@ -80,7 +84,7 @@ export async function loginByToken (
  * @param browser 浏览器
  * @param environment 环境信息
  */
-export async function guest (
+export async function guest(
   os: string | undefined,
   browser: string | undefined,
   environment: string | undefined

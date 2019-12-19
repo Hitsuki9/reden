@@ -41,7 +41,7 @@ interface TokenData extends Environment {
  * @param userId 用户 id
  * @param environment 客户端环境信息
  */
-function generateToken (userId: Schema.Types.ObjectId, environment: string) {
+function generateToken(userId: Schema.Types.ObjectId, environment: string) {
   return jwt.sign(
     {
       userId,
@@ -61,7 +61,7 @@ function generateToken (userId: Schema.Types.ObjectId, environment: string) {
  * @param environment 客户端环境信息
  * @param whetherGenerateToken 是否生成 token
  */
-async function loginLegacy (
+async function loginLegacy(
   socket: EnhancedSocket,
   user: UserDocument,
   os: string,
@@ -73,9 +73,12 @@ async function loginLegacy (
   await user.save();
 
   const [groups, friends] = await Promise.all([
-    Group.find({
-      members: user._id
-    }, 'name avatar'),
+    Group.find(
+      {
+        members: user._id
+      },
+      'name avatar'
+    ),
     Friend.find({
       from: user._id
     }).populate('to', 'username avatar')
@@ -89,14 +92,17 @@ async function loginLegacy (
   }
 
   socket.user = user._id;
-  await Socket.updateOne({
-    id: socket.id
-  }, {
-    user: user._id,
-    os,
-    browser,
-    environment
-  });
+  await Socket.updateOne(
+    {
+      id: socket.id
+    },
+    {
+      user: user._id,
+      os,
+      browser,
+      environment
+    }
+  );
 
   return {
     id: user._id,
@@ -131,14 +137,8 @@ async function loginLegacy (
  * 注册
  * @param packet
  */
-export async function register (packet: Packet<UserData>) {
-  const {
-    username,
-    password,
-    os,
-    browser,
-    environment
-  } = packet.data;
+export async function register(packet: Packet<UserData>) {
+  const { username, password, os, browser, environment } = packet.data;
   let isAdmin = false;
 
   assert(username, '用户名不可为空');
@@ -184,14 +184,17 @@ export async function register (packet: Packet<UserData>) {
   const token = generateToken(newUser._id, environment);
 
   packet.socket.user = newUser._id;
-  await Socket.updateOne({
-    id: packet.socket.id
-  }, {
-    user: newUser._id,
-    os,
-    browser,
-    environment
-  });
+  await Socket.updateOne(
+    {
+      id: packet.socket.id
+    },
+    {
+      user: newUser._id,
+      os,
+      browser,
+      environment
+    }
+  );
 
   return {
     id: newUser._id,
@@ -215,15 +218,9 @@ export async function register (packet: Packet<UserData>) {
  * 登录
  * @param packet
  */
-export async function login (packet: Packet<UserData>) {
+export async function login(packet: Packet<UserData>) {
   assert(!packet.socket.user, '请不要重复登录');
-  const {
-    username,
-    password,
-    os,
-    browser,
-    environment
-  } = packet.data;
+  const { username, password, os, browser, environment } = packet.data;
 
   assert(username, '用户名不可为空');
   assert(password, '密码不可为空');
@@ -248,14 +245,9 @@ export async function login (packet: Packet<UserData>) {
  * 通过 token 登录
  * @param packet
  */
-export async function loginByToken (packet: Packet<TokenData>) {
+export async function loginByToken(packet: Packet<TokenData>) {
   assert(!packet.socket.user, '请不要重复登录');
-  const {
-    token,
-    os,
-    browser,
-    environment
-  } = packet.data;
+  const { token, os, browser, environment } = packet.data;
 
   assert(token, 'token 不可为空');
   const payload = jwt.decode(token);
@@ -286,24 +278,26 @@ export async function loginByToken (packet: Packet<TokenData>) {
  * 游客
  * @param packet
  */
-export async function guest (packet: Packet<Environment>) {
-  const {
-    os,
-    browser,
-    environment
-  } = packet.data;
+export async function guest(packet: Packet<Environment>) {
+  const { os, browser, environment } = packet.data;
 
-  await Socket.updateOne({
-    id: packet.socket.id
-  }, {
-    os,
-    browser,
-    environment
-  });
+  await Socket.updateOne(
+    {
+      id: packet.socket.id
+    },
+    {
+      os,
+      browser,
+      environment
+    }
+  );
 
-  const group = await Group.findOne({
-    isDefault: true
-  }, 'name avatar');
+  const group = await Group.findOne(
+    {
+      isDefault: true
+    },
+    'name avatar'
+  );
 
   if (group) {
     packet.socket.join(group._id);

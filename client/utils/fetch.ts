@@ -1,7 +1,7 @@
 import message from './message';
 import socket from './socket';
 
-export function fetch<T = any> (
+export function fetch<T = any>(
   event: string,
   data = {},
   toast = true

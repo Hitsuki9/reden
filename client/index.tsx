@@ -15,8 +15,9 @@ setCssVariable(primaryColor, primaryTextColor);
 
 // 请求 Notification 授权
 if (
-  window.Notification
-  && (window.Notification.permission === 'default' || window.Notification.permission === 'denied')
+  window.Notification &&
+  (window.Notification.permission === 'default' ||
+    window.Notification.permission === 'denied')
 ) {
   window.Notification.requestPermission();
 }

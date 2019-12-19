@@ -33,18 +33,19 @@ export interface Packet<T = string> {
  * connection 事件回调
  * @param client 客户端连接实例
  */
-function onConnection (socket: Server) {
+function onConnection(socket: Server) {
   return (client: Socket) => {
-    (client as EnhancedSocket)._on = (event) => client.on(event, (data, ack) => {
-      const packet: Packet = {
-        event,
-        socket: client as EnhancedSocket,
-        server: socket,
-        data,
-        acknowledge: ack
-      };
-      compose(packet, ...middlewares);
-    });
+    (client as EnhancedSocket)._on = (event) =>
+      client.on(event, (data, ack) => {
+        const packet: Packet = {
+          event,
+          socket: client as EnhancedSocket,
+          server: socket,
+          data,
+          acknowledge: ack
+        };
+        compose(packet, ...middlewares);
+      });
     compose(
       {
         event: 'connection',
@@ -61,7 +62,7 @@ function onConnection (socket: Server) {
  * 增强 socket.io 功能
  * @param socket
  */
-export function enhancer (socket: Server) {
+export function enhancer(socket: Server) {
   socket.on('connection', onConnection(socket));
   (socket as EnhancedServer)._use = (fn) => {
     middlewares.push(fn);

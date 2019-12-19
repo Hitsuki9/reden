@@ -10,7 +10,7 @@ interface CardProps {
   avatar: string;
 }
 
-export default function Card (props: CardProps) {
+export default function Card(props: CardProps) {
   const { name, avatar } = props;
 
   return (

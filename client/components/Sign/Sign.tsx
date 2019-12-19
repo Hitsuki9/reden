@@ -1,10 +1,5 @@
 import React, { FormEvent, useState } from 'react';
-import {
-  Form,
-  Input,
-  Icon,
-  Button
-} from 'antd';
+import { Form, Input, Icon, Button } from 'antd';
 import { FormComponentProps } from 'antd/lib/form/Form';
 import { noop } from '@/utils';
 import styles from './Sign.less';
@@ -16,7 +11,7 @@ interface SignProps extends FormComponentProps {
   onSubmit?: (username: string, password: string) => Promise<any>;
 }
 
-function Sign (props: SignProps) {
+function Sign(props: SignProps) {
   const [loading, setLoading] = useState(false);
   const {
     btnName = '提交',
@@ -41,47 +36,33 @@ function Sign (props: SignProps) {
   return (
     <Form onSubmit={submitHandler}>
       <Form.Item>
-        {
-          getFieldDecorator(
-            'username',
-            {
-              rules: [
-                { required: true, message: '请填写用户名' }
-              ]
-            }
-          )(
-            <Input
-              prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
-              placeholder="用户名"
-              allowClear
-              autoComplete="off"
-              maxLength={30}
-              onPressEnter={submitHandler}
-            />
-          )
-        }
+        {getFieldDecorator('username', {
+          rules: [{ required: true, message: '请填写用户名' }]
+        })(
+          <Input
+            prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
+            placeholder="用户名"
+            allowClear
+            autoComplete="off"
+            maxLength={30}
+            onPressEnter={submitHandler}
+          />
+        )}
       </Form.Item>
 
       <Form.Item>
-        {
-          getFieldDecorator(
-            'password',
-            {
-              rules: [
-                { required: true, message: '请填写密码' }
-              ]
-            }
-          )(
-            <Input
-              prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
-              type="password"
-              placeholder="密码"
-              allowClear
-              maxLength={10}
-              onPressEnter={submitHandler}
-            />
-          )
-        }
+        {getFieldDecorator('password', {
+          rules: [{ required: true, message: '请填写密码' }]
+        })(
+          <Input
+            prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
+            type="password"
+            placeholder="密码"
+            allowClear
+            maxLength={10}
+            onPressEnter={submitHandler}
+          />
+        )}
       </Form.Item>
 
       <Form.Item>

@@ -5,8 +5,8 @@ import { Packet } from './enhancer';
  * @param packet
  * @param fns 中间件
  */
-export function compose (packet: Packet, ...fns: Function[]) {
-  async function dispatch (i: number) {
+export function compose(packet: Packet, ...fns: Function[]) {
+  async function dispatch(i: number) {
     const fn = fns[i];
     if (fn) {
       await fns[i](packet, async () => {

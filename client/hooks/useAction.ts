@@ -4,21 +4,21 @@ import { ActionTypes, SetUserPayload } from '@/store/action';
 /**
  * 获取 actions
  */
-export default function useAction () {
+export default function useAction() {
   const dispatch = useDispatch();
   return {
-    setUser (user: SetUserPayload) {
+    setUser(user: SetUserPayload) {
       dispatch({
         type: ActionTypes.SetUser,
         payload: user
       });
     },
-    logout () {
+    logout() {
       dispatch({
         type: ActionTypes.Logout
       });
     },
-    setStatus (key: string, value: any) {
+    setStatus(key: string, value: any) {
       dispatch({
         type: ActionTypes.SetStatus,
         payload: {

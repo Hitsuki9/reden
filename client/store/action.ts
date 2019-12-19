@@ -1,8 +1,4 @@
-import {
-  User,
-  Message,
-  Linkman
-} from './reducer';
+import { User, Message, Linkman } from './reducer';
 
 export enum ActionTypes {
   /** 设置用户信息 */

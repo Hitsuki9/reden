@@ -27,13 +27,8 @@ interface HistoryData {
  * 发送消息
  * @param packet
  */
-export async function sendMessage (packet: Packet<MessageData>) {
-  const {
-    to,
-    receiverType,
-    type,
-    content
-  } = packet.data;
+export async function sendMessage(packet: Packet<MessageData>) {
+  const { to, receiverType, type, content } = packet.data;
 
   assert(to, '未指定发送对象');
   assert(receiverType, '未指定对象类型');
@@ -56,9 +51,12 @@ export async function sendMessage (packet: Packet<MessageData>) {
     content
   });
 
-  const user = await User.findOne({
-    _id: packet.socket.use
-  }, 'username avatar tag');
+  const user = await User.findOne(
+    {
+      _id: packet.socket.use
+    },
+    'username avatar tag'
+  );
 
   if (user) {
     const messageData = {
@@ -76,7 +74,9 @@ export async function sendMessage (packet: Packet<MessageData>) {
 
     if (receiverType === 'frined') {
       const sockets = await Socket.find({ user: to });
-      sockets.forEach((socket) => packet.server.to(socket.id).emit('message', messageData));
+      sockets.forEach((socket) =>
+        packet.server.to(socket.id).emit('message', messageData)
+      );
     } else {
       packet.socket.to(to).emit('message', messageData);
     }
@@ -89,7 +89,7 @@ export async function sendMessage (packet: Packet<MessageData>) {
  * 获取联系人历史消息
  * @param packet
  */
-export async function getHistoryMessages (packet: Packet<HistoryData>) {
+export async function getHistoryMessages(packet: Packet<HistoryData>) {
   const { linkmanId, offset } = packet.data;
   console.log(linkmanId, offset);
   return [];

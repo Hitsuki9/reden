@@ -30,9 +30,7 @@ const groupSchema = new Schema({
   createTime: { type: Date, default: Date.now },
   creator: { type: Schema.Types.ObjectId, ref: 'User' },
   isDefault: { type: Boolean, default: false },
-  members: [
-    { type: Schema.Types.ObjectId, ref: 'User' }
-  ]
+  members: [{ type: Schema.Types.ObjectId, ref: 'User' }]
 });
 
 const Group = model<GroupDocument>('Group', groupSchema);

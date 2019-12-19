@@ -9,10 +9,11 @@ const store = createStore(
   // @ts-ignore
   window.__REDUX_DEVTOOLS_EXTENSION__
     ? compose(
-      applyMiddleware(sagaMiddleware),
-      // @ts-ignore
-      window.__REDUX_DEVTOOLS_EXTENSION__()
-    ) : applyMiddleware(sagaMiddleware)
+        applyMiddleware(sagaMiddleware),
+        // @ts-ignore
+        window.__REDUX_DEVTOOLS_EXTENSION__()
+      )
+    : applyMiddleware(sagaMiddleware)
 );
 
 sagaMiddleware.run(saga);

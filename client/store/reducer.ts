@@ -81,7 +81,7 @@ export interface State {
  * 转换联系人数组为联系人 map
  * @param linkmans 联系人数组
  */
-function getLinkmansMap (linkmans: Linkman[]) {
+function getLinkmansMap(linkmans: Linkman[]) {
   return linkmans.reduce((map: LinkmansMap, linkman: Linkman) => {
     linkman.unread = 0;
     linkman.messages = {};
@@ -100,7 +100,7 @@ const initialState: State = {
   }
 };
 
-function reducer (state: State = initialState, action: Action): State {
+function reducer(state: State = initialState, action: Action): State {
   switch (action.type) {
     case ActionTypes.Connect: {
       return {
@@ -170,7 +170,9 @@ function reducer (state: State = initialState, action: Action): State {
       };
     }
     case ActionTypes.UpdateHistoryMessages: {
-      const { linkmanId, messages } = (action as Action<UpdateHistoryMessagesPayload>).payload;
+      const { linkmanId, messages } = (action as Action<
+        UpdateHistoryMessagesPayload
+      >).payload;
       return {
         ...state,
         linkmans: {

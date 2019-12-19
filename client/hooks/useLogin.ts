@@ -4,7 +4,9 @@ import { State } from '@/store/reducer';
 /**
  * 获取登陆状态
  */
-export default function useLogin () {
-  const isLogin = useSelector((state: State) => state.user && state.user.id !== '');
+export default function useLogin() {
+  const isLogin = useSelector(
+    (state: State) => state.user && state.user.id !== ''
+  );
   return isLogin;
 }

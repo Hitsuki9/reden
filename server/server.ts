@@ -22,7 +22,9 @@ if (isEnhancedServer(socket)) {
   socket._use(router(routes));
 }
 socket.on('connection', async (client) => {
-  console.log(`connection info:\n\tip ${client.request.connection.remoteAddress}`);
+  console.log(
+    `connection info:\n\tip ${client.request.connection.remoteAddress}`
+  );
   await Socket.create({
     id: client.id,
     ip: client.request.connection.remoteAddress

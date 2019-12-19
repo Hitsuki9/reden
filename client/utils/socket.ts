@@ -9,7 +9,7 @@ import { getValue } from './storage';
 const socket = io(config.server);
 const { dispatch } = store;
 
-async function loginFailback () {
+async function loginFailback() {
   const defaultGroup = await guest(
     platform.os ? platform.os.family : undefined,
     platform.name,

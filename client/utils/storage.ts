@@ -18,7 +18,7 @@ export enum LocalStorageKeys {
  * @param key 键值
  * @param value 值
  */
-export function setValue (key: string, value: string) {
+export function setValue(key: string, value: string) {
   window.localStorage.setItem(key, value);
 }
 
@@ -27,7 +27,7 @@ export function setValue (key: string, value: string) {
  * @param key 键值
  * @param defaultValue 默认值
  */
-export function getValue (key: string, defaultValue = 'default') {
+export function getValue(key: string, defaultValue = 'default') {
   const value = window.localStorage.getItem(key);
   return value || defaultValue;
 }
@@ -36,14 +36,14 @@ export function getValue (key: string, defaultValue = 'default') {
  * 删除 localStorage 中的项
  * @param key 键值
  */
-export function removeItem (key: string) {
+export function removeItem(key: string) {
   window.localStorage.removeItem(key);
 }
 
 /**
  * 获取 localStorage 数据
  */
-export function getLocalData () {
+export function getLocalData() {
   const theme = getValue(LocalStorageKeys.Theme);
   const themeConfig = config.theme[theme];
   return {

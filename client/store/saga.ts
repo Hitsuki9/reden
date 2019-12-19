@@ -9,7 +9,7 @@ import { take } from 'redux-saga/effects';
 //     yield put({ type, payload: res });
 //   };
 
-export default function* saga () {
+export default function* saga() {
   while (true) {
     const action = yield take('*');
     console.log(action);

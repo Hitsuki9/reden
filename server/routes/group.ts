@@ -7,10 +7,7 @@ interface Group {
   creator: string;
 }
 
-export function createGroup (packet: Packet<Group>) {
-  const {
-    name,
-    creator
-  } = packet.data;
+export function createGroup(packet: Packet<Group>) {
+  const { name, creator } = packet.data;
   console.log(name, creator);
 }

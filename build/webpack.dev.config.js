@@ -9,7 +9,7 @@ module.exports = {
   },
   output: {
     path: path.resolve(__dirname, '../dist'),
-    filename: '[name].js',
+    filename: '[name].js'
   },
   resolve: {
     alias: {
@@ -28,11 +28,13 @@ module.exports = {
         options: {
           formatter: require('eslint-friendly-formatter')
         }
-      }, {
+      },
+      {
         test: /\.tsx?$/,
         loader: 'babel-loader',
         exclude: /node_modules/
-      }, {
+      },
+      {
         test: /\.less$/,
         use: [
           'style-loader',
@@ -48,23 +50,17 @@ module.exports = {
           'less-loader'
         ],
         exclude: path.resolve(__dirname, '../client/assets/styles')
-      }, {
+      },
+      {
         test: /\.less$/,
-        use: [
-          'style-loader',
-          'css-loader',
-          'postcss-loader',
-          'less-loader'
-        ],
+        use: ['style-loader', 'css-loader', 'postcss-loader', 'less-loader'],
         include: path.resolve(__dirname, '../client/assets/styles')
-      }, {
+      },
+      {
         test: /\.css$/,
-        use: [
-          'style-loader',
-          'css-loader',
-          'postcss-loader'
-        ]
-      }, {
+        use: ['style-loader', 'css-loader', 'postcss-loader']
+      },
+      {
         test: /\.(png|jpe?g)(\?.*)?$/,
         loader: 'url-loader',
         query: {

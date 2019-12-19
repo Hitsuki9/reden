@@ -8,7 +8,7 @@ import Chat from './modules/Chat';
 import Dialog from './modules/Dialog';
 import Linkman from './modules/Linkman';
 
-function App () {
+function App() {
   const contextValue = null;
   return (
     <div className={classNames(styles.app, 'flex-center')}>

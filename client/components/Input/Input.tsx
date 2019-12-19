@@ -7,7 +7,7 @@ import { noop } from '@/utils';
 import Post from '@/components/Icons/Post';
 import styles from './Input.less';
 
-export default function Input () {
+export default function Input() {
   const isLogin = useLogin();
   const actions = useAction();
   const unlistedJSX = (
@@ -26,22 +26,17 @@ export default function Input () {
   );
   const listedJSX = (
     <div className={styles.inputWrap}>
-      <input
-        className={styles.innerInput}
-        onKeyUp={noop}
-        type="text"
+      <input className={styles.innerInput} onKeyUp={noop} type="text" />
+      <Icon
+        className={classNames(styles.post, 'btn-pointer')}
+        component={Post}
       />
-      <Icon className={classNames(styles.post, 'btn-pointer')} component={Post} />
     </div>
   );
 
   return (
-    <div
-      className={classNames(styles.input, 'flex-center')}
-    >
-      {
-        isLogin ? listedJSX : unlistedJSX
-      }
+    <div className={classNames(styles.input, 'flex-center')}>
+      {isLogin ? listedJSX : unlistedJSX}
     </div>
   );
 }

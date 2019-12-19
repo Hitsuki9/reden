@@ -6,9 +6,9 @@ import Input from '@/components/Input';
 import { State } from '@/store/reducer';
 import Header from '@/components/Header';
 
-export default function Chat () {
+export default function Chat() {
   const hasUserInfo = useSelector((state: State) => !!state.user);
-  const linkman = useSelector((state: State) => (state.linkmans[state.focus]));
+  const linkman = useSelector((state: State) => state.linkmans[state.focus]);
   const [showDrawer, setShowDrawer] = useState(false);
 
   const clickHandle = () => {
@@ -27,23 +27,21 @@ export default function Chat () {
       >
         list
       </Drawer>
-      {
-        hasUserInfo
-        && (
-          <>
-            {
-              linkman
-              && <Header name={linkman.name} type={linkman.type} clickHandler={clickHandle} />
-            }
-            <div className={styles.chatPanel}>
-              {
-                linkman ? '历史消息' : '先加个好友或者群组才能聊天哦~'
-              }
-            </div>
-            <Input />
-          </>
-        )
-      }
+      {hasUserInfo && (
+        <>
+          {linkman && (
+            <Header
+              name={linkman.name}
+              type={linkman.type}
+              clickHandler={clickHandle}
+            />
+          )}
+          <div className={styles.chatPanel}>
+            {linkman ? '历史消息' : '先加个好友或者群组才能聊天哦~'}
+          </div>
+          <Input />
+        </>
+      )}
     </div>
   );
 }

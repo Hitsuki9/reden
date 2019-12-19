@@ -5,10 +5,7 @@ import { fetch } from '@/utils';
  * @param linkmanId 联系人 id
  * @param offset 客户端已有消息数
  */
-export async function getHistoryMessages (
-  linkmanId: string,
-  offset: number
-) {
+export async function getHistoryMessages(linkmanId: string, offset: number) {
   const [, res] = await fetch('getHistoryMessages', {
     linkmanId,
     offset
@@ -22,11 +19,7 @@ export async function getHistoryMessages (
  * @param type 消息类型
  * @param content 消息内容
  */
-export function sendMessage (
-  to: string,
-  type: string,
-  content: string
-) {
+export function sendMessage(to: string, type: string, content: string) {
   return fetch('sendMessage', {
     to,
     type,
@@ -37,6 +30,6 @@ export function sendMessage (
 /**
  * 撤回消息
  */
-export function withdrawMessage () {
+export function withdrawMessage() {
   // TODO
 }

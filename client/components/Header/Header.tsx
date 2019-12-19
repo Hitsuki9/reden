@@ -18,27 +18,22 @@ const iconStyle = {
   fontSize: '24px'
 };
 
-export default function Header (props: HeaderProps) {
+export default function Header(props: HeaderProps) {
   const { name = '', type = '', clickHandler = noop } = props;
   const isLogin = useLogin();
 
   return (
     <div className={classNames(styles.header, 'flex-v-center')}>
-      <h2 className={styles.name}>
-        {name}
-      </h2>
-      {
-        isLogin && type === 'group'
-        && (
-          <Icon
-            className="iconfont"
-            style={iconStyle}
-            role="button"
-            type="team"
-            onClick={clickHandler}
-          />
-        )
-      }
+      <h2 className={styles.name}>{name}</h2>
+      {isLogin && type === 'group' && (
+        <Icon
+          className="iconfont"
+          style={iconStyle}
+          role="button"
+          type="team"
+          onClick={clickHandler}
+        />
+      )}
     </div>
   );
 }

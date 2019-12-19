@@ -22,6 +22,6 @@ const config: ClientConfig = {
       aero: false
     }
   }
-}
+};
 
 export default config;

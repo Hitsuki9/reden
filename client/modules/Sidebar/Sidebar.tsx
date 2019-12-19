@@ -21,26 +21,30 @@ interface BtnItem {
   requireLogin?: boolean;
 }
 
-export default function Sidebar () {
+export default function Sidebar() {
   const isLogin = useLogin();
   const actions = useAction();
-  const avatar = useSelector((state: State) => (state.user ? state.user.avatar : undefined));
+  const avatar = useSelector((state: State) =>
+    state.user ? state.user.avatar : undefined
+  );
   const btnGroup: BtnItem[] = [
     {
       title: 'GitHub',
       icon: 'github',
-      handleClick () {
+      handleClick() {
         window.open('https://github.com/Hitsuki9/fiora-v9');
       }
-    }, {
+    },
+    {
       title: '设置',
       icon: 'setting',
       handleClick: noop,
       requireLogin: true
-    }, {
+    },
+    {
       title: '退出登录',
       icon: 'export',
-      handleClick () {
+      handleClick() {
         actions.logout();
         removeItem('token');
         message.success('您已退出登录');
@@ -54,29 +58,30 @@ export default function Sidebar () {
   return (
     <div className={styles.sidebar}>
       <div className={classNames(styles.avatarWrap, 'flex-h-center')}>
-        {
-          isLogin
-          && <Avatar className={classNames(styles.avatar, 'btn-pointer')} src={avatar} size={60} />
-        }
+        {isLogin && (
+          <Avatar
+            className={classNames(styles.avatar, 'btn-pointer')}
+            src={avatar}
+            size={60}
+          />
+        )}
       </div>
       <div className={classNames(styles.btnGroupWrap, 'flex-v-center')}>
-        {
-          btnGroup.map((item) => {
-            if (!isLogin && item.requireLogin) {
-              return null;
-            }
-            return (
-              <Tooltip placement="right" title={item.title} key={item.title}>
-                <Icon
-                  className={classNames(styles.btnItem, 'flex-center')}
-                  type={item.icon}
-                  role="button"
-                  onClick={item.handleClick}
-                />
-              </Tooltip>
-            );
-          })
-        }
+        {btnGroup.map((item) => {
+          if (!isLogin && item.requireLogin) {
+            return null;
+          }
+          return (
+            <Tooltip placement="right" title={item.title} key={item.title}>
+              <Icon
+                className={classNames(styles.btnItem, 'flex-center')}
+                type={item.icon}
+                role="button"
+                onClick={item.handleClick}
+              />
+            </Tooltip>
+          );
+        })}
       </div>
     </div>
   );

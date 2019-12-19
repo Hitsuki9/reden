@@ -16,8 +16,10 @@ const refInitialValue = { resetFields: noop };
 /**
  * 登录注册框
  */
-export default function Dialog () {
-  const visible = useSelector((state: State) => state.status.loginAndRegisterDialogVisible);
+export default function Dialog() {
+  const visible = useSelector(
+    (state: State) => state.status.loginAndRegisterDialogVisible
+  );
   const actions = useAction();
   const [activeKey, setActiveKey] = useState('login');
   const loginRef = useRef<any>(refInitialValue);
