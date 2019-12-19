@@ -1,6 +1,9 @@
 {
   "ignore": [
     "client/*",
-    "build/*"
+    "build/*",
+    "test/*",
+    "config/client.ts",
+    "public/*"
   ]
 }

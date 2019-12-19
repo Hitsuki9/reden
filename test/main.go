@@ -27,7 +27,8 @@ func main() {
 	fmt.Println(mypck.Tag2)
 	// mypck.Interfas("Interfas")
 	// mypck.Interfas2("Interfas2")
-	mypck.Interfas3("Interfas3")
+	// mypck.Interfas3("Interfas3")
+	mypck.Interfas4("Interfas4")
 	fmt.Println(test("1"))
 	for _, filename := range os.Args[1:] {
 		data, err := ioutil.ReadFile(filename)

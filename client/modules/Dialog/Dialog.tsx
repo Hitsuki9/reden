@@ -89,11 +89,21 @@ export default function Dialog() {
         onChange={changeHandler}
       >
         <TabPane tab="登录" key="login">
-          <Sign ref={loginRef} btnName="登录" onSubmit={loginHandler} />
+          <Sign
+            ref={loginRef}
+            btnName="登录"
+            onSubmit={loginHandler}
+            submitFlag={visible}
+          />
         </TabPane>
 
         <TabPane tab="注册" key="register">
-          <Sign ref={registerRef} btnName="注册" onSubmit={registerHandler} />
+          <Sign
+            ref={registerRef}
+            btnName="注册"
+            onSubmit={registerHandler}
+            submitFlag={visible}
+          />
         </TabPane>
       </Tabs>
     </Modal>

@@ -18,7 +18,7 @@ export default function Chat() {
   return (
     <div className={styles.chat}>
       <Drawer
-        title="群组成员"
+        title="群组信息"
         placement="right"
         mask={false}
         style={{ position: 'absolute' }}

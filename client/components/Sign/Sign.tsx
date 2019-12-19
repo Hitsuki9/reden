@@ -9,6 +9,8 @@ interface SignProps extends FormComponentProps {
   btnName?: string;
   /** 表单提交回调 */
   onSubmit?: (username: string, password: string) => Promise<any>;
+  /** 额外的判断是否提交的参数 */
+  submitFlag?: boolean;
 }
 
 function Sign(props: SignProps) {
@@ -16,12 +18,13 @@ function Sign(props: SignProps) {
   const {
     btnName = '提交',
     onSubmit: handleSubmit = noop,
-    form: { getFieldDecorator, validateFields }
+    form: { getFieldDecorator, validateFields },
+    submitFlag = true
   } = props;
 
   const submitHandler = (event: FormEvent) => {
     event.preventDefault();
-    if (loading) {
+    if (loading || !submitFlag) {
       return;
     }
     validateFields(async (err, values) => {
