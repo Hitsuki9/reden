@@ -3,6 +3,7 @@ import platform from 'platform';
 import config from '@/../config/client';
 import store from '@/store';
 import { ActionTypes } from '@/store/action';
+import { Message, Notice } from '@/store/reducer';
 import { guest, loginByToken, getHistoryMessages } from '@/services';
 import { getValue } from './storage';
 
@@ -71,6 +72,15 @@ socket.on('disconnect', () => {
     type: ActionTypes.Disconnect,
     payload: {}
   });
+});
+
+socket.on('message', (message: Message) => {
+  console.log(message);
+});
+
+socket.on('notice', (notice: Notice) => {
+  console.log(notice);
+  // TODO
 });
 
 export default socket;

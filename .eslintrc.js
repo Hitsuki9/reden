@@ -57,6 +57,12 @@ module.exports = {
     'no-confusing-arrow': 0,
     'implicit-arrow-linebreak': 0,
     'function-paren-newline': 0,
+    'space-before-function-paren': [
+      1,
+      {
+        named: 'ignore'
+      }
+    ],
     indent: 0,
     'react/jsx-filename-extension': [
       1,

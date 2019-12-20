@@ -1,7 +1,7 @@
 import { Schema, model, Document } from 'mongoose';
 
 type NoticeType = '';
-type NoticeState = 'read' | 'unread';
+type NoticeState = 'read' | 'unread' | 'cleaned';
 
 interface NoticeDocument extends Document {
   /** 通知对象 id */

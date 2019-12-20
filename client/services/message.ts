@@ -16,12 +16,19 @@ export async function getHistoryMessages(linkmanId: string, offset: number) {
 /**
  * 发送消息
  * @param to 发送对象 id
+ * @param receiverType 发送对象类型
  * @param type 消息类型
  * @param content 消息内容
  */
-export function sendMessage(to: string, type: string, content: string) {
+export function sendMessage(
+  to: string,
+  receiverType: string,
+  type: string,
+  content: string
+) {
   return fetch('sendMessage', {
     to,
+    receiverType,
     type,
     content
   });

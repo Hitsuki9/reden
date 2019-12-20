@@ -9,7 +9,7 @@ interface MessageData {
   /** 接收者 */
   to: string;
   /** 接收者类型 */
-  receiverType: 'frined' | 'group';
+  receiverType: 'friend' | 'group';
   /** 消息类型 */
   type: MessageType;
   /** 消息内容 */
@@ -32,7 +32,7 @@ export async function sendMessage(packet: Packet<MessageData>) {
 
   assert(to, '未指定发送对象');
   assert(receiverType, '未指定对象类型');
-  if (receiverType === 'frined') {
+  if (receiverType === 'friend') {
     const user = await User.findOne({ _id: to });
     assert(user, '用户不存在');
   } else {
@@ -44,23 +44,23 @@ export async function sendMessage(packet: Packet<MessageData>) {
     assert(content.length <= 2048, '消息内容过长');
   }
 
-  const message = await Message.create({
-    from: packet.socket.user,
-    to,
-    type,
-    content
-  });
+  // const message = await Message.create({
+  //   from: packet.socket.user,
+  //   to,
+  //   type,
+  //   content
+  // });
 
   const user = await User.findOne(
     {
-      _id: packet.socket.use
+      _id: packet.socket.user
     },
     'username avatar tag'
   );
 
   if (user) {
     const messageData = {
-      id: message._id,
+      // id: message._id,
       from: {
         id: user._id,
         username: user.username,
@@ -72,7 +72,7 @@ export async function sendMessage(packet: Packet<MessageData>) {
       content
     };
 
-    if (receiverType === 'frined') {
+    if (receiverType === 'friend') {
       const sockets = await Socket.find({ user: to });
       sockets.forEach((socket) =>
         packet.server.to(socket.id).emit('message', messageData)

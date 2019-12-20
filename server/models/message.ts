@@ -1,6 +1,7 @@
 import { Schema, model, Document } from 'mongoose';
 
-export type MessageType = 'text' | 'image' | 'code';
+export type MessageType = 'text' | 'image' | 'code' | 'system';
+type MessageState = 'normal' | 'cancel';
 
 export interface MessageDocument extends Document {
   /** 发送人 */
@@ -11,6 +12,8 @@ export interface MessageDocument extends Document {
   content: string;
   /** 消息类型 */
   type: MessageType;
+  /** 消息状态 */
+  state: MessageState;
   /** 发送时间 */
   time: Date;
 }
@@ -18,12 +21,21 @@ export interface MessageDocument extends Document {
 const messageSchema = new Schema({
   from: {
     type: Schema.Types.ObjectId,
-    required: true,
-    ref: 'User'
+    ref: 'User',
+    index: true
   },
-  to: {},
-  content: {},
-  type: {},
+  to: { type: Schema.Types.ObjectId, index: true },
+  content: { type: String, default: '' },
+  type: {
+    type: String,
+    enum: ['text', 'image', 'code', 'system'],
+    default: 'text'
+  },
+  state: {
+    type: String,
+    enum: ['normal', 'cancel'],
+    default: 'normal'
+  },
   time: { type: Date, default: Date.now }
 });
 

@@ -6,21 +6,27 @@ import useLogin from '@/hooks/useLogin';
 import useAction from '@/hooks/useAction';
 import { noop } from '@/utils';
 import Post from '@/components/Icons/Post';
-import styles from './Input.less';
 import { State } from '@/store/reducer';
+import { sendMessage } from '@/services';
+import styles from './Input.less';
 
 export default function Input() {
   const isLogin = useLogin();
   const actions = useAction();
   const [content, setContent] = useState('');
   const linkman = useSelector((state: State) => state.linkmans[state.focus]);
-  const sendHandler = (event: KeyboardEvent | MouseEvent) => {
+  const keyDownHandler = async (event: KeyboardEvent | MouseEvent) => {
     if (!content) return;
-    const { charCode } = event as KeyboardEvent;
-    if (charCode && charCode !== 13) return;
-    console.log(content);
-    console.log(linkman);
+    if (!linkman) return;
+    const { keyCode } = event as KeyboardEvent;
+    if (keyCode && keyCode !== 13) return;
+    setContent('');
+    await sendMessage(linkman.id, linkman.type, 'text', content);
   };
+
+  // TODO
+  // function sendTextMessage() {}
+  // function sendImageMessage() {}
 
   const unlistedJSX = (
     <p className={styles.guest}>
@@ -42,15 +48,15 @@ export default function Input() {
       <input
         placeholder="随便聊点啥吧~"
         className={classNames(styles.innerInput, 'inner-input')}
-        defaultValue={content}
-        onKeyPress={sendHandler}
-        onInput={(event) => setContent(event.currentTarget.value)}
+        value={content}
+        onKeyDown={keyDownHandler}
+        onChange={(event) => setContent(event.target.value)}
         type="text"
       />
       <Icon
         className={classNames(styles.post, 'btn-pointer')}
         component={Post}
-        onClick={sendHandler}
+        onClick={noop}
       />
     </div>
   );

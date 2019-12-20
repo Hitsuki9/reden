@@ -60,6 +60,11 @@ interface LinkmansMap {
   [linkmanId: string]: Linkman;
 }
 
+/** 通知 */
+export interface Notice {
+  content: string;
+}
+
 /** redux store state */
 export interface State {
   /** 用户信息 */

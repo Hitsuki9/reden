@@ -2,7 +2,7 @@ import { Packet } from '../utils';
 
 interface SearchData {
   /** 搜索关键字 */
-  keywords: string;
+  keyword: string;
 }
 
 /**
@@ -10,6 +10,6 @@ interface SearchData {
  * @param packet
  */
 export async function search(packet: Packet<SearchData>) {
-  const { keywords } = packet.data;
-  console.log(keywords);
+  const { keyword } = packet.data;
+  console.log(keyword);
 }

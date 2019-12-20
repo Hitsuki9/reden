@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { Drawer } from 'antd';
+import { Drawer, Empty } from 'antd';
 import styles from './Chat.less';
 import Input from '@/components/Input';
 import { State } from '@/store/reducer';
@@ -37,7 +37,11 @@ export default function Chat() {
             />
           )}
           <div className={styles.chatPanel}>
-            {linkman ? '历史消息' : '先加个好友或者群组才能聊天哦~'}
+            {linkman ? (
+              '历史消息'
+            ) : (
+              <Empty description="先加个好友或者群组才能聊天哦~" />
+            )}
           </div>
           <Input />
         </>
