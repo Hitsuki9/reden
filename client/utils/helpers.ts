@@ -1,19 +1,17 @@
 /**
- * 节流
+ * 防抖
  * @param fn 执行函数
  * @param delay 延迟毫秒数
  */
-export function throttle<T extends (...args: any[]) => void>(
+export function debounce<T extends (...args: any[]) => void>(
   fn: T,
   delay: number
 ) {
-  let sleep = false;
+  let timer: number;
   return ((...args: any[]) => {
-    if (sleep) return;
-    sleep = true;
-    setTimeout(() => {
+    clearTimeout(timer);
+    timer = window.setTimeout(() => {
       fn(...args);
-      sleep = false;
     }, delay);
   }) as T;
 }

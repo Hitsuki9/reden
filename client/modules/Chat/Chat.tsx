@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Drawer, Empty } from 'antd';
+import classNames from 'classnames';
 import styles from './Chat.less';
 import Input from '@/components/Input';
 import { State } from '@/store/reducer';
@@ -40,7 +41,9 @@ export default function Chat() {
             {linkman ? (
               '历史消息'
             ) : (
-              <Empty description="先加个好友或者群组才能聊天哦~" />
+              <div className={classNames(styles.emptyWrap, 'flex-center')}>
+                <Empty description="先加个好友或者群组才能聊天哦~" />
+              </div>
             )}
           </div>
           <Input />
