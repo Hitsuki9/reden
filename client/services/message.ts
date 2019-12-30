@@ -14,6 +14,17 @@ export async function getHistoryMessages(linkmanId: string, offset: number) {
 }
 
 /**
+ * 获取默认群组历史消息
+ * @param offset 客户端已有消息数
+ */
+export async function getDefaultGroupMessages(offset: number) {
+  const [, res] = await fetch('getDefaultGroupMessages', {
+    offset
+  });
+  return res;
+}
+
+/**
  * 发送消息
  * @param to 发送对象 id
  * @param receiverType 发送对象类型

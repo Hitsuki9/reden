@@ -32,7 +32,7 @@ socket.on('connection', async (client) => {
     ip: client.request.connection.remoteAddress
   });
   client.on('disconnect', async () => {
-    console.log(`disconnect ${client.id}\n`);
+    console.log(`\ndisconnect ${client.id}`);
     await Socket.deleteOne({
       id: client.id
     });

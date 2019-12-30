@@ -11,11 +11,11 @@ export default function interceptor() {
     'login',
     'loginByToken',
     'register',
-    'getHistoryMessages' // TODO: temp
+    'getDefaultGroupMessages'
   ];
   return async (packet: Packet, next: Function) => {
     if (!packet.socket.user && !whitelist.includes(packet.event)) {
-      packet.res = 'validate failed';
+      packet.res = '请登录后重试';
       return;
     }
     await next();

@@ -5,6 +5,8 @@ import Group from '../models/group';
 import Message, { MessageType } from '../models/message';
 import Socket from '../models/socket';
 
+const step = 20;
+
 interface MessageData {
   /** 接收者 */
   to: string;
@@ -16,11 +18,14 @@ interface MessageData {
   content: string;
 }
 
-interface HistoryData {
-  /** 联系人 id */
-  linkmanId: string;
+interface OffsetData {
   /** 客户端已有消息数 */
   offset: number;
+}
+
+interface LimitData extends OffsetData {
+  /** 联系人 id */
+  linkmanId: string;
 }
 
 /**
@@ -86,10 +91,35 @@ export async function sendMessage(packet: Packet<MessageData>) {
 }
 
 /**
+ * 获取默认群组历史消息
+ * @param packet
+ */
+export async function getDefaultGroupMessages(packet: Packet<OffsetData>) {
+  let { offset } = packet.data;
+  offset = Math.floor(offset);
+  offset = !Number.isNaN(offset) ? offset : 0;
+  const group = await Group.findOne({ default: true });
+  if (group) {
+    const messages = await Message.find(
+      {
+        to: group._id
+      },
+      'from content type time',
+      {
+        sort: { time: 'desc' },
+        limit: offset + step
+      }
+    ).populate('from', 'username avatar tag');
+    return messages;
+  }
+  return [];
+}
+
+/**
  * 获取联系人历史消息
  * @param packet
  */
-export async function getHistoryMessages(packet: Packet<HistoryData>) {
+export async function getHistoryMessages(packet: Packet<LimitData>) {
   const { linkmanId, offset } = packet.data;
   console.log(linkmanId, offset);
   return [];

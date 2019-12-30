@@ -4,7 +4,7 @@ import config from '@/../config/client';
 import store from '@/store';
 import { ActionTypes } from '@/store/action';
 import { Message, Notice } from '@/store/reducer';
-import { guest, loginByToken, getHistoryMessages } from '@/services';
+import { guest, loginByToken, getDefaultGroupMessages } from '@/services';
 import { getValue, removeItem } from './storage';
 
 const socket = io(config.server);
@@ -21,7 +21,7 @@ async function loginFailback() {
       type: ActionTypes.SetGuest,
       payload: defaultGroup
     });
-    const messages = await getHistoryMessages(defaultGroup.id, 0);
+    const messages = await getDefaultGroupMessages(0);
     dispatch({
       type: ActionTypes.UpdateHistoryMessages,
       payload: {
@@ -60,12 +60,11 @@ socket.on('connect', async () => {
         id: linkman.id
       }));
       console.log(linkmanIds);
-      return null;
+      return;
     }
     removeItem('token');
   }
   loginFailback();
-  return null;
 });
 
 socket.on('disconnect', () => {
