@@ -1,20 +1,20 @@
 import io from 'socket.io-client';
-import platform from 'platform';
+import { platform } from './platform';
 import config from '@/../config/client';
 import store from '@/store';
 import { ActionTypes } from '@/store/action';
 import { Message, Notice } from '@/store/reducer';
 import { guest, loginByToken, getHistoryMessages } from '@/services';
-import { getValue } from './storage';
+import { getValue, removeItem } from './storage';
 
 const socket = io(config.server);
 const { dispatch } = store;
 
 async function loginFailback() {
   const defaultGroup = await guest(
-    platform.os ? platform.os.family : undefined,
-    platform.name,
-    platform.description
+    platform.os,
+    platform.browser,
+    platform.environment
   );
   if (defaultGroup) {
     dispatch({
@@ -46,9 +46,9 @@ socket.on('connect', async () => {
   if (token) {
     const user = await loginByToken(
       token,
-      platform.os ? platform.os.family : undefined,
-      platform.name,
-      platform.description
+      platform.os,
+      platform.browser,
+      platform.environment
     );
     if (user) {
       dispatch({
@@ -62,6 +62,7 @@ socket.on('connect', async () => {
       console.log(linkmanIds);
       return null;
     }
+    removeItem('token');
   }
   loginFailback();
   return null;

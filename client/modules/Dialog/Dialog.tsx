@@ -1,12 +1,11 @@
 import React, { useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Modal, Tabs } from 'antd';
-import platform from 'platform';
 import Sign from '@/components/Sign';
 import { State } from '@/store/reducer';
 import { SetUserPayload } from '@/store/action';
 import useAction from '@/hooks/useAction';
-import { setValue, noop } from '@/utils';
+import { setValue, noop, platform } from '@/utils';
 import { register, login } from '@/services';
 import styles from './Dialog.less';
 
@@ -41,9 +40,9 @@ export default function Dialog() {
     const res = await login(
       username,
       password,
-      platform.os ? platform.os.family : undefined,
-      platform.name,
-      platform.description
+      platform.os,
+      platform.browser,
+      platform.environment
     );
     if (res) {
       callback(res);
@@ -54,9 +53,9 @@ export default function Dialog() {
     const res = await register(
       username,
       password,
-      platform.os ? platform.os.family : undefined,
-      platform.name,
-      platform.description
+      platform.os,
+      platform.browser,
+      platform.environment
     );
     if (res) {
       callback(res);

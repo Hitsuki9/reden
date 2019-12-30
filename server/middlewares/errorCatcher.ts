@@ -1,4 +1,5 @@
 import assert from 'assert';
+import chalk from 'chalk';
 import { Packet } from '../utils';
 
 /**
@@ -14,7 +15,7 @@ export default function errorCatcher() {
         return;
       }
       packet.res = `Internal Server Error: ${err.message}`;
-      console.error(`Unhandled Error:\n\t${err}\n`);
+      console.error(chalk.red(`Unhandled Error:\n\t${err}\n`));
     }
   };
 }

@@ -13,9 +13,9 @@ import { Group } from '@/store/reducer';
 export async function register(
   username: string,
   password: string,
-  os: string | undefined,
-  browser: string | undefined,
-  environment: string | undefined
+  os: string,
+  browser: string,
+  environment: string
 ) {
   const [, res] = await fetch('register', {
     username,
@@ -38,9 +38,9 @@ export async function register(
 export async function login(
   username: string,
   password: string,
-  os: string | undefined,
-  browser: string | undefined,
-  environment: string | undefined
+  os: string,
+  browser: string,
+  environment: string
 ) {
   const [, res] = await fetch('login', {
     username,
@@ -61,9 +61,9 @@ export async function login(
  */
 export async function loginByToken(
   token: string,
-  os: string | undefined,
-  browser: string | undefined,
-  environment: string | undefined
+  os: string,
+  browser: string,
+  environment: string
 ) {
   const [, res] = await fetch<SetUserPayload>(
     'loginByToken',
@@ -84,11 +84,7 @@ export async function loginByToken(
  * @param browser 浏览器
  * @param environment 环境信息
  */
-export async function guest(
-  os: string | undefined,
-  browser: string | undefined,
-  environment: string | undefined
-) {
+export async function guest(os: string, browser: string, environment: string) {
   const [, res] = await fetch<Group>('guest', {
     os,
     browser,

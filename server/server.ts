@@ -4,6 +4,7 @@ import io from 'socket.io';
 import acknowledgement from './middlewares/acknowledgement';
 import logger from './middlewares/logger';
 import errorCatcher from './middlewares/errorCatcher';
+import interceptor from './middlewares/interceptor';
 import router from './middlewares/router';
 import { enhancer, isEnhancedServer } from './utils';
 import Socket from './models/socket';
@@ -19,6 +20,7 @@ if (isEnhancedServer(socket)) {
   socket._use(acknowledgement());
   socket._use(logger());
   socket._use(errorCatcher());
+  socket._use(interceptor());
   socket._use(router(routes));
 }
 socket.on('connection', async (client) => {

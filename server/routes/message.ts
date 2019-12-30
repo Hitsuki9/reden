@@ -75,7 +75,7 @@ export async function sendMessage(packet: Packet<MessageData>) {
     if (receiverType === 'friend') {
       const sockets = await Socket.find({ user: to });
       sockets.forEach((socket) =>
-        packet.server.to(socket.id).emit('message', messageData)
+        packet.socket.to(socket.id).emit('message', messageData)
       );
     } else {
       packet.socket.to(to).emit('message', messageData);
