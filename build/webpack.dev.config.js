@@ -77,7 +77,8 @@ module.exports = {
     hot: true,
     open: true,
     compress: true,
-    quiet: true
+    quiet: true,
+    historyApiFallback: true
   },
   plugins: [
     new HtmlWebpackPlugin({

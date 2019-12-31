@@ -1,4 +1,6 @@
 import { Packet } from '../utils';
+import User from '../models/user';
+import Group from '../models/group';
 
 interface SearchData {
   /** 搜索关键字 */
@@ -11,5 +13,42 @@ interface SearchData {
  */
 export async function search(packet: Packet<SearchData>) {
   const { keyword } = packet.data;
-  console.log(keyword);
+  if (keyword === '') {
+    return {
+      friends: [],
+      groups: []
+    };
+  }
+
+  const [users, groups] = await Promise.all([
+    User.find(
+      {
+        username: {
+          $regex: keyword
+        }
+      },
+      'username avatar'
+    ),
+    Group.find(
+      {
+        name: {
+          $regex: keyword
+        }
+      },
+      'name avatar members'
+    )
+  ]);
+  return {
+    users: users.map((user) => ({
+      id: user._id,
+      username: user.username,
+      avatar: user.avatar
+    })),
+    groups: groups.map((group) => ({
+      id: group._id,
+      name: group.name,
+      avatar: group.avatar,
+      members: group.members.length
+    }))
+  };
 }

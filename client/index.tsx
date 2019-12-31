@@ -2,8 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router } from 'react-router-dom';
-import App from './App';
 import store from './store';
+import Routes from './Routes';
 import { getLocalData, setCssVariable } from './utils';
 import './index.less';
 import '@/assets/styles/common.less';
@@ -25,7 +25,7 @@ if (
 ReactDOM.render(
   <Provider store={store}>
     <Router>
-      <App />
+      <Routes />
     </Router>
   </Provider>,
   document.getElementById('app')

@@ -15,7 +15,7 @@ export default function errorCatcher() {
         return;
       }
       packet.res = `Internal Server Error: ${err.message}`;
-      console.error(chalk.red(`Unhandled Error:\n\t${err}\n`));
+      console.error(chalk.red(`Unhandled Error:\n\t${err}`));
     }
   };
 }

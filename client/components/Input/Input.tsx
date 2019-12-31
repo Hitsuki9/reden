@@ -28,7 +28,7 @@ export default function Input() {
   // function sendTextMessage() {}
   // function sendImageMessage() {}
 
-  const unlistedJSX = (
+  const guestJSX = (
     <p className={styles.guest}>
       游客朋友你好, 请
       <b
@@ -43,7 +43,7 @@ export default function Input() {
     </p>
   );
 
-  const listedJSX = (
+  const loginJSX = (
     <div className={styles.inputWrap}>
       <input
         placeholder="随便聊点啥吧~"
@@ -63,7 +63,7 @@ export default function Input() {
 
   return (
     <div className={classNames(styles.input, 'flex-center')}>
-      {isLogin ? listedJSX : unlistedJSX}
+      {isLogin ? loginJSX : guestJSX}
     </div>
   );
 }

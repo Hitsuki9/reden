@@ -1,12 +1,12 @@
 import { hot } from 'react-hot-loader/root';
 import React from 'react';
 import classNames from 'classnames';
-import styles from './App.less';
 import { ShowUserOrGroupInfoContext } from './utils';
 import Sidebar from './modules/Sidebar';
 import Chat from './modules/Chat';
 import Dialog from './modules/Dialog';
 import Linkman from './modules/Linkman';
+import styles from './App.less';
 
 function App() {
   const contextValue = null;
