@@ -1,0 +1,94 @@
+.flip {
+  width: 60px;
+  height: 100px;
+  border: 1px solid #000;
+  border-radius: 10px;
+  box-shadow: 0 0 6px rgba(0, 0, 0, .5);
+  position: relative;
+}
+
+.down {
+  .front::after,
+  .back::before {
+    z-index: 1;
+  }
+  .front::before {
+    z-index: 3;
+    transform-origin: 50% 100%;
+    backface-visibility: hidden;
+  }
+  .back::after {
+    z-index: 2;
+    transform-origin: 50% 0%; // 设置旋转基点
+    transform: perspective(160px) rotateX(180deg); // 设置透视景深和 3D 旋转
+  }
+}
+
+.digital {
+  color: #fff;
+  font-size: 66px;
+  text-align: center;
+  &::before,
+  &::after {
+    content: '';
+    background: #000;
+    position: absolute;
+    left: 0;
+    right: 0;
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+  &::before {
+    top: 0;
+    bottom: 50%;
+    border-radius: 10px 10px 0 0;
+    border-bottom: .5px solid #666;
+    line-height: 100px;
+  }
+  &::after {
+    bottom: 0;
+    top: 50%;
+    border-radius: 0 0 10px 10px;
+    border-top: .5px solid #666;
+    line-height: 0;
+  }
+}
+
+.start {
+  .front::before {
+    animation: frontflipdown .5s cubic-bezier(.25, .5, .75, 1) forwards;
+  }
+  .back::after {
+    animation: backflipdown .5s cubic-bezier(.25, .5, .75, 1) forwards;
+  }
+}
+
+.generate-nums(@n, @i: 0) when (@i <= @n) {
+  .num@{i} {
+    &::before,
+    &::after {
+      content: '@{i}';
+    }
+  }
+  .generate-nums(@n, (@i + 1));
+}
+
+.generate-nums(9);
+
+@keyframes frontflipdown {
+  0% {
+    transform: perspective(160px) rotateX(0);
+  }
+  100% {
+    transform: perspective(160px) rotateX(-180deg);
+  }
+}
+
+@keyframes backflipdown {
+  0% {
+    transform: perspective(160px) rotateX(180deg);
+  }
+  100% {
+    transform: perspective(160px) rotateX(0);
+  }
+}

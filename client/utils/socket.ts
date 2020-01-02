@@ -5,7 +5,7 @@ import store from '@/store';
 import { ActionTypes } from '@/store/action';
 import { Message, Notice } from '@/store/reducer';
 import { guest, loginByToken, getDefaultGroupMessages } from '@/services';
-import { getValue, removeItem } from './storage';
+import { getValue } from './storage';
 
 const socket = io(config.server);
 const { dispatch } = store;
@@ -62,7 +62,6 @@ socket.on('connect', async () => {
       console.log(linkmanIds);
       return;
     }
-    removeItem('token');
   }
   loginFailback();
 });

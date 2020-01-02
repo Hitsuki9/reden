@@ -5,9 +5,8 @@ import { debounce } from '@/utils';
 import { search, SearchResult } from '@/services';
 import styles from './Search.less';
 
-/**
- * 防抖的 fetch
- */
+// 防抖的 fetch
+// 只能放在函数式组件外部，否则每次更新组件都将生成一个新的函数，起不到防抖作用
 const debouncedFetch = debounce(
   async (value: string, cb: (res: SearchResult) => void) => {
     if (value.trim().length) {
