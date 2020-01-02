@@ -27,7 +27,7 @@ import styles from './Flipper.less';
 export default function Flipper() {
   const history = useHistory();
 
-  const renderPanel = (n = 6) => {
+  const renderPanels = (n = 6) => {
     const panels: JSX.Element[] = [];
     for (let i = 0; i < n; i++) {
       panels.push(
@@ -56,7 +56,7 @@ export default function Flipper() {
       <button type="button" onClick={() => history.push('/')}>
         home
       </button>
-      <div className={styles.clock}>{renderPanel()}</div>
+      <div className={styles.clock}>{renderPanels()}</div>
     </div>
   );
 }
