@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import classNames from 'classnames';
 import { formatDate } from '@/utils';
@@ -33,7 +33,6 @@ export default function Flipper() {
     time: new Date(), // 当前时间
     panelsState: new Array(panelNums).fill(false) // 翻牌状态
   });
-
   const curTime = formatDate(state.time, 'HHmmss');
   const nextTime = formatDate(new Date(state.time.getTime() + 1000), 'HHmmss');
   const updateTime = () => {
@@ -54,7 +53,10 @@ export default function Flipper() {
       });
     }
   };
-  requestAnimationFrame(updateTime);
+  useEffect(() => {
+    const timer = requestAnimationFrame(updateTime);
+    return () => cancelAnimationFrame(timer);
+  });
 
   const renderPanels = (n = panelNums) => {
     const panels: JSX.Element[] = [];

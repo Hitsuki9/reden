@@ -1,9 +1,11 @@
 import React, { useState, ChangeEvent } from 'react';
-import { Popover, Empty } from 'antd';
+import { Popover, Tabs } from 'antd';
 import classNames from 'classnames';
 import { debounce } from '@/utils';
 import { search, SearchResult } from '@/services';
 import styles from './Search.less';
+
+const { TabPane } = Tabs;
 
 // 防抖的 fetch
 // 只能放在函数式组件外部，否则每次更新组件都将生成一个新的函数，起不到防抖作用
@@ -22,38 +24,15 @@ const debouncedFetch = debounce(
  */
 export default function Search() {
   const [keyword, setKeyword] = useState('');
-  const [content, setContent] = useState(<Empty />);
+  // 搜索结果数据
+  const [result, setResult] = useState({
+    users: [],
+    groups: []
+  } as SearchResult);
+  const [popoverVisible, setPopoverVisible] = useState(false);
 
   const setPopoverContent = (res: SearchResult) => {
-    setContent(
-      <ul className={styles.resultWrap}>
-        {res.users.length ? (
-          <li>
-            <p>用户</p>
-            <ul>
-              {res.users.map((user) => (
-                <li className="btn-pointer" key={user.id}>
-                  {user.username}
-                </li>
-              ))}
-            </ul>
-          </li>
-        ) : null}
-        {res.groups.length ? (
-          <li>
-            <p>群组</p>
-            <ul>
-              {res.groups.map((group) => (
-                <li className="btn-pointer" key={group.id}>
-                  {group.name}
-                  {group.members}
-                </li>
-              ))}
-            </ul>
-          </li>
-        ) : null}
-      </ul>
-    );
+    setResult(res);
   };
 
   const changeHandler = (event: ChangeEvent<HTMLInputElement>) => {
@@ -61,19 +40,47 @@ export default function Search() {
     debouncedFetch(event.target.value, setPopoverContent);
   };
 
+  const content = (
+    <Tabs tabBarStyle={{ textAlign: 'center' }} size="small">
+      <TabPane tab="用户" key="users">
+        <ul>
+          {result.users.map((user) => (
+            <li key={user.id}>{user.username}</li>
+          ))}
+        </ul>
+      </TabPane>
+      <TabPane tab="群组" key="groups">
+        <ul>
+          {result.groups.map((group) => (
+            <li key={group.id}>
+              {group.name}
+              {group.members}
+            </li>
+          ))}
+        </ul>
+      </TabPane>
+    </Tabs>
+  );
+
   return (
     <div className={classNames(styles.search, 'flex-v-center')}>
-      <div className={styles.inputWrap}>
-        <Popover placement="bottomLeft" content={content} trigger="focus">
+      <Popover
+        visible={popoverVisible}
+        overlayStyle={{ width: '220px' }}
+        placement="bottomLeft"
+        content={content}
+      >
+        <div className={styles.inputWrap}>
           <input
             placeholder="搜索用户/群组"
             className={classNames(styles.innerInput, 'inner-input')}
             value={keyword}
             onChange={changeHandler}
+            onFocus={() => setPopoverVisible(true)}
             type="text"
           />
-        </Popover>
-      </div>
+        </div>
+      </Popover>
       <span>+</span>
     </div>
   );
