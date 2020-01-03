@@ -1,10 +1,7 @@
 {
   "compilerOptions": {
     "target": "esnext",
-    "lib": [
-      "dom",
-      "esnext"
-    ],
+    "lib": ["dom", "esnext"],
     "skipLibCheck": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
@@ -20,12 +17,6 @@
       "@/*": ["./client/*"]
     }
   },
-  "include": [
-    "client/**/*",
-    "server/**/*",
-    "types/**/*"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+  "include": ["client/**/*", "server/**/*", "types/**/*"],
+  "exclude": ["node_modules"]
 }

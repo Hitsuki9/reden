@@ -1,21 +1,29 @@
+@panel-height: 100px; // default 100px
+@panel-width: 60px; // default 60px
+@panel-text-size: 66px; // default 66px
+@perspective: 160px; // default 160px
+
 .clock {
   display: flex;
   flex-direction: row;
+  user-select: none;
+  -webkit-box-reflect: below 1px
+    linear-gradient(transparent, rgba(0, 0, 0, 0.4));
 }
 
 .split {
-  font-size: 66px;
-  line-height: 85px;
+  font-size: @panel-text-size;
+  line-height: 0.85 * @panel-height;
   color: #000;
 }
 
 .flip {
-  margin: 0 5px;
-  width: 60px;
-  height: 100px;
+  margin: 0 @panel-width / 20;
+  width: @panel-width;
+  height: @panel-height;
   border: 1px solid #000;
-  border-radius: 10px;
-  box-shadow: 0 0 6px rgba(0, 0, 0, .5);
+  border-radius: @panel-height / 10;
+  box-shadow: 0 0 @panel-width / 10 rgba(0, 0, 0, 0.5);
   position: relative;
 }
 
@@ -32,46 +40,46 @@
   .back::after {
     z-index: 2;
     transform-origin: 50% 0%; // 设置旋转基点
-    transform: perspective(160px) rotateX(180deg); // 设置透视景深和 3D 旋转
+    transform: perspective(@perspective) rotateX(180deg); // 设置透视和 3D 旋转
   }
 }
 
 .digital {
   color: #fff;
-  font-size: 66px;
+  font-size: @panel-text-size;
   text-align: center;
   &::before,
   &::after {
     content: '';
     background: #000;
     position: absolute;
-    left: -.5px;
-    right: -.5px;
+    left: -0.5px;
+    right: -0.5px;
     box-sizing: border-box;
     overflow: hidden;
   }
   &::before {
     top: 0;
     bottom: 50%;
-    border-radius: 10px 10px 0 0;
-    border-bottom: .5px solid #666;
-    line-height: 100px;
+    border-radius: @panel-height / 10 @panel-height / 10 0 0;
+    border-bottom: 0.5px solid #666;
+    line-height: @panel-height;
   }
   &::after {
     bottom: 0;
     top: 50%;
-    border-radius: 0 0 10px 10px;
-    border-top: .5px solid #666;
+    border-radius: 0 0 @panel-height / 10 @panel-height / 10;
     line-height: 0;
   }
 }
 
 .start {
   .front::before {
-    animation: frontflipdown .5s cubic-bezier(.25, .5, .75, 1) forwards;
+    box-shadow: 0 -2px 6px rgba(255, 255, 255, 0.3);
+    animation: frontflipdown 0.5s cubic-bezier(0.25, 0.5, 0.75, 1) forwards;
   }
   .back::after {
-    animation: backflipdown .5s cubic-bezier(.25, .5, .75, 1) forwards;
+    animation: backflipdown 0.5s cubic-bezier(0.25, 0.5, 0.75, 1) forwards;
   }
 }
 
@@ -89,18 +97,18 @@
 
 @keyframes frontflipdown {
   0% {
-    transform: perspective(160px) rotateX(0);
+    transform: perspective(@perspective) rotateX(0);
   }
   100% {
-    transform: perspective(160px) rotateX(-180deg);
+    transform: perspective(@perspective) rotateX(-180deg);
   }
 }
 
 @keyframes backflipdown {
   0% {
-    transform: perspective(160px) rotateX(180deg);
+    transform: perspective(@perspective) rotateX(180deg);
   }
   100% {
-    transform: perspective(160px) rotateX(0);
+    transform: perspective(@perspective) rotateX(0);
   }
 }
