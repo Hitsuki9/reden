@@ -33,12 +33,13 @@ export default function Flipper() {
     time: new Date(), // 当前时间
     panelsState: new Array(panelNums).fill(false) // 翻牌状态
   });
+  let timer: number;
   const curTime = formatDate(state.time, 'HHmmss');
   const nextTime = formatDate(new Date(state.time.getTime() + 1000), 'HHmmss');
   const updateTime = () => {
     const newTime = new Date();
     if (formatDate(newTime, 'HHmmss') === curTime) {
-      requestAnimationFrame(updateTime);
+      timer = requestAnimationFrame(updateTime);
     } else if (newTime.getMilliseconds() >= flipDuration) {
       // 根据翻牌动画的持续时间，在整秒后延迟相应的时间才更新牌内容
       setState({
@@ -54,7 +55,7 @@ export default function Flipper() {
     }
   };
   useEffect(() => {
-    const timer = requestAnimationFrame(updateTime);
+    timer = requestAnimationFrame(updateTime);
     return () => cancelAnimationFrame(timer);
   });
 
