@@ -1,4 +1,4 @@
-import React, { useState, ChangeEvent } from 'react';
+import React, { useState, useEffect, ChangeEvent } from 'react';
 import { Popover, Tabs } from 'antd';
 import classNames from 'classnames';
 import { debounce } from '@/utils';
@@ -30,6 +30,19 @@ export default function Search() {
     groups: []
   } as SearchResult);
   const [popoverVisible, setPopoverVisible] = useState(false);
+  const bodyClickHandler = (event: MouseEvent) => {
+    const { target } = event;
+    if ((target as HTMLElement).classList.contains(styles.innerInput)) {
+      return;
+    }
+    setPopoverVisible(false);
+  };
+  useEffect(() => {
+    document.body.addEventListener('click', bodyClickHandler);
+    return () => {
+      document.body.removeEventListener('click', bodyClickHandler);
+    };
+  });
 
   const setPopoverContent = (res: SearchResult) => {
     setResult(res);
