@@ -1,0 +1,3 @@
+name: dart_demo
+dependencies:
+  meta: ^1.1.8

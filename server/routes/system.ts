@@ -15,7 +15,7 @@ export async function search(packet: Packet<SearchData>) {
   const { keyword } = packet.data;
   if (keyword === '') {
     return {
-      friends: [],
+      users: [],
       groups: []
     };
   }

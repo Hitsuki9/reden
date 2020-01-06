@@ -1,17 +1,21 @@
 import { fetch } from '@/utils';
 
+export type User = {
+  id: string;
+  username: string;
+  avatar: string;
+};
+
+export type Group = {
+  id: string;
+  name: string;
+  avatar: string;
+  members: number;
+};
+
 export interface SearchResult {
-  users: {
-    id: string;
-    username: string;
-    avatar: string;
-  }[];
-  groups: {
-    id: string;
-    name: string;
-    avatar: string;
-    members: number;
-  }[];
+  users: User[];
+  groups: Group[];
 }
 
 /**

@@ -67,3 +67,26 @@ export function formatDate(date: Date, dateFormat = 'yyyy-MM-dd HH:mm:ss') {
   });
   return res;
 }
+
+/**
+ * 模拟冒泡过程
+ * @param container 容器
+ * @param inner 容器内元素
+ * @param condition 跳出循环的条件
+ * @return true 完成完整冒泡过程
+ *         false 冒泡中途跳出
+ */
+export function bubble(
+  container: HTMLElement,
+  inner: HTMLElement | null,
+  condition: (inner: HTMLElement) => boolean
+) {
+  let el = inner;
+  while (el && el !== container) {
+    if (condition(el)) {
+      return false;
+    }
+    el = el.parentElement;
+  }
+  return true;
+}
