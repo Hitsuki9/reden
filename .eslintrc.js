@@ -70,6 +70,7 @@ module.exports = {
         extensions: ['.tsx']
       }
     ],
+    'react/jsx-curly-newline': 0,
     'jsx-a11y/interactive-supports-focus': 0,
     'import/extensions': [
       1,

@@ -5,8 +5,8 @@ import { noop } from '@/utils';
 import styles from './Sign.less';
 
 interface SignProps extends FormComponentProps {
-  /** 按钮名 */
-  btnName?: string;
+  /** 按钮文案 */
+  btnText?: string;
   /** 表单提交回调 */
   onSubmit?: (username: string, password: string) => Promise<any>;
   /** 额外的判断是否提交的参数 */
@@ -16,7 +16,7 @@ interface SignProps extends FormComponentProps {
 function Sign(props: SignProps) {
   const [loading, setLoading] = useState(false);
   const {
-    btnName = '提交',
+    btnText = '提交',
     onSubmit: handleSubmit = noop,
     form: { getFieldDecorator, validateFields },
     submitFlag = true
@@ -75,7 +75,7 @@ function Sign(props: SignProps) {
           htmlType="submit"
           loading={loading}
         >
-          {btnName}
+          {btnText}
         </Button>
       </Form.Item>
     </Form>

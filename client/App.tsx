@@ -1,15 +1,33 @@
 import { hot } from 'react-hot-loader/root';
-import React from 'react';
+import React, { useState, useMemo } from 'react';
 import classNames from 'classnames';
 import { ShowUserOrGroupInfoContext } from './utils';
 import Sidebar from './modules/Sidebar';
 import Chat from './modules/Chat';
 import Dialog from './modules/Dialog';
 import Linkman from './modules/Linkman';
+import Info from './modules/Info';
+import { User, Group } from './services';
 import styles from './App.less';
 
+export type Item = User | Group;
+export type ItemType = 'user' | 'group';
+
 function App() {
-  const contextValue = null;
+  const [info, setInfo] = useState({
+    item: {} as Item,
+    visible: false,
+    type: 'user' as ItemType
+  });
+  const contextValue = useMemo(
+    () => ({
+      showInfo(item: Item, type: ItemType) {
+        setInfo({ item, type, visible: true });
+      }
+    }),
+    []
+  );
+
   return (
     <div className={classNames(styles.app, 'flex-center')}>
       <div className={styles.blur} />
@@ -21,6 +39,12 @@ function App() {
         </ShowUserOrGroupInfoContext.Provider>
       </div>
       <Dialog />
+      <Info
+        type={info.type}
+        visible={info.visible}
+        payload={info.item}
+        onClose={() => setInfo({ ...info, visible: false })}
+      />
     </div>
   );
 }

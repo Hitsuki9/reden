@@ -1,19 +1,21 @@
 import React, {
   useState,
   useEffect,
-  useReducer,
+  useContext,
   ChangeEvent,
   KeyboardEvent
 } from 'react';
 import { Popover, Tabs, Avatar, Spin } from 'antd';
 import classNames from 'classnames';
-import { debounce, bubble, noop } from '@/utils';
+import { debounce, bubble, noop, ShowUserOrGroupInfoContext } from '@/utils';
 import { search, SearchResult, User, Group } from '@/services';
+import { Item, ItemType } from '@/App';
 import styles from './Search.less';
+
+type ShowInfo = (item: Item, type: ItemType) => void;
 
 const { TabPane } = Tabs;
 const noDataText = '暂无搜索结果';
-let loading = false;
 
 // 防抖的 fetch
 // 只能放在函数式组件外部，否则每次更新组件都将生成一个新的函数，起不到防抖作用
@@ -29,13 +31,12 @@ const debouncedFetch = debounce(
  * 搜索
  */
 export default function Search() {
-  const [, forceUpdate] = useReducer((x) => x + 1, 0); // 代替 forceUpdate
-  const [keyword, setKeyword] = useState('');
-  // 搜索结果数据
-  const [result, setResult] = useState({
-    users: [],
-    groups: []
-  } as SearchResult);
+  const context = useContext(ShowUserOrGroupInfoContext);
+  const [state, setState] = useState({
+    keyword: '',
+    result: { users: [], groups: [] } as SearchResult,
+    loading: false
+  });
   const [popoverVisible, setPopoverVisible] = useState(false);
   // body 点击事件
   const bodyClickHandler = (event: MouseEvent) => {
@@ -60,29 +61,48 @@ export default function Search() {
   });
 
   const setPopoverContent = (res: SearchResult) => {
-    loading = false;
-    setResult(res);
+    setState({
+      ...state,
+      loading: false,
+      result: res
+    });
   };
 
+  // input change 事件
   const changeHandler = (event: ChangeEvent<HTMLInputElement>) => {
-    loading = true;
-    setKeyword(event.target.value);
+    setState({
+      ...state,
+      loading: true,
+      keyword: event.target.value
+    });
     debouncedFetch(event.target.value, setPopoverContent);
   };
 
-  const keyDownHandler = async (event: KeyboardEvent) => {
+  // input keyDown 事件
+  const keyDownHandler = (event: KeyboardEvent) => {
     if (event.keyCode === 13) {
       // 回车
-      loading = true;
-      forceUpdate();
-      debouncedFetch(keyword, setPopoverContent);
+      setState({
+        ...state,
+        loading: true
+      });
+      debouncedFetch(
+        (event.target as HTMLInputElement).value,
+        setPopoverContent
+      );
     } else if (event.keyCode === 9) {
       // Tab
       setPopoverVisible(false);
     }
   };
 
-  const renderItem = (item: User | Group, content: JSX.Element) => (
+  // 渲染搜索结果列表项
+  const renderItem = (
+    item: Item,
+    content: JSX.Element,
+    showInfo: ShowInfo,
+    type: ItemType
+  ) => (
     <li key={item.id}>
       <div
         className={classNames(
@@ -92,7 +112,10 @@ export default function Search() {
         )}
         onKeyUp={noop}
         role="button"
-        onClick={() => console.log(item)}
+        onClick={() => {
+          setPopoverVisible(false);
+          showInfo(item, type);
+        }}
       >
         <Avatar size={40} src={item.avatar} />
         {content}
@@ -105,7 +128,9 @@ export default function Search() {
       user,
       <div>
         <p>{user.username}</p>
-      </div>
+      </div>,
+      context.showInfo,
+      'user'
     );
   const renderGroupItem = (group: Group) =>
     renderItem(
@@ -113,23 +138,26 @@ export default function Search() {
       <div>
         <p>{group.name}</p>
         <p>{`${group.members} 人`}</p>
-      </div>
+      </div>,
+      context.showInfo,
+      'group'
     );
 
+  // 搜索结果 jsx
   const content = (
-    <Spin spinning={loading}>
+    <Spin spinning={state.loading}>
       <Tabs tabBarStyle={{ textAlign: 'center' }} size="small">
         <TabPane tab="用户" key="users">
           <ul>
-            {result.users.length
-              ? result.users.map((user) => renderUserItem(user))
+            {state.result.users.length
+              ? state.result.users.map((user) => renderUserItem(user))
               : noDataText}
           </ul>
         </TabPane>
         <TabPane tab="群组" key="groups">
           <ul>
-            {result.groups.length
-              ? result.groups.map((group) => renderGroupItem(group))
+            {state.result.groups.length
+              ? state.result.groups.map((group) => renderGroupItem(group))
               : noDataText}
           </ul>
         </TabPane>
@@ -150,7 +178,7 @@ export default function Search() {
           <input
             placeholder="搜索用户/群组"
             className={classNames(styles.innerInput, 'inner-input')}
-            value={keyword}
+            value={state.keyword}
             onChange={changeHandler}
             onKeyDown={keyDownHandler}
             onFocus={() => setPopoverVisible(true)}

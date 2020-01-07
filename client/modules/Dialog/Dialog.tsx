@@ -90,7 +90,7 @@ export default function Dialog() {
         <TabPane tab="登录" key="login">
           <Sign
             ref={loginRef}
-            btnName="登录"
+            btnText="登录"
             onSubmit={loginHandler}
             submitFlag={visible}
           />
@@ -99,7 +99,7 @@ export default function Dialog() {
         <TabPane tab="注册" key="register">
           <Sign
             ref={registerRef}
-            btnName="注册"
+            btnText="注册"
             onSubmit={registerHandler}
             submitFlag={visible}
           />
