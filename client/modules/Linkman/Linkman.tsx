@@ -6,10 +6,15 @@ import Search from '@/components/Search';
 import Card from '@/components/Card';
 import { State } from '@/store/reducer';
 
+const focusStyle = {
+  background: 'var(--primary-color-3)'
+};
+
 export default function Linkman() {
   const isLogin = useLogin();
   const hasUserInfo = useSelector((state: State) => !!state.user);
   const linkmans = useSelector((state: State) => state.linkmans);
+  const focus = useSelector((state: State) => state.focus);
 
   return (
     <div className={styles.linkman}>
@@ -17,7 +22,12 @@ export default function Linkman() {
       {hasUserInfo && (
         <div>
           {Object.values(linkmans).map((item) => (
-            <Card key={item.id} name={item.name} avatar={item.avatar} />
+            <Card
+              extraStyle={item._id === focus ? focusStyle : undefined}
+              key={item._id}
+              name={item.name}
+              avatar={item.avatar}
+            />
           ))}
         </div>
       )}

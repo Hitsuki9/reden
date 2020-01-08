@@ -8,13 +8,18 @@ interface CardProps {
   name: string;
   /** 联系人头像 */
   avatar: string;
+  /** 额外的样式 */
+  extraStyle?: Record<string, string>;
 }
 
 export default function Card(props: CardProps) {
-  const { name, avatar } = props;
+  const { name, avatar, extraStyle } = props;
 
   return (
-    <div className={classNames(styles.card, 'flex-v-center')}>
+    <div
+      style={extraStyle}
+      className={classNames(styles.card, 'flex-v-center')}
+    >
       <Avatar src={avatar} size={48} />
       <div className={styles.content}>
         <span>{name}</span>

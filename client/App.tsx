@@ -7,11 +7,8 @@ import Chat from './modules/Chat';
 import Dialog from './modules/Dialog';
 import Linkman from './modules/Linkman';
 import Info from './modules/Info';
-import { User, Group } from './services';
+import { Item, ItemType } from './services';
 import styles from './App.less';
-
-export type Item = User | Group;
-export type ItemType = 'user' | 'group';
 
 function App() {
   const [info, setInfo] = useState({

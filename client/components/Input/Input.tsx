@@ -21,7 +21,7 @@ export default function Input() {
     const { keyCode } = event as KeyboardEvent;
     if (keyCode && keyCode !== 13) return;
     setContent('');
-    await sendMessage(linkman.id, linkman.type, 'text', content);
+    await sendMessage(linkman._id, linkman.type, 'text', content);
   };
 
   // TODO

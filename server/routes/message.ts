@@ -66,12 +66,7 @@ export async function sendMessage(packet: Packet<MessageData>) {
   if (user) {
     const messageData = {
       // id: message._id,
-      from: {
-        id: user._id,
-        username: user.username,
-        avatar: user.avatar,
-        tag: user.tag
-      },
+      from: user,
       to,
       type,
       content

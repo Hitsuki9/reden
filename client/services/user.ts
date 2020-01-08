@@ -1,6 +1,6 @@
 import { fetch } from '@/utils';
 import { SetUserPayload } from '@/store/action';
-import { Group } from '@/store/reducer';
+import { Group, Linkman } from '@/store/reducer';
 
 /**
  * 注册
@@ -90,5 +90,14 @@ export async function guest(os: string, browser: string, environment: string) {
     browser,
     environment
   });
+  return res;
+}
+
+/**
+ * 单向添加好友
+ * @param userId 用户 id
+ */
+export async function addFriend(userId: string) {
+  const [, res] = await fetch<Linkman>('addFriend', { userId });
   return res;
 }

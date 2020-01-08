@@ -8,6 +8,8 @@ export interface MessageDocument extends Document {
   from: Schema.Types.ObjectId;
   /** 接收者 */
   to: Schema.Types.ObjectId;
+  /** 第三方（管理员） */
+  operator: Schema.Types.ObjectId;
   /** 消息内容 */
   content: string;
   /** 消息类型 */
@@ -25,6 +27,7 @@ const messageSchema = new Schema({
     index: true
   },
   to: { type: Schema.Types.ObjectId, index: true },
+  operator: { type: Schema.Types.ObjectId, ref: 'User' },
   content: { type: String, default: '' },
   type: {
     type: String,

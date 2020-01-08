@@ -13,6 +13,10 @@ export enum ActionTypes {
   SetStatus = 'SetStatus',
   /** 设置游客信息 */
   SetGuest = 'SetGuest',
+  /** 添加联系人 */
+  AddLinkman = 'AddLinkman',
+  /** 移除联系人 */
+  RemoveLinkman = 'RemoveLinkman',
   /** 更新联系人历史消息 */
   UpdateHistoryMessages = 'UpdateHistoryMessages'
 }
@@ -33,6 +37,7 @@ export interface SetUserPayload extends User {
 }
 
 export type SetGuestPayload = Linkman;
+export type AddLinkmanPayload = Linkman;
 
 export interface UpdateHistoryMessagesPayload {
   linkmanId: string;

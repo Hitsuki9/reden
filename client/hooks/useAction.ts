@@ -1,5 +1,6 @@
 import { useDispatch } from 'react-redux';
 import { ActionTypes, SetUserPayload } from '@/store/action';
+import { Linkman } from '@/store/reducer';
 
 /**
  * 获取 actions
@@ -25,6 +26,18 @@ export default function useAction() {
           key,
           value
         }
+      });
+    },
+    addLinkman(linkman: Linkman) {
+      dispatch({
+        type: ActionTypes.AddLinkman,
+        payload: linkman
+      });
+    },
+    removeLinkman() {
+      dispatch({
+        type: ActionTypes.RemoveLinkman,
+        payload: {}
       });
     }
   };

@@ -31,7 +31,7 @@ export default function Dialog() {
 
     const linkmanIds = user.linkmans.map((linkman) => ({
       type: linkman.type,
-      id: linkman.id
+      id: linkman._id
     }));
     console.log(linkmanIds);
   };

@@ -25,7 +25,7 @@ async function loginFailback() {
     dispatch({
       type: ActionTypes.UpdateHistoryMessages,
       payload: {
-        linkmanId: defaultGroup.id,
+        linkmanId: defaultGroup._id,
         messages
       }
     });
@@ -57,7 +57,7 @@ socket.on('connect', async () => {
       });
       const linkmanIds = user.linkmans.map((linkman) => ({
         type: linkman.type,
-        id: linkman.id
+        id: linkman._id
       }));
       console.log(linkmanIds);
       return;

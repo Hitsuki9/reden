@@ -7,6 +7,7 @@ import Routes from './Routes';
 import { getLocalData, setCssVariable } from './utils';
 import './index.less';
 import './assets/styles/common.less';
+import './assets/styles/theme.less';
 import 'normalize.css';
 
 // 设置 CSS 变量

@@ -6,7 +6,7 @@ import { State } from '@/store/reducer';
  */
 export default function useLogin() {
   const isLogin = useSelector(
-    (state: State) => state.user && state.user.id !== ''
+    (state: State) => state.user && state.user._id !== ''
   );
   return isLogin;
 }

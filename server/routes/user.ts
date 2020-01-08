@@ -36,6 +36,11 @@ interface TokenData extends Environment {
   token: string;
 }
 
+interface FriendData {
+  /** 用户 id */
+  userId: string;
+}
+
 /**
  * 生成 jwt
  * @param userId 用户 id
@@ -79,9 +84,12 @@ async function loginLegacy(
       },
       'name avatar'
     ),
-    Friend.find({
-      from: user._id
-    }).populate('to', 'username avatar')
+    Friend.find(
+      {
+        from: user._id
+      },
+      'to'
+    ).populate('to', 'username avatar')
   ]);
 
   groups.forEach((group) => socket.join(group._id));
@@ -105,7 +113,7 @@ async function loginLegacy(
   );
 
   return {
-    id: user._id,
+    _id: user._id,
     avatar: user.avatar,
     username: user.username,
     tag: user.tag,
@@ -113,15 +121,13 @@ async function loginLegacy(
     admin: user.admin,
     linkmans: [
       ...groups.map((group) => ({
-        id: group._id,
-        name: group.name,
-        avatar: group.avatar,
+        ...group.toObject(),
         type: 'group'
       })),
       ...friends.map((friend) => {
         if (isUserDocument(friend.to)) {
           return {
-            id: friend.to._id,
+            _id: friend.to._id,
             name: friend.to.username,
             avatar: friend.to.avatar,
             type: 'friend'
@@ -197,7 +203,7 @@ export async function register(packet: Packet<UserData>) {
   );
 
   return {
-    id: newUser._id,
+    _id: newUser._id,
     avatar: newUser.avatar,
     username: newUser.username,
     tag: newUser.tag,
@@ -205,7 +211,7 @@ export async function register(packet: Packet<UserData>) {
     token,
     linkmans: [
       {
-        id: defaultGroup._id,
+        _id: defaultGroup._id,
         name: defaultGroup.name,
         avatar: defaultGroup.avatar,
         type: 'group'
@@ -302,11 +308,64 @@ export async function guest(packet: Packet<Environment>) {
   if (group) {
     packet.socket.join(group._id);
     return {
-      id: group._id,
-      name: group.name,
-      avatar: group.avatar,
+      ...group.toObject(),
       type: 'group'
     };
+  }
+  return null;
+}
+
+/**
+ * 单向添加好友
+ * @param packet
+ */
+export async function addFriend(packet: Packet<FriendData>) {
+  const { userId } = packet.data;
+  assert(
+    userId !== (packet.socket.user as Schema.Types.ObjectId).toString(),
+    '不能添加自己为好友'
+  );
+  const user = await User.findOne({ _id: userId }, 'username avatar');
+  assert(user, '用户不存在');
+  if (user) {
+    const friend = await Friend.findOne({
+      from: packet.socket.user,
+      to: user._id
+    });
+    assert(!friend, '对方已经被你添加为好友啦');
+    await Friend.create({
+      from: packet.socket.user,
+      to: user._id
+    });
+
+    return {
+      _id: user._id,
+      name: user.username,
+      avatar: user.avatar,
+      type: 'friend'
+    };
+  }
+  return null;
+}
+
+/**
+ * 单向删除好友
+ * @param packet
+ */
+export async function deleteFriend(packet: Packet<FriendData>) {
+  const { userId } = packet.data;
+  assert(
+    userId !== (packet.socket.user as Schema.Types.ObjectId).toString(),
+    '？？？'
+  );
+  const user = await User.findOne({ _id: userId });
+  assert(user, '用户不存在');
+  if (user) {
+    await Friend.deleteOne({
+      from: packet.socket.user,
+      to: user._id
+    });
+    return {};
   }
   return null;
 }

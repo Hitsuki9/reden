@@ -5,17 +5,15 @@ import React, {
   ChangeEvent,
   KeyboardEvent
 } from 'react';
-import { Popover, Tabs, Avatar, Spin } from 'antd';
+import { Popover, Tabs, Avatar, Spin, Icon } from 'antd';
 import classNames from 'classnames';
 import { debounce, bubble, noop, ShowUserOrGroupInfoContext } from '@/utils';
-import { search, SearchResult, User, Group } from '@/services';
-import { Item, ItemType } from '@/App';
+import { search, Item, ItemType, SearchResult, User, Group } from '@/services';
 import styles from './Search.less';
-
-type ShowInfo = (item: Item, type: ItemType) => void;
 
 const { TabPane } = Tabs;
 const noDataText = '暂无搜索结果';
+const loadingIcon = <Icon type="loading" />;
 
 // 防抖的 fetch
 // 只能放在函数式组件外部，否则每次更新组件都将生成一个新的函数，起不到防抖作用
@@ -61,11 +59,11 @@ export default function Search() {
   });
 
   const setPopoverContent = (res: SearchResult) => {
-    setState({
-      ...state,
+    setState((nextState) => ({
+      ...nextState,
       loading: false,
       result: res
-    });
+    }));
   };
 
   // input change 事件
@@ -97,13 +95,8 @@ export default function Search() {
   };
 
   // 渲染搜索结果列表项
-  const renderItem = (
-    item: Item,
-    content: JSX.Element,
-    showInfo: ShowInfo,
-    type: ItemType
-  ) => (
-    <li key={item.id}>
+  const renderItem = (item: Item, type: ItemType, content: JSX.Element) => (
+    <li key={item._id}>
       <div
         className={classNames(
           styles.resultItem,
@@ -114,7 +107,7 @@ export default function Search() {
         role="button"
         onClick={() => {
           setPopoverVisible(false);
-          showInfo(item, type);
+          context.showInfo(item, type);
         }}
       >
         <Avatar size={40} src={item.avatar} />
@@ -126,26 +119,24 @@ export default function Search() {
   const renderUserItem = (user: User) =>
     renderItem(
       user,
+      'user',
       <div>
         <p>{user.username}</p>
-      </div>,
-      context.showInfo,
-      'user'
+      </div>
     );
   const renderGroupItem = (group: Group) =>
     renderItem(
       group,
+      'group',
       <div>
         <p>{group.name}</p>
         <p>{`${group.members} 人`}</p>
-      </div>,
-      context.showInfo,
-      'group'
+      </div>
     );
 
   // 搜索结果 jsx
   const content = (
-    <Spin spinning={state.loading}>
+    <Spin indicator={loadingIcon} spinning={state.loading}>
       <Tabs tabBarStyle={{ textAlign: 'center' }} size="small">
         <TabPane tab="用户" key="users">
           <ul>

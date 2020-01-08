@@ -1,5 +1,5 @@
 import { createContext } from 'react';
-import { Item, ItemType } from '@/App';
+import { Item, ItemType } from '@/services';
 
 export const ShowUserOrGroupInfoContext = createContext(
   {} as {

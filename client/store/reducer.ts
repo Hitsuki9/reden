@@ -4,12 +4,13 @@ import {
   SetUserPayload,
   SetStatusPayload,
   SetGuestPayload,
-  UpdateHistoryMessagesPayload
+  UpdateHistoryMessagesPayload,
+  AddLinkmanPayload
 } from './action';
 
 /** 用户 */
 export interface User {
-  id: string;
+  _id: string;
   username: string;
   avatar: string;
   tag: string;
@@ -18,25 +19,25 @@ export interface User {
 
 /** 群组 */
 export interface Group {
-  id: string;
+  _id: string;
   name: string;
   avatar: string;
 }
 
 /** 好友 */
-interface Friend {
-  id: string;
+export interface Friend {
+  _id: string;
   name: string;
   avatar: string;
 }
 
 /** 消息 */
 export interface Message {
-  id: string;
+  _id: string;
   type: string;
   content: string;
   from: {
-    id: string;
+    _id: string;
     username: string;
     avatar: string;
     tag: string;
@@ -90,7 +91,7 @@ function getLinkmansMap(linkmans: Linkman[]) {
   return linkmans.reduce((map: LinkmansMap, linkman: Linkman) => {
     linkman.unread = 0;
     linkman.messages = {};
-    map[linkman.id] = linkman;
+    map[linkman._id] = linkman;
     return map;
   }, {});
 }
@@ -121,7 +122,7 @@ function reducer(state: State = initialState, action: Action): State {
     }
     case ActionTypes.SetUser: {
       const {
-        id,
+        _id,
         username,
         avatar,
         tag,
@@ -132,20 +133,20 @@ function reducer(state: State = initialState, action: Action): State {
       return {
         ...state,
         user: {
-          id,
+          _id,
           username,
           avatar,
           tag,
           admin
         },
         linkmans,
-        focus: linkmanList[0] ? linkmanList[0].id : ''
+        focus: linkmanList[0] ? linkmanList[0]._id : ''
       };
     }
     case ActionTypes.SetGuest: {
       const { payload } = action as Action<SetGuestPayload>;
       const user = {
-        id: '',
+        _id: '',
         username: '',
         avatar: '',
         tag: '',
@@ -166,12 +167,24 @@ function reducer(state: State = initialState, action: Action): State {
           ...user
         },
         linkmans,
-        focus: payload.id
+        focus: payload._id
       };
     }
     case ActionTypes.Logout: {
       return {
         ...initialState
+      };
+    }
+    case ActionTypes.AddLinkman: {
+      const { payload } = action as Action<AddLinkmanPayload>;
+      const linkman = getLinkmansMap([payload]);
+      return {
+        ...state,
+        linkmans: {
+          ...state.linkmans,
+          ...linkman
+        },
+        focus: payload._id
       };
     }
     case ActionTypes.UpdateHistoryMessages: {

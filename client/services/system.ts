@@ -1,22 +1,16 @@
 import { fetch } from '@/utils';
+import { Group as BaseGroup, User as BaseUser } from '@/store/reducer';
 
-export type User = {
-  id: string;
-  username: string;
-  avatar: string;
-};
-
-export type Group = {
-  id: string;
-  name: string;
-  avatar: string;
+export interface Group extends BaseGroup {
   members: number;
-};
-
-export interface SearchResult {
-  users: User[];
-  groups: Group[];
 }
+export type User = BaseUser;
+export interface SearchResult {
+  groups: Group[];
+  users: User[];
+}
+export type Item = User | Group;
+export type ItemType = 'user' | 'group';
 
 /**
  * 搜索

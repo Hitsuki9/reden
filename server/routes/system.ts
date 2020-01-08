@@ -39,15 +39,9 @@ export async function search(packet: Packet<SearchData>) {
     )
   ]);
   return {
-    users: users.map((user) => ({
-      id: user._id,
-      username: user.username,
-      avatar: user.avatar
-    })),
+    users,
     groups: groups.map((group) => ({
-      id: group._id,
-      name: group.name,
-      avatar: group.avatar,
+      ...group.toObject(),
       members: group.members.length
     }))
   };
