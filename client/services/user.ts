@@ -101,3 +101,12 @@ export async function addFriend(userId: string) {
   const [, res] = await fetch<Linkman>('addFriend', { userId });
   return res;
 }
+
+/**
+ * 单向删除好友
+ * @param userId 用户 id
+ */
+export async function deleteFriend(userId: string) {
+  const [, res] = await fetch('deleteFriend', { userId });
+  return res;
+}

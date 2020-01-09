@@ -1,16 +1,18 @@
-import React from 'react';
+import React, { lazy } from 'react';
 import { Switch, Route } from 'react-router-dom';
-import App from '@/App';
-import Flipper from '@/pages/Flipper';
+// import App from '@/App';
+// import Flipper from '@/pages/Flipper';
 
 export default function Routes() {
   return (
     <Switch>
       <Route exact path="/flipper">
-        <Flipper />
+        {lazy(() =>
+          import(/* webpackChunkName: "flipper" */ '@/pages/Flipper')
+        )}
       </Route>
       <Route path="/">
-        <App />
+        {lazy(() => import(/* webpackChunkName: "main" */ '@/App'))}
       </Route>
     </Switch>
   );

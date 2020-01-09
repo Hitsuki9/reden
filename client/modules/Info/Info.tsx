@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react';
+import classNames from 'classnames';
 import { Modal, Avatar, Button } from 'antd';
-import { addFriend, ItemType, Item } from '@/services';
+import { addFriend, ItemType, Item, joinGroup } from '@/services';
 import useAction from '@/hooks/useAction';
 
 interface InfoProps {
@@ -31,7 +32,13 @@ export default function Info(props: InfoProps) {
       },
       group: {
         btnText: '加入群组',
-        clickHandler: () => {}
+        clickHandler: async (group: Item) => {
+          const linkman = await joinGroup(group._id);
+          onClose();
+          if (linkman) {
+            console.log(linkman);
+          }
+        }
       }
     }),
     []
@@ -39,7 +46,7 @@ export default function Info(props: InfoProps) {
 
   return (
     <Modal onCancel={onClose} closable={false} visible={visible} footer={null}>
-      <div>
+      <div className={classNames('flex-v-center')}>
         <Avatar size={60} src={payload.avatar} />
         <Button
           type="primary"

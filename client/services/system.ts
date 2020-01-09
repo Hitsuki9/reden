@@ -17,8 +17,6 @@ export type ItemType = 'user' | 'group';
  * @param keyword 关键字
  */
 export async function search(keyword: string) {
-  const [, res] = await fetch<SearchResult>('search', {
-    keyword
-  });
+  const [, res] = await fetch<SearchResult>('search', { keyword });
   return res;
 }

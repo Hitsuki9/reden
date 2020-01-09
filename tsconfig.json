@@ -15,7 +15,8 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["./client/*"]
-    }
+    },
+    "module": "commonjs"
   },
   "include": ["client/**/*", "server/**/*", "types/**/*"],
   "exclude": ["node_modules"]
