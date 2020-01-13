@@ -1,0 +1,24 @@
+.burst {
+  position: relative;
+  &::before {
+    position: absolute;
+    content: '';
+    left: -20px;
+    top: -20px;
+    right: -20px;
+    bottom: -20px;
+    background-repeat: no-repeat;
+    background-image: radial-gradient(circle, #ff0081 20%, transparent 20%),
+      radial-gradient(circle, #ff0081 20%, transparent 20%),
+      radial-gradient(circle, #ff0081 20%, transparent 20%),
+      radial-gradient(circle, #ff0081 20%, transparent 20%),
+      radial-gradient(circle, #ff0081 20%, transparent 20%),
+      radial-gradient(circle, #ff0081 20%, transparent 20%),
+      radial-gradient(circle, #ff0081 20%, transparent 20%),
+      radial-gradient(circle, #ff0081 20%, transparent 20%);
+    background-size: 10% 10%, 20% 20%, 15% 15%, 20% 20%, 18% 18%, 10% 10%,
+      15% 15%, 10% 10%;
+    background-position: 18% 40%, 20% 31%, 30% 30%, 40% 30%, 50% 30%, 57% 30%,
+      65% 30%, 80% 32%;
+  }
+}

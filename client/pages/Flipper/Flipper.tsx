@@ -1,5 +1,4 @@
 import React, { Fragment, useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
 import classNames from 'classnames';
 import { formatDate } from '@/utils';
 import styles from './Flipper.less';
@@ -28,7 +27,6 @@ function diffNums(curTime: string, nextTime: string) {
  * 翻牌时钟
  */
 export default function Flipper() {
-  const history = useHistory();
   const [state, setState] = useState({
     time: new Date(), // 当前时间
     panelsState: new Array(panelNums).fill(false) // 翻牌状态
@@ -97,12 +95,5 @@ export default function Flipper() {
     return panels;
   };
 
-  return (
-    <div className="flex-center" style={{ height: '100vh' }}>
-      <button type="button" onClick={() => history.push('/')}>
-        home
-      </button>
-      <div className={styles.clock}>{renderPanels()}</div>
-    </div>
-  );
+  return <div className={styles.clock}>{renderPanels()}</div>;
 }

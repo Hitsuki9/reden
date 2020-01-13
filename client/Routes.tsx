@@ -1,5 +1,6 @@
 import React, { lazy, Suspense, LazyExoticComponent } from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, useHistory } from 'react-router-dom';
+import { Button } from 'antd';
 import Loading from '@/components/Icons/Loading';
 
 const App = lazy(() => import(/* webpackChunkName: "main" */ '@/App'));
@@ -18,15 +19,22 @@ const loading = (
 );
 
 export default function Routes() {
+  const history = useHistory();
+
   return (
     <Switch>
       {routes.map((route) => {
         const [path, RouteChild] = route;
         return (
           <Route key={path} exact path={`/${path}`}>
-            <Suspense fallback={loading}>
-              <RouteChild />
-            </Suspense>
+            <div className="flex-center" style={{ height: '100vh' }}>
+              <Button type="primary" onClick={() => history.push('/')}>
+                Home
+              </Button>
+              <Suspense fallback={Loading()}>
+                <RouteChild />
+              </Suspense>
+            </div>
           </Route>
         );
       })}
