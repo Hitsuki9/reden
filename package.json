@@ -72,7 +72,7 @@
     "webpack-dev-server": "^3.10.1"
   },
   "dependencies": {
-    "@babel/runtime": "^7.7.7",
+    "@babel/runtime": "^7.8.3",
     "antd": "^3.26.6",
     "bcryptjs": "^2.4.3",
     "bowser": "^2.8.1",
