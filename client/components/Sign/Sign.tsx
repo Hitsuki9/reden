@@ -43,7 +43,9 @@ function Sign(props: SignProps) {
           rules: [{ required: true, message: '请填写用户名' }]
         })(
           <Input
-            prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
+            prefix={
+              <Icon type="user" style={{ color: 'rgba(0, 0, 0, 0.25)' }} />
+            }
             placeholder="用户名"
             allowClear
             autoComplete="off"
@@ -58,7 +60,9 @@ function Sign(props: SignProps) {
           rules: [{ required: true, message: '请填写密码' }]
         })(
           <Input
-            prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
+            prefix={
+              <Icon type="lock" style={{ color: 'rgba(0, 0, 0, 0.25)' }} />
+            }
             type="password"
             placeholder="密码"
             allowClear

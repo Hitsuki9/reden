@@ -15,6 +15,10 @@ const server = http.createServer(app.callback());
 const socket = io(server);
 enhancer(socket);
 
+app.use((ctx) => {
+  ctx.status = 200;
+});
+
 // 中间件
 if (isEnhancedServer(socket)) {
   socket._use(acknowledgement());
