@@ -81,7 +81,7 @@
     "core-js": "^3.6.4",
     "jsonwebtoken": "^8.5.1",
     "koa": "^2.11.0",
-    "mongoose": "^5.8.7",
+    "mongoose": "^5.8.11",
     "normalize.css": "^8.0.1",
     "react": "^16.12.0",
     "react-dom": "npm:@hot-loader/react-dom",
