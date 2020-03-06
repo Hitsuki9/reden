@@ -1,10 +1,10 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import styles from './Linkman.less';
 import useLogin from '@/hooks/useLogin';
 import Search from '@/components/Search';
 import Card from '@/components/Card';
 import { State } from '@/store/reducer';
+import styles from './Linkman.less';
 
 const focusStyle = {
   background: 'var(--primary-color-3)'

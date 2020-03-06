@@ -1,9 +1,9 @@
 import React, { MouseEvent } from 'react';
-import { Icon } from 'antd';
+import { TeamOutlined } from '@ant-design/icons';
 import classNames from 'classnames';
-import styles from './Header.less';
 import { noop } from '@/utils';
 import useLogin from '@/hooks/useLogin';
+import styles from './Header.less';
 
 interface HeaderProps {
   /** 联系人名称 */
@@ -26,11 +26,10 @@ export default function Header(props: HeaderProps) {
     <div className={classNames(styles.header, 'flex-v-center')}>
       <h2 className={styles.name}>{name}</h2>
       {isLogin && type === 'group' && (
-        <Icon
+        <TeamOutlined
           className="iconfont"
           style={iconStyle}
           role="button"
-          type="team"
           onClick={clickHandler}
         />
       )}

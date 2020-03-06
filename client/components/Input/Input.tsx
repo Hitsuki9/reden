@@ -1,7 +1,7 @@
 import React, { KeyboardEvent, MouseEvent, useState } from 'react';
 import { useSelector } from 'react-redux';
 import classNames from 'classnames';
-import { Icon } from 'antd';
+import Icon from '@ant-design/icons';
 import useLogin from '@/hooks/useLogin';
 import useAction from '@/hooks/useAction';
 import { noop } from '@/utils';

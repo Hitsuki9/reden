@@ -1,10 +1,10 @@
 import io from 'socket.io-client';
-import { platform } from './platform';
 import config from '@/../config/client';
 import store from '@/store';
 import { ActionTypes } from '@/store/action';
 import { Message, Notice } from '@/store/reducer';
 import { guest, loginByToken, getDefaultGroupMessages } from '@/services';
+import { platform } from './platform';
 import { getValue } from './storage';
 
 const socket = io(config.server);

@@ -1,20 +1,25 @@
 import React, { MouseEvent } from 'react';
 import { useSelector } from 'react-redux';
 import classNames from 'classnames';
-import { Avatar, Tooltip, Icon } from 'antd';
-import styles from './Sidebar.less';
+import { Avatar, Tooltip } from 'antd';
+import Icon, {
+  GithubOutlined,
+  SettingOutlined,
+  ExportOutlined
+} from '@ant-design/icons';
 import { State } from '@/store/reducer';
 import useLogin from '@/hooks/useLogin';
 import useAction from '@/hooks/useAction';
 import { noop, removeItem } from '@/utils';
 import message from '@/utils/message';
 import socket from '@/utils/socket';
+import styles from './Sidebar.less';
 
 interface BtnItem {
   /** Tooltip 提示文字 */
   title: string;
   /** 按钮图标 */
-  icon: string;
+  Icon: typeof Icon;
   /** 点击事件回调 */
   handleClick: (event: MouseEvent) => void;
   /** 是否要求登录 */
@@ -30,20 +35,20 @@ export default function Sidebar() {
   const btnGroup: BtnItem[] = [
     {
       title: 'GitHub',
-      icon: 'github',
+      Icon: GithubOutlined,
       handleClick() {
         window.open('https://github.com/Hitsuki9/fiora-v9');
       }
     },
     {
       title: '设置',
-      icon: 'setting',
+      Icon: SettingOutlined,
       handleClick: noop,
       requireLogin: true
     },
     {
       title: '退出登录',
-      icon: 'export',
+      Icon: ExportOutlined,
       handleClick() {
         actions.logout();
         removeItem('token');
@@ -73,9 +78,8 @@ export default function Sidebar() {
           }
           return (
             <Tooltip placement="right" title={item.title} key={item.title}>
-              <Icon
+              <item.Icon
                 className={classNames(styles.btnItem, 'flex-center')}
-                type={item.icon}
                 role="button"
                 onClick={item.handleClick}
               />

@@ -21,8 +21,8 @@ export default function Dialog() {
   );
   const actions = useAction();
   const [activeKey, setActiveKey] = useState('login');
-  const loginRef = useRef<any>(refInitialValue);
-  const registerRef = useRef<any>(refInitialValue);
+  const loginRef = useRef(refInitialValue);
+  const registerRef = useRef(refInitialValue);
 
   const callback = (user: SetUserPayload) => {
     actions.setUser(user);
@@ -91,7 +91,7 @@ export default function Dialog() {
           <Sign
             ref={loginRef}
             btnText="登录"
-            onSubmit={loginHandler}
+            onFinish={loginHandler}
             submitFlag={visible}
           />
         </TabPane>
@@ -100,7 +100,7 @@ export default function Dialog() {
           <Sign
             ref={registerRef}
             btnText="注册"
-            onSubmit={registerHandler}
+            onFinish={registerHandler}
             submitFlag={visible}
           />
         </TabPane>
