@@ -9,7 +9,14 @@ const routes: [string, LazyExoticComponent<() => JSX.Element>][] = [
     'flipper',
     lazy(() => import(/* webpackChunkName: "flipper" */ '@/pages/Flipper'))
   ],
-  ['burst', lazy(() => import(/* webpackChunkName: "burst" */ '@/pages/Burst'))]
+  [
+    'burst',
+    lazy(() => import(/* webpackChunkName: "burst" */ '@/pages/Burst'))
+  ],
+  [
+    'cropper',
+    lazy(() => import(/* webpackChunkName: "cropper" */ '@/pages/Cropper'))
+  ]
 ];
 
 const loading = (

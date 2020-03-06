@@ -32,7 +32,7 @@ export default function Input() {
     <p className={styles.guest}>
       游客朋友你好, 请
       <b
-        className="btn-pointer"
+        className="pointer"
         role="button"
         onClick={() => actions.setStatus('loginAndRegisterDialogVisible', true)}
         onKeyUp={noop}
@@ -54,7 +54,7 @@ export default function Input() {
         type="text"
       />
       <Icon
-        className={classNames(styles.post, 'btn-pointer')}
+        className={classNames(styles.post, 'pointer')}
         component={Post}
         onClick={noop}
       />

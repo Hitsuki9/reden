@@ -65,7 +65,7 @@ export default function Sidebar() {
       <div className={classNames(styles.avatarWrap, 'flex-h-center')}>
         {isLogin && (
           <Avatar
-            className={classNames(styles.avatar, 'btn-pointer')}
+            className={classNames(styles.avatar, 'pointer')}
             src={avatar}
             size={60}
           />

@@ -101,7 +101,7 @@ export default function Search() {
         className={classNames(
           styles.resultItem,
           'flex-v-center',
-          'btn-pointer'
+          'pointer'
         )}
         onKeyUp={noop}
         role="button"
