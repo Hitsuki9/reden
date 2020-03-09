@@ -1,7 +1,7 @@
 {
   "name": "fiora-v9",
   "version": "0.0.1",
-  "description": "",
+  "description": "💬 An interesting chat application",
   "main": "index.js",
   "scripts": {
     "client": "cross-env NODE_ENV=development webpack-dev-server --config build/webpack.dev.config.js",
@@ -92,5 +92,13 @@
     "redux-saga": "^1.1.3",
     "socket.io": "^2.3.0",
     "socket.io-client": "^2.3.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Hitsuki9/fiora-v9.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Hitsuki9/fiora-v9/issues"
+  },
+  "homepage": "https://github.com/Hitsuki9/fiora-v9#readme"
 }
