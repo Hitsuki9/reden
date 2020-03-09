@@ -2,7 +2,6 @@
   "name": "fiora-v9",
   "version": "0.0.1",
   "description": "💬 An interesting chat application",
-  "main": "index.js",
   "scripts": {
     "client": "cross-env NODE_ENV=development webpack-dev-server --config build/webpack.dev.config.js",
     "server": "cross-env NODE_ENV=development nodemon server/index.ts",
