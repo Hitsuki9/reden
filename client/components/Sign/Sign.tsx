@@ -12,7 +12,7 @@ interface SignProps {
   /** 额外的判断是否提交的参数 */
   submitFlag?: boolean;
   /** 表单实例 ref */
-  forwardedRef?: Ref<any>;
+  forwardedRef: Ref<any>;
 }
 
 function Sign(props: SignProps) {
@@ -75,7 +75,7 @@ function Sign(props: SignProps) {
   );
 }
 
-export default forwardRef((props: SignProps, ref: Ref<any>) => {
+export default forwardRef((props: Partial<SignProps>, ref: Ref<any>) => {
   const { btnText, onFinish, submitFlag } = props;
   return (
     <Sign
