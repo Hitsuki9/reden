@@ -59,12 +59,7 @@ export default function Cropper() {
           height: `${canvasDefaultSize}px`
         }}
       >
-        <canvas
-          className="pointer"
-          ref={canvasRef}
-          width={0}
-          height={0}
-        />
+        <canvas className="pointer" ref={canvasRef} width={0} height={0} />
       </div>
     </div>
   );

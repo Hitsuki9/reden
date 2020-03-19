@@ -98,11 +98,7 @@ export default function Search() {
   const renderItem = (item: Item, type: ItemType, content: JSX.Element) => (
     <li key={item._id}>
       <div
-        className={classNames(
-          styles.resultItem,
-          'flex-v-center',
-          'pointer'
-        )}
+        className={classNames(styles.resultItem, 'flex-v-center', 'pointer')}
         onKeyUp={noop}
         role="button"
         onClick={() => {

@@ -1,6 +1,6 @@
 import { Schema, model, Document } from 'mongoose';
 
-interface SocketDocument extends Document {
+export interface SocketDocument extends Document {
   /** socket id */
   id: string;
   /** socket 关联用户 id */

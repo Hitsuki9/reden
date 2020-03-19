@@ -3,7 +3,7 @@ import { Packet } from '../utils';
 import User from '../models/user';
 import Group from '../models/group';
 import Message, { MessageType } from '../models/message';
-import Socket from '../models/socket';
+import Socket, { SocketDocument } from '../models/socket';
 
 const step = 20;
 
@@ -58,7 +58,7 @@ export async function sendMessage(packet: Packet<MessageData>) {
 
   const user = await User.findOne(
     {
-      _id: packet.socket.user
+      _id: packet.socket.user as any
     },
     'username avatar tag'
   );
@@ -73,8 +73,8 @@ export async function sendMessage(packet: Packet<MessageData>) {
     };
 
     if (receiverType === 'friend') {
-      const sockets = await Socket.find({ user: to });
-      sockets.forEach((socket) =>
+      const sockets = await Socket.find({ user: to as any });
+      sockets.forEach((socket: SocketDocument) =>
         packet.socket.to(socket.id).emit('message', messageData)
       );
     } else {

@@ -40,7 +40,7 @@ function onConnection(client: Socket) {
         data,
         acknowledge: ack
       };
-      compose(packet, ...middlewares);
+      compose(packet, middlewares);
     });
   compose(
     {
@@ -48,7 +48,7 @@ function onConnection(client: Socket) {
       socket: client as EnhancedSocket,
       data: ''
     },
-    ...middlewares
+    middlewares
   );
 }
 
