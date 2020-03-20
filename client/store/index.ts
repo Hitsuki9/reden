@@ -16,6 +16,12 @@ const store = createStore(
     : applyMiddleware(sagaMiddleware)
 );
 
+store[Symbol.observable]().subscribe({
+  next(state) {
+    console.log('当前状态：', state);
+  }
+});
+
 sagaMiddleware.run(saga);
 
 export default store;
