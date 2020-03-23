@@ -72,7 +72,7 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.9.2",
-    "antd": "^4.0.3",
+    "antd": "^4.0.4",
     "bcryptjs": "^2.4.3",
     "bowser": "^2.9.0",
     "chalk": "^3.0.0",
