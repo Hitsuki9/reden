@@ -1,27 +1,24 @@
-import { createStore, applyMiddleware, compose } from 'redux';
-import createSagaMiddleware from 'redux-saga';
+import { createStore, applyMiddleware, compose, Middleware } from 'redux';
 import reducer from './reducer';
-import saga from './saga';
 
-const sagaMiddleware = createSagaMiddleware();
-const store = createStore(
-  reducer,
-  // @ts-ignore
-  window.__REDUX_DEVTOOLS_EXTENSION__
-    ? compose(
-        applyMiddleware(sagaMiddleware),
-        // @ts-ignore
-        window.__REDUX_DEVTOOLS_EXTENSION__()
-      )
-    : applyMiddleware(sagaMiddleware)
-);
+const loggerMiddleware: Middleware = () => (next) => (action) => {
+  console.log('action:', action);
+  return next(action);
+};
+
+// @ts-ignore
+const store = (window.__REDUX_DEVTOOLS_EXTENSION__
+  ? compose(
+      applyMiddleware(loggerMiddleware),
+      // @ts-ignore
+      window.__REDUX_DEVTOOLS_EXTENSION__()
+    )
+  : applyMiddleware(loggerMiddleware))(createStore)(reducer);
 
 store[Symbol.observable]().subscribe({
   next(state) {
     console.log('当前状态：', state);
   }
 });
-
-sagaMiddleware.run(saga);
 
 export default store;

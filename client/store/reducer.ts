@@ -107,7 +107,6 @@ const initialState: State = {
 };
 
 function reducer(state: State = initialState, action: Action): State {
-  console.log('action:', action);
   switch (action.type) {
     case ActionTypes.Connect: {
       return {
