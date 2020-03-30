@@ -55,7 +55,7 @@
     "eslint-plugin-react-hooks": "^3.0.0",
     "file-loader": "^6.0.0",
     "html-webpack-plugin": "^4.0.2",
-    "jest": "^25.2.3",
+    "jest": "^25.2.4",
     "less": "^3.11.1",
     "less-loader": "^5.0.0",
     "nodemon": "^2.0.2",
