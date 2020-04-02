@@ -30,7 +30,7 @@
     "@types/jsonwebtoken": "^8.3.8",
     "@types/koa": "^2.11.3",
     "@types/mongoose": "^5.7.8",
-    "@types/react": "^16.9.30",
+    "@types/react": "^16.9.31",
     "@types/react-dom": "^16.9.6",
     "@types/react-redux": "^7.1.7",
     "@types/react-router-dom": "^5.1.3",
