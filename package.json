@@ -75,7 +75,7 @@
     "antd": "^4.1.0",
     "bcryptjs": "^2.4.3",
     "bowser": "^2.9.0",
-    "chalk": "^3.0.0",
+    "chalk": "^4.0.0",
     "classnames": "^2.2.6",
     "core-js": "^3.6.4",
     "jsonwebtoken": "^8.5.1",
