@@ -93,6 +93,7 @@ export default function Dialog() {
             btnText="登录"
             onFinish={loginHandler}
             submitFlag={visible}
+            name="login"
           />
         </TabPane>
 
@@ -102,6 +103,7 @@ export default function Dialog() {
             btnText="注册"
             onFinish={registerHandler}
             submitFlag={visible}
+            name="register"
           />
         </TabPane>
       </Tabs>
