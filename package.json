@@ -71,7 +71,7 @@
     "webpack-dev-server": "^3.10.3"
   },
   "dependencies": {
-    "@ant-design/icons": "^4.0.5",
+    "@ant-design/icons": "^4.0.6",
     "@babel/runtime": "^7.9.2",
     "antd": "^4.1.1",
     "bcryptjs": "^2.4.3",
