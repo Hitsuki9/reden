@@ -60,7 +60,7 @@
     "less-loader": "^5.0.0",
     "nodemon": "^2.0.3",
     "postcss-loader": "^3.0.0",
-    "prettier": "^2.0.4",
+    "prettier": "^2.0.5",
     "style-loader": "^1.1.4",
     "ts-jest": "^25.4.0",
     "ts-node": "^8.9.0",
