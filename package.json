@@ -72,7 +72,7 @@
   },
   "dependencies": {
     "@ant-design/icons": "^4.1.0",
-    "@babel/runtime": "^7.9.2",
+    "@babel/runtime": "^7.9.6",
     "@sentry/browser": "^5.15.5",
     "antd": "^4.1.5",
     "bcryptjs": "^2.4.3",
