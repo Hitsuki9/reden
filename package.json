@@ -74,7 +74,7 @@
     "@ant-design/icons": "^4.1.0",
     "@babel/runtime": "^7.9.2",
     "@sentry/browser": "^5.15.5",
-    "antd": "^4.1.5",
+    "antd": "^4.2.0",
     "bcryptjs": "^2.4.3",
     "bowser": "^2.9.0",
     "chalk": "^4.0.0",
