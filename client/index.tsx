@@ -11,10 +11,12 @@ import './assets/styles/common.less';
 import './assets/styles/theme.less';
 import 'normalize.css';
 
-Sentry.init({
-  dsn:
-    'https://07cd1d95ceb547e08a4a94c17b83edd5@o383971.ingest.sentry.io/5214548'
-});
+if (!__DEV__) {
+  Sentry.init({
+    dsn:
+      'https://07cd1d95ceb547e08a4a94c17b83edd5@o383971.ingest.sentry.io/5214548'
+  });
+}
 
 // 设置 CSS 变量
 const { primaryColor, primaryTextColor } = getLocalData();

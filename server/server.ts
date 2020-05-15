@@ -16,6 +16,7 @@ const socket = io(server);
 enhancer(socket);
 
 app.use((ctx) => {
+  console.log(ctx.request.url);
   ctx.status = 200;
 });
 

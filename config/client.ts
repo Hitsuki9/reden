@@ -13,7 +13,7 @@ interface Theme {
 }
 
 const config: ClientConfig = {
-  server: process.env.NODE_ENV !== 'production' ? 'http://localhost:9000' : '',
+  server: __DEV__ ? 'http://localhost:9000' : '',
   theme: {
     default: {
       primaryColor: '74, 144, 226',

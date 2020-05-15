@@ -10,6 +10,9 @@ module.exports = {
     browser: true,
     node: true
   },
+  globals: {
+    __DEV__: 'readonly'
+  },
   rules: {
     'no-console': [
       1,

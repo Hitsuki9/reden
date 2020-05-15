@@ -16,6 +16,10 @@ const routes: [string, LazyExoticComponent<() => JSX.Element>][] = [
   [
     'cropper',
     lazy(() => import(/* webpackChunkName: "cropper" */ '@/pages/Cropper'))
+  ],
+  [
+    'uploader',
+    lazy(() => import(/* webpackChunkName: "uploader" */ '@/pages/Uploader'))
   ]
 ];
 
