@@ -17,7 +17,7 @@ module.exports = {
     'no-console': [
       1,
       {
-        allow: ['log', 'error']
+        allow: ['log', 'error', 'dir', 'group']
       }
     ],
     'linebreak-style': [1, 'windows'],
@@ -56,17 +56,19 @@ module.exports = {
         }
       }
     ],
-    'no-case-declarations': 0,
-    'no-confusing-arrow': 0,
-    'implicit-arrow-linebreak': 0,
-    'function-paren-newline': 0,
     'space-before-function-paren': [
       1,
       {
         named: 'ignore'
       }
     ],
+    'no-void': 0,
+    'no-case-declarations': 0,
+    'no-confusing-arrow': 0,
+    'implicit-arrow-linebreak': 0,
+    'function-paren-newline': 0,
     indent: 0,
+
     'react/jsx-filename-extension': [
       1,
       {
@@ -74,7 +76,10 @@ module.exports = {
       }
     ],
     'react/jsx-curly-newline': 0,
+    'react/prop-types': 0,
+
     'jsx-a11y/interactive-supports-focus': 0,
+
     'import/extensions': [
       1,
       {
@@ -84,6 +89,7 @@ module.exports = {
     ],
     'import/no-unresolved': 0,
     'import/prefer-default-export': 0,
+
     '@typescript-eslint/no-empty-function': [
       1,
       {

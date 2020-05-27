@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo, FC } from 'react';
 import classNames from 'classnames';
 import { Avatar } from 'antd';
 import styles from './Card.less';
@@ -12,7 +12,7 @@ interface CardProps {
   extraStyle?: Record<string, string>;
 }
 
-export default function Card(props: CardProps) {
+const Card: FC<CardProps> = (props) => {
   const { name, avatar, extraStyle } = props;
 
   return (
@@ -26,4 +26,6 @@ export default function Card(props: CardProps) {
       </div>
     </div>
   );
-}
+};
+
+export default memo(Card);

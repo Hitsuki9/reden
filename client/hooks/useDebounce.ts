@@ -10,6 +10,9 @@ export default function useDebounce<T extends (...args: any[]) => void>(
   fn: T,
   delay: number
 ) {
-  const { current: debounceFn } = useRef(debounce(fn, delay));
-  return debounceFn;
+  const debounceRef = useRef<T | null>(null);
+  if (!debounceRef.current) {
+    debounceRef.current = debounce(fn, delay);
+  }
+  return debounceRef.current;
 }

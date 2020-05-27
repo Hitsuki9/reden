@@ -66,7 +66,7 @@ export default function Flipper() {
             className={classNames(
               styles.flip,
               styles.down,
-              state.panelsState[i] ? styles.start : undefined
+              state.panelsState[i] ? styles.start : void 0
             )}
           >
             {/* 位于前面的牌 */}

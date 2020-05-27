@@ -4,7 +4,7 @@ import { EnhancedServer } from './enhancer';
 import { UserDocument } from '../models/user';
 
 export function isEnhancedServer(socket: Server): socket is EnhancedServer {
-  return (socket as EnhancedServer)._use !== undefined;
+  return (socket as EnhancedServer)._use !== void 0;
 }
 
 export function isUserDocument(

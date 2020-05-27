@@ -1,8 +1,4 @@
-import { createContext } from 'react';
-import { Item, ItemType } from '@/services';
+import { createContext, Dispatch } from 'react';
+import { noop } from '.';
 
-export const ShowUserOrGroupInfoContext = createContext(
-  {} as {
-    showInfo: (item: Item, type: ItemType) => void;
-  }
-);
+export const UserOrGroupInfoContext = createContext<Dispatch<any>>(noop);

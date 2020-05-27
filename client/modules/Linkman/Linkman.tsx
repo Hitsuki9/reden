@@ -1,9 +1,10 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import useLogin from '@/hooks/useLogin';
-import Search from '@/components/Search';
-import Card from '@/components/Card';
 import { State } from '@/store/reducer';
+import useLogin from '@/hooks/useLogin';
+import useUserInfo from '@/hooks/useUserInfo';
+import Search from './Search';
+import Card from './Card';
 import styles from './Linkman.less';
 
 const focusStyle = {
@@ -12,7 +13,7 @@ const focusStyle = {
 
 export default function Linkman() {
   const isLogin = useLogin();
-  const hasUserInfo = useSelector((state: State) => !!state.user);
+  const hasUserInfo = useUserInfo();
   const linkmans = useSelector((state: State) => state.linkmans);
   const focus = useSelector((state: State) => state.focus);
 
@@ -23,7 +24,7 @@ export default function Linkman() {
         <div>
           {Object.values(linkmans).map((item) => (
             <Card
-              extraStyle={item._id === focus ? focusStyle : undefined}
+              extraStyle={item._id === focus ? focusStyle : void 0}
               key={item._id}
               name={item.name}
               avatar={item.avatar}

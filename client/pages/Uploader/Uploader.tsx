@@ -1,4 +1,5 @@
-import React, { useRef, ChangeEvent } from 'react';
+import React, { ChangeEvent } from 'react';
+import useCache from '@/hooks/useCache';
 // import { Progress } from 'antd';
 // import SparkMD5 from 'spark-md5';
 
@@ -43,23 +44,21 @@ function createFileChunks(file: File, size = SIZE) {
  * 文件上传
  */
 export default function Uploader() {
-  const { current: changeHandler } = useRef(
-    (event: ChangeEvent<HTMLInputElement>) => {
-      const { target } = event;
-      const [file] = Array.from(target.files as FileList);
-      target.value = '';
-      const chunks = createFileChunks(file);
-      chunks
-        .map((chunk, idx) => ({ chunk, hash: `${file.name}-${idx}` }))
-        .forEach(async (item) => {
-          const res = await fetch({
-            url: `${URL}?chunk=${item.hash}`,
-            method: 'get'
-          });
-          console.log(res);
+  const [changeHandler] = useCache((event: ChangeEvent<HTMLInputElement>) => {
+    const { target } = event;
+    const [file] = Array.from(target.files as FileList);
+    target.value = '';
+    const chunks = createFileChunks(file);
+    chunks
+      .map((chunk, idx) => ({ chunk, hash: `${file.name}-${idx}` }))
+      .forEach(async (item) => {
+        const res = await fetch({
+          url: `${URL}?chunk=${item.hash}`,
+          method: 'get'
         });
-    }
-  );
+        console.log(res);
+      });
+  });
 
   return (
     <div>

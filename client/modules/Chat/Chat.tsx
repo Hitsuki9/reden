@@ -2,13 +2,14 @@ import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Drawer, Empty } from 'antd';
 import classNames from 'classnames';
+import useUserInfo from '@/hooks/useUserInfo';
 import Input from '@/components/Input';
 import { State } from '@/store/reducer';
 import Header from '@/components/Header';
 import styles from './Chat.less';
 
 export default function Chat() {
-  const hasUserInfo = useSelector((state: State) => !!state.user);
+  const hasUserInfo = useUserInfo();
   const linkman = useSelector((state: State) => state.linkmans[state.focus]);
   const [showDrawer, setShowDrawer] = useState(false);
 

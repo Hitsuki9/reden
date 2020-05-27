@@ -7,92 +7,82 @@ import React, {
 } from 'react';
 import { Popover, Tabs, Avatar, Spin } from 'antd';
 import classNames from 'classnames';
+import useDebounce from '@/hooks/useDebounce';
+import useCache from '@/hooks/useCache';
 import Loading from '@/components/Icons/Loading';
-import { debounce, bubble, noop, ShowUserOrGroupInfoContext } from '@/utils';
+import { bubble, noop, UserOrGroupInfoContext } from '@/utils';
 import { search, Item, ItemType, SearchResult, User, Group } from '@/services';
 import styles from './Search.less';
 
 const { TabPane } = Tabs;
 const noDataText = '暂无搜索结果';
 
-// 防抖的 fetch
-// 只能放在函数式组件外部，否则每次更新组件都将生成一个新的函数，起不到防抖作用
-const debouncedFetch = debounce(
-  async (value: string, cb: (res: SearchResult) => void) => {
-    const res = await search(value.trim());
-    if (res) cb(res);
-  },
-  500
-);
-
 /**
  * 搜索
  */
 export default function Search() {
-  const context = useContext(ShowUserOrGroupInfoContext);
+  const dispatch = useContext(UserOrGroupInfoContext);
   const [state, setState] = useState({
     keyword: '',
     result: { users: [], groups: [] } as SearchResult,
     loading: false
   });
   const [popoverVisible, setPopoverVisible] = useState(false);
-  // body 点击事件
-  const bodyClickHandler = (event: MouseEvent) => {
-    const { target, currentTarget } = event;
-    if ((target as HTMLElement).classList.contains(styles.innerInput)) {
-      return;
+  const debouncedFetch = useDebounce(async (value: string) => {
+    const res = await search(value.trim());
+    if (res) {
+      setState((prevState) => ({
+        ...prevState,
+        loading: false,
+        result: res
+      }));
     }
-    if (
-      !bubble(currentTarget as HTMLElement, target as HTMLElement, (inner) =>
-        inner.classList.contains(styles.resultWrap)
-      )
-    ) {
-      return;
+  }, 300);
+  // input change 事件
+  const [changeHandler] = useCache((event: ChangeEvent<HTMLInputElement>) => {
+    const { value } = event.target;
+    setState((prevState) => ({
+      ...prevState,
+      loading: true,
+      keyword: value
+    }));
+    debouncedFetch(value);
+  });
+  // input keyDown 事件
+  const [keyDownHandler] = useCache((event: KeyboardEvent) => {
+    const { keyCode, target } = event;
+    if (keyCode === 13) {
+      // 回车
+      setState((prevState) => ({
+        ...prevState,
+        loading: true
+      }));
+      debouncedFetch((target as HTMLInputElement).value);
+    } else if (keyCode === 9) {
+      // Tab
+      setPopoverVisible(false);
     }
-    setPopoverVisible(false);
-  };
+  });
   useEffect(() => {
+    const bodyClickHandler = (event: MouseEvent) => {
+      const { target, currentTarget } = event;
+      if ((target as HTMLElement).classList.contains(styles.innerInput)) {
+        return;
+      }
+      if (
+        !bubble(currentTarget as HTMLElement, target as HTMLElement, (inner) =>
+          inner.classList.contains(styles.resultWrap)
+        )
+      ) {
+        return;
+      }
+      setPopoverVisible(false);
+    };
     document.body.addEventListener('click', bodyClickHandler);
     return () => {
       document.body.removeEventListener('click', bodyClickHandler);
     };
-  });
-
-  const setPopoverContent = (res: SearchResult) => {
-    setState((nextState) => ({
-      ...nextState,
-      loading: false,
-      result: res
-    }));
-  };
-
-  // input change 事件
-  const changeHandler = (event: ChangeEvent<HTMLInputElement>) => {
-    setState({
-      ...state,
-      loading: true,
-      keyword: event.target.value
-    });
-    debouncedFetch(event.target.value, setPopoverContent);
-  };
-
-  // input keyDown 事件
-  const keyDownHandler = (event: KeyboardEvent) => {
-    if (event.keyCode === 13) {
-      // 回车
-      setState({
-        ...state,
-        loading: true
-      });
-      debouncedFetch(
-        (event.target as HTMLInputElement).value,
-        setPopoverContent
-      );
-    } else if (event.keyCode === 9) {
-      // Tab
-      setPopoverVisible(false);
-    }
-  };
+  }, []);
 
   // 渲染搜索结果列表项
   const renderItem = (item: Item, type: ItemType, content: JSX.Element) => (
@@ -103,7 +93,13 @@ export default function Search() {
         role="button"
         onClick={() => {
           setPopoverVisible(false);
-          context.showInfo(item, type);
+          dispatch({
+            type: 'SetItem',
+            payload: {
+              type,
+              item
+            }
+          });
         }}
       >
         <Avatar size={40} src={item.avatar} />

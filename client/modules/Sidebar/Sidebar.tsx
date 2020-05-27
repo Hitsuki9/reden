@@ -10,6 +10,7 @@ import Icon, {
 import { State } from '@/store/reducer';
 import useLogin from '@/hooks/useLogin';
 import useAction from '@/hooks/useAction';
+import useCache from '@/hooks/useCache';
 import { noop, removeItem } from '@/utils';
 import message from '@/utils/message';
 import socket from '@/utils/socket';
@@ -23,27 +24,28 @@ interface BtnItem {
   /** 点击事件回调 */
   handleClick: (event: MouseEvent) => void;
   /** 是否要求登录 */
-  requireLogin?: boolean;
+  requireLogin: boolean;
 }
 
 export default function Sidebar() {
   const isLogin = useLogin();
   const actions = useAction();
   const avatar = useSelector((state: State) =>
-    state.user ? state.user.avatar : undefined
+    state.user ? state.user.avatar : void 0
   );
-  const btnGroup: BtnItem[] = [
+  const [btnGroup] = useCache<BtnItem[]>([
     {
       title: 'GitHub',
       Icon: GithubOutlined,
       handleClick() {
         window.open('https://github.com/Hitsuki9/fiora-v9');
-      }
+      },
+      requireLogin: false
     },
     {
       title: '设置',
       Icon: SettingOutlined,
-      handleClick: noop,
+      handleClick: noop, // TODO
       requireLogin: true
     },
     {
@@ -58,7 +60,7 @@ export default function Sidebar() {
       },
       requireLogin: true
     }
-  ];
+  ]);
 
   return (
     <div className={styles.sidebar}>
