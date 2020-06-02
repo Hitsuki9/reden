@@ -71,7 +71,7 @@
     "webpack-dev-server": "^3.11.0"
   },
   "dependencies": {
-    "@ant-design/icons": "^4.2.0",
+    "@ant-design/icons": "^4.2.1",
     "@babel/runtime": "^7.10.1",
     "@sentry/browser": "^5.15.5",
     "antd": "^4.2.5",
