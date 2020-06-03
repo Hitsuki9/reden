@@ -11,7 +11,7 @@ import './assets/styles/common.less';
 import './assets/styles/theme.less';
 import 'normalize.css';
 
-!__DEV__ && Sentry.init({ dsn: __DSN__ });
+if (!__DEV__) Sentry.init({ dsn: __DSN__ });
 
 // 设置 CSS 变量
 const { primaryColor, primaryTextColor } = getLocalData();
