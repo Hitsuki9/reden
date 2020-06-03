@@ -22,11 +22,11 @@ app.use((ctx) => {
 
 // 中间件
 if (isEnhancedServer(socket)) {
-  socket._use(acknowledgement());
-  socket._use(logger());
-  socket._use(errorCatcher());
-  socket._use(interceptor());
-  socket._use(router(routes));
+  socket.apply(acknowledgement);
+  socket.apply(logger);
+  socket.apply(errorCatcher);
+  socket.apply(interceptor);
+  socket.apply(router(routes));
 }
 socket.on('connection', async (client) => {
   console.log(

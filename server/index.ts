@@ -4,10 +4,12 @@ import server from './server';
 import Socket from './models/socket';
 import config from '../config/server';
 
+const { dbuser, dbpassword, port, host } = config;
+
 (async () => {
   try {
     await mongoose.connect(
-      `mongodb://${config.dbuser}:${config.dbpassword}@ds053937.mlab.com:53937/fiora`,
+      `mongodb://${dbuser}:${dbpassword}@ds053937.mlab.com:53937/fiora`,
       {
         useNewUrlParser: true,
         useUnifiedTopology: true,
@@ -15,12 +17,12 @@ import config from '../config/server';
       }
     );
     console.log(chalk.green('connect database success!'));
-    server.listen(9000, async () => {
+    server.listen(port, () => {
       // 重启服务时删除所有 socket 连接记录
-      await Socket.deleteMany({});
       console.log(
-        `server listen on ${chalk.blue.underline('http://localhost:9000')}`
+        `server listen on ${chalk.blue.underline(`${host}:${port}`)}`
       );
+      Socket.deleteMany({});
     });
   } catch (err) {
     console.error(chalk.red('connect database error!'));

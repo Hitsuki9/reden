@@ -85,7 +85,10 @@ module.exports = {
       template: 'public/index.html'
     }),
     new webpack.DefinePlugin({
-      __DEV__: "process.env.NODE_ENV !== 'production'"
+      __DEV__: "process.env.NODE_ENV !== 'production'",
+      __DSN__: JSON.stringify(
+        'https://07cd1d95ceb547e08a4a94c17b83edd5@o383971.ingest.sentry.io/5214548'
+      )
     })
   ]
 };

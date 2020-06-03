@@ -5,11 +5,11 @@ import { compose } from './compose';
 const middlewares: Function[] = [];
 
 export interface EnhancedServer extends Server {
-  _use: (fn: Function) => void;
+  apply: (fn: Function) => void;
 }
 
 export interface EnhancedSocket extends Socket {
-  _on: (event: string) => Socket;
+  subscribe: (event: string) => Socket;
   /** socket 关联用户 id */
   user?: Schema.Types.ObjectId;
 }
@@ -32,7 +32,7 @@ export interface Packet<T = string> {
  * @param client 客户端连接实例
  */
 function onConnection(client: Socket) {
-  (client as EnhancedSocket)._on = (event) =>
+  (client as EnhancedSocket).subscribe = (event) =>
     client.on(event, (data, ack) => {
       const packet: Packet = {
         event,
@@ -58,7 +58,7 @@ function onConnection(client: Socket) {
  */
 export function enhancer(socket: Server) {
   socket.on('connection', onConnection);
-  (socket as EnhancedServer)._use = (fn) => {
+  (socket as EnhancedServer).apply = (fn) => {
     middlewares.push(fn);
   };
 }

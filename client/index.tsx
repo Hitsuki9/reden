@@ -13,8 +13,7 @@ import 'normalize.css';
 
 if (!__DEV__) {
   Sentry.init({
-    dsn:
-      'https://07cd1d95ceb547e08a4a94c17b83edd5@o383971.ingest.sentry.io/5214548'
+    dsn: __DSN__
   });
 }
 
