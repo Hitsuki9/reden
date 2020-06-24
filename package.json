@@ -81,7 +81,7 @@
     "classnames": "^2.2.6",
     "core-js": "^3.6.5",
     "jsonwebtoken": "^8.5.1",
-    "koa": "^2.12.1",
+    "koa": "^2.13.0",
     "mongoose": "^5.9.20",
     "normalize.css": "^8.0.1",
     "react": "^16.13.1",
