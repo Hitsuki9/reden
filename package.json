@@ -1,14 +1,14 @@
 {
-  "name": "fiora-v9",
+  "name": "fiora",
   "version": "0.0.1",
   "description": "💬 An interesting chat application",
   "scripts": {
     "client": "cross-env NODE_ENV=development webpack-dev-server --config build/webpack.dev.config.js",
     "server": "cross-env NODE_ENV=development nodemon server/index.ts",
     "start": "concurrently \"npm:server\" \"npm:client\"",
-    "build": "cross-env NODE_ENV=production webpack --config build/webpack.dev.config.js",
+    "build": "webpack --config build/webpack.dev.config.js",
     "lint": "prettier --write \"./**/*.{js,ts,tsx,less,json,md}\" & eslint \"./{client,server}/**/*.{ts,tsx}\"",
-    "test": "jest --passWithNoTests"
+    "test": "jest"
   },
   "keywords": [
     "fiora",
@@ -97,10 +97,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Hitsuki9/fiora-v9.git"
+    "url": "git+https://github.com/Hitsuki9/fiora.git"
   },
   "bugs": {
-    "url": "https://github.com/Hitsuki9/fiora-v9/issues"
+    "url": "https://github.com/Hitsuki9/fiora/issues"
   },
-  "homepage": "https://github.com/Hitsuki9/fiora-v9#readme"
+  "homepage": "https://github.com/Hitsuki9/fiora#readme"
 }

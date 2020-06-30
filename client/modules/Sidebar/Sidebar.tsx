@@ -38,7 +38,7 @@ export default function Sidebar() {
       title: 'GitHub',
       Icon: GithubOutlined,
       handleClick() {
-        window.open('https://github.com/Hitsuki9/fiora-v9');
+        window.open('https://github.com/Hitsuki9/fiora');
       },
       requireLogin: false
     },
