@@ -1,9 +1,9 @@
 import React from 'react';
-import styles from './Burst.less';
+import style from './Burst.less';
 
 export default function Burst() {
   return (
-    <button type="button" className={styles.burst}>
+    <button type="button" className={style.burst}>
       Burst
     </button>
   );

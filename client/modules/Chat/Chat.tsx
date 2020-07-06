@@ -7,7 +7,7 @@ import Input from '@/components/Input';
 import { State } from '@/store/reducer';
 import Header from '@/components/Header';
 import CommonClass from '@style/constant';
-import styles from './Chat.less';
+import style from './Chat.less';
 
 export default function Chat() {
   const hasUserInfo = useUserInfo();
@@ -19,7 +19,7 @@ export default function Chat() {
   };
 
   return (
-    <div className={styles.chat}>
+    <div className={style.chat}>
       <Drawer
         title="群组信息"
         placement="right"
@@ -39,12 +39,12 @@ export default function Chat() {
               clickHandler={clickHandle}
             />
           )}
-          <div className={styles.chatPanel}>
+          <div className={style.chatPanel}>
             {linkman ? (
               '历史消息'
             ) : (
               <div
-                className={classNames(styles.emptyWrap, CommonClass.FlexCenter)}
+                className={classNames(style.emptyWrap, CommonClass.FlexCenter)}
               >
                 <Empty description="先加个好友或者群组才能聊天哦~" />
               </div>

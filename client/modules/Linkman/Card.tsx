@@ -2,7 +2,7 @@ import React, { memo, FC } from 'react';
 import classNames from 'classnames';
 import { Avatar } from 'antd';
 import CommonClass from '@style/constant';
-import styles from './Card.less';
+import style from './Card.less';
 
 interface CardProps {
   /** 联系人名称 */
@@ -19,10 +19,10 @@ const Card: FC<CardProps> = (props) => {
   return (
     <div
       style={extraStyle}
-      className={classNames(styles.card, CommonClass.FlexVCenter)}
+      className={classNames(style.card, CommonClass.FlexVCenter)}
     >
       <Avatar src={avatar} size={48} />
-      <div className={styles.content}>
+      <div className={style.content}>
         <span>{name}</span>
       </div>
     </div>

@@ -9,7 +9,7 @@ import Post from '@/components/Icons/Post';
 import { State } from '@/store/reducer';
 import { sendMessage } from '@/services';
 import CommonClass from '@style/constant';
-import styles from './Input.less';
+import style from './Input.less';
 
 export default function Input() {
   const isLogin = useLogin();
@@ -30,7 +30,7 @@ export default function Input() {
   // function sendImageMessage() {}
 
   const guestJSX = (
-    <p className={styles.guest}>
+    <p className={style.guest}>
       游客朋友你好, 请
       <b
         className={CommonClass.Pointer}
@@ -45,17 +45,17 @@ export default function Input() {
   );
 
   const loginJSX = (
-    <div className={styles.inputWrap}>
+    <div className={style.inputWrap}>
       <input
         placeholder="随便聊点啥吧~"
-        className={classNames(styles.innerInput, CommonClass.InnerInput)}
+        className={classNames(style.innerInput, CommonClass.InnerInput)}
         value={content}
         onKeyDown={keyDownHandler}
         onChange={(event) => setContent(event.target.value)}
         type="text"
       />
       <Icon
-        className={classNames(styles.post, CommonClass.Pointer)}
+        className={classNames(style.post, CommonClass.Pointer)}
         component={Post}
         onClick={noop}
       />
@@ -63,7 +63,7 @@ export default function Input() {
   );
 
   return (
-    <div className={classNames(styles.input, CommonClass.FlexCenter)}>
+    <div className={classNames(style.input, CommonClass.FlexCenter)}>
       {isLogin ? loginJSX : guestJSX}
     </div>
   );

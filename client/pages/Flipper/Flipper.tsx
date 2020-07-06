@@ -1,7 +1,7 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import classNames from 'classnames';
 import { formatDate } from '@/utils';
-import styles from './Flipper.less';
+import style from './Flipper.less';
 
 const panelNums = 6; // 牌数
 const flipDuration = 500; // 翻牌动画持续时间
@@ -64,30 +64,30 @@ export default function Flipper() {
         <Fragment key={i}>
           <div
             className={classNames(
-              styles.flip,
-              styles.down,
-              state.panelsState[i] ? styles.start : void 0
+              style.flip,
+              style.down,
+              state.panelsState[i] ? style.start : void 0
             )}
           >
             {/* 位于前面的牌 */}
             <div
               className={classNames(
-                styles.digital,
-                styles.front,
-                styles[`num${curTime[i]}`]
+                style.digital,
+                style.front,
+                style[`num${curTime[i]}`]
               )}
             />
             {/* 位于后面的牌 */}
             <div
               className={classNames(
-                styles.digital,
-                styles.back,
-                styles[`num${nextTime[i]}`]
+                style.digital,
+                style.back,
+                style[`num${nextTime[i]}`]
               )}
             />
           </div>
           {i % 2 === 1 && i !== n - 1 && (
-            <span className={styles.split}>:</span>
+            <span className={style.split}>:</span>
           )}
         </Fragment>
       );
@@ -95,5 +95,5 @@ export default function Flipper() {
     return panels;
   };
 
-  return <div className={styles.clock}>{renderPanels()}</div>;
+  return <div className={style.clock}>{renderPanels()}</div>;
 }

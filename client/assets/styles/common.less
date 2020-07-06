@@ -1,60 +1,58 @@
+@font-face {
+  font-family: Dosis;
+  src: url('~@/assets/fonts/Dosis-Bold-5.ttf');
+}
+
+@font-face {
+  font-family: ZiTiQuanXinYiGuanHeiTi;
+  src: url('~@/assets/fonts/ZiTiQuanXinYiGuanHeiTi2.0-2.ttf');
+}
+
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-}
-
-p {
-  margin: 0;
+  font-family: Dosis, ZiTiQuanXinYiGuanHeiTi;
 }
 
 li {
   list-style: none;
 }
 
-.flex-center {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.flex-v-center {
-  display: flex;
-  align-items: center;
-}
-
-.flex-h-center {
-  display: flex;
-  justify-content: center;
-}
-
-.pointer {
-  cursor: pointer;
-}
-
-.ant-tooltip {
-  user-select: none;
-}
-
-.iconfont {
-  color: var(--primary-color-10);
-  &:hover {
-    color: var(--primary-color-8);
+:global {
+  .flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
-}
 
-.inner-input {
-  padding: 3px 0;
-  border: none;
-  &:focus {
-    outline: none;
+  .flex-v-center {
+    display: flex;
+    align-items: center;
+  }
+
+  .flex-h-center {
+    display: flex;
+    justify-content: center;
+  }
+
+  .pointer {
+    cursor: pointer;
+  }
+
+  .ant-tooltip {
+    user-select: none;
+  }
+
+  .iconfont {
+    color: var(--primary-color-10);
+    &:hover {
+      color: var(--primary-color-8);
+    }
+  }
+
+  .inner-input {
+    padding: 3px 0;
+    border: none;
+    &:focus {
+      outline: none;
+    }
   }
 }

@@ -9,7 +9,7 @@ import Dialog from './modules/Dialog';
 import Linkman from './modules/Linkman';
 import Info from './modules/Info';
 import { Item, ItemType } from './services';
-import styles from './App.less';
+import style from './App.less';
 
 type State = {
   item: Item;
@@ -57,9 +57,9 @@ function App() {
   });
 
   return (
-    <div className={classNames(styles.app, CommonClass.FlexCenter)}>
-      <div className={styles.blur} />
-      <div className={styles.container}>
+    <div className={classNames(style.app, CommonClass.FlexCenter)}>
+      <div className={style.blur} />
+      <div className={style.container}>
         <UserOrGroupInfoContext.Provider value={dispatch}>
           <Sidebar />
           <Linkman />

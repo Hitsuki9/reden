@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import { noop } from '@/utils';
 import useLogin from '@/hooks/useLogin';
 import CommonClass from '@style/constant';
-import styles from './Header.less';
+import style from './Header.less';
 
 interface HeaderProps {
   /** 联系人名称 */
@@ -24,8 +24,8 @@ export default function Header(props: HeaderProps) {
   const isLogin = useLogin();
 
   return (
-    <div className={classNames(styles.header, CommonClass.FlexVCenter)}>
-      <h2 className={styles.name}>{name}</h2>
+    <div className={classNames(style.header, CommonClass.FlexVCenter)}>
+      <h2 className={style.name}>{name}</h2>
       {isLogin && type === 'group' && (
         <TeamOutlined
           className={CommonClass.Iconfont}

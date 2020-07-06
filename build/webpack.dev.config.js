@@ -49,23 +49,25 @@ module.exports = {
           },
           'postcss-loader',
           'less-loader'
-        ],
-        exclude: path.resolve(__dirname, '../client/assets/styles')
-      },
-      {
-        test: /\.less$/,
-        use: ['style-loader', 'css-loader', 'postcss-loader', 'less-loader'],
-        include: path.resolve(__dirname, '../client/assets/styles')
+        ]
       },
       {
         test: /\.css$/,
         use: ['style-loader', 'css-loader', 'postcss-loader']
       },
       {
-        test: /\.(png|jpe?g)(\?.*)?$/,
+        test: /\.(png|jpe?g)$/,
         loader: 'url-loader',
         query: {
           limit: 4000,
+          name: '[name].[hash:8].[ext]'
+        }
+      },
+      {
+        test: /\.ttf$/,
+        loader: 'url-loader',
+        query: {
+          limit: 5000,
           name: '[name].[hash:8].[ext]'
         }
       }

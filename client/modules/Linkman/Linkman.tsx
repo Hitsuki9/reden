@@ -5,7 +5,7 @@ import useLogin from '@/hooks/useLogin';
 import useUserInfo from '@/hooks/useUserInfo';
 import Search from './Search';
 import Card from './Card';
-import styles from './Linkman.less';
+import style from './Linkman.less';
 
 const focusStyle = {
   background: 'var(--primary-color-3)'
@@ -18,7 +18,7 @@ export default function Linkman() {
   const focus = useSelector((state: State) => state.focus);
 
   return (
-    <div className={styles.linkman}>
+    <div className={style.linkman}>
       {isLogin && <Search />}
       {hasUserInfo && (
         <div>

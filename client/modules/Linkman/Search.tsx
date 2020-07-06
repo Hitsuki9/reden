@@ -13,7 +13,7 @@ import Loading from '@/components/Icons/Loading';
 import { bubble, noop, UserOrGroupInfoContext } from '@/utils';
 import { search, Item, ItemType, SearchResult, User, Group } from '@/services';
 import CommonClass from '@style/constant';
-import styles from './Search.less';
+import style from './Search.less';
 
 const { TabPane } = Tabs;
 const noDataText = '暂无搜索结果';
@@ -67,12 +67,12 @@ export default function Search() {
   useEffect(() => {
     const bodyClickHandler = (event: MouseEvent) => {
       const { target, currentTarget } = event;
-      if ((target as HTMLElement).classList.contains(styles.innerInput)) {
+      if ((target as HTMLElement).classList.contains(style.innerInput)) {
         return;
       }
       if (
         !bubble(currentTarget as HTMLElement, target as HTMLElement, (inner) =>
-          inner.classList.contains(styles.resultWrap)
+          inner.classList.contains(style.resultWrap)
         )
       ) {
         return;
@@ -90,7 +90,7 @@ export default function Search() {
     <li key={item._id}>
       <div
         className={classNames(
-          styles.resultItem,
+          style.resultItem,
           CommonClass.FlexVCenter,
           CommonClass.Pointer
         )}
@@ -154,18 +154,18 @@ export default function Search() {
   );
 
   return (
-    <div className={classNames(styles.search, CommonClass.FlexVCenter)}>
+    <div className={classNames(style.search, CommonClass.FlexVCenter)}>
       <Popover
-        overlayClassName={styles.resultWrap}
+        overlayClassName={style.resultWrap}
         visible={popoverVisible}
         overlayStyle={{ width: '220px' }}
         placement="bottomLeft"
         content={content}
       >
-        <div className={styles.inputWrap}>
+        <div className={style.inputWrap}>
           <input
             placeholder="搜索用户/群组"
-            className={classNames(styles.innerInput, CommonClass.InnerInput)}
+            className={classNames(style.innerInput, CommonClass.InnerInput)}
             value={state.keyword}
             onChange={changeHandler}
             onKeyDown={keyDownHandler}

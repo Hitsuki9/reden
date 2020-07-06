@@ -7,7 +7,7 @@ import { SetUserPayload } from '@/store/action';
 import useAction from '@/hooks/useAction';
 import { setValue, noop, platform } from '@/utils';
 import { register, login } from '@/services';
-import styles from './Dialog.less';
+import style from './Dialog.less';
 
 const { TabPane } = Tabs;
 const refInitialValue = { resetFields: noop };
@@ -74,7 +74,7 @@ export default function Dialog() {
 
   return (
     <Modal
-      className={styles.dialog}
+      className={style.dialog}
       width="400px"
       title=""
       visible={visible}

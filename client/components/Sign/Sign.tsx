@@ -2,7 +2,7 @@ import React, { useState, forwardRef, Ref } from 'react';
 import { Form, Input, Button } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import { noop } from '@/utils';
-import styles from './Sign.less';
+import style from './Sign.less';
 
 interface SignProps {
   /** 按钮文案 */
@@ -66,7 +66,7 @@ function Sign(props: SignProps) {
 
       <Form.Item>
         <Button
-          className={styles.dialogBtn}
+          className={style.dialogBtn}
           type="primary"
           htmlType="submit"
           loading={loading}
