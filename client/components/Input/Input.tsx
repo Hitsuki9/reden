@@ -8,6 +8,7 @@ import { noop } from '@/utils';
 import Post from '@/components/Icons/Post';
 import { State } from '@/store/reducer';
 import { sendMessage } from '@/services';
+import CommonClass from '@style/constant';
 import styles from './Input.less';
 
 export default function Input() {
@@ -32,7 +33,7 @@ export default function Input() {
     <p className={styles.guest}>
       游客朋友你好, 请
       <b
-        className="pointer"
+        className={CommonClass.Pointer}
         role="button"
         onClick={() => actions.setStatus('loginAndRegisterDialogVisible', true)}
         onKeyUp={noop}
@@ -47,14 +48,14 @@ export default function Input() {
     <div className={styles.inputWrap}>
       <input
         placeholder="随便聊点啥吧~"
-        className={classNames(styles.innerInput, 'inner-input')}
+        className={classNames(styles.innerInput, CommonClass.InnerInput)}
         value={content}
         onKeyDown={keyDownHandler}
         onChange={(event) => setContent(event.target.value)}
         type="text"
       />
       <Icon
-        className={classNames(styles.post, 'pointer')}
+        className={classNames(styles.post, CommonClass.Pointer)}
         component={Post}
         onClick={noop}
       />
@@ -62,7 +63,7 @@ export default function Input() {
   );
 
   return (
-    <div className={classNames(styles.input, 'flex-center')}>
+    <div className={classNames(styles.input, CommonClass.FlexCenter)}>
       {isLogin ? loginJSX : guestJSX}
     </div>
   );

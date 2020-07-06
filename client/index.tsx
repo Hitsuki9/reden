@@ -7,8 +7,8 @@ import store from './store';
 import Routes from './Routes';
 import { getLocalData, setCssVariable } from './utils';
 import './index.less';
-import './assets/styles/common.less';
-import './assets/styles/theme.less';
+import '@style/common.less';
+import '@style/theme.less';
 import 'normalize.css';
 
 if (!__DEV__) Sentry.init({ dsn: __DSN__ });

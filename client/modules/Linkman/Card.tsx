@@ -1,6 +1,7 @@
 import React, { memo, FC } from 'react';
 import classNames from 'classnames';
 import { Avatar } from 'antd';
+import CommonClass from '@style/constant';
 import styles from './Card.less';
 
 interface CardProps {
@@ -18,7 +19,7 @@ const Card: FC<CardProps> = (props) => {
   return (
     <div
       style={extraStyle}
-      className={classNames(styles.card, 'flex-v-center')}
+      className={classNames(styles.card, CommonClass.FlexVCenter)}
     >
       <Avatar src={avatar} size={48} />
       <div className={styles.content}>

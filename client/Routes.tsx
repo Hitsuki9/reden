@@ -2,6 +2,7 @@ import React, { lazy, Suspense, LazyExoticComponent } from 'react';
 import { Switch, Route, useHistory } from 'react-router-dom';
 import { Button } from 'antd';
 import Loading from '@/components/Icons/Loading';
+import CommonClass from '@style/constant';
 
 const App = lazy(() => import(/* webpackChunkName: "main" */ '@/App'));
 const routes: [string, LazyExoticComponent<() => JSX.Element>][] = [
@@ -24,7 +25,7 @@ const routes: [string, LazyExoticComponent<() => JSX.Element>][] = [
 ];
 
 const loading = (
-  <div style={{ height: '100vh' }} className="flex-center">
+  <div style={{ height: '100vh' }} className={CommonClass.FlexCenter}>
     <Loading />
   </div>
 );
@@ -38,7 +39,7 @@ export default function Routes() {
         const [path, RouteChild] = route;
         return (
           <Route key={path} exact path={`/${path}`}>
-            <div className="flex-center" style={{ height: '100vh' }}>
+            <div className={CommonClass.FlexCenter} style={{ height: '100vh' }}>
               <Button type="primary" onClick={() => history.push('/')}>
                 Home
               </Button>

@@ -1,6 +1,7 @@
 import { hot } from 'react-hot-loader/root';
 import React, { useReducer } from 'react';
 import classNames from 'classnames';
+import CommonClass from '@style/constant';
 import { UserOrGroupInfoContext } from './utils';
 import Sidebar from './modules/Sidebar';
 import Chat from './modules/Chat';
@@ -56,7 +57,7 @@ function App() {
   });
 
   return (
-    <div className={classNames(styles.app, 'flex-center')}>
+    <div className={classNames(styles.app, CommonClass.FlexCenter)}>
       <div className={styles.blur} />
       <div className={styles.container}>
         <UserOrGroupInfoContext.Provider value={dispatch}>

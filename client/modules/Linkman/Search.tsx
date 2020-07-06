@@ -12,6 +12,7 @@ import useCache from '@/hooks/useCache';
 import Loading from '@/components/Icons/Loading';
 import { bubble, noop, UserOrGroupInfoContext } from '@/utils';
 import { search, Item, ItemType, SearchResult, User, Group } from '@/services';
+import CommonClass from '@style/constant';
 import styles from './Search.less';
 
 const { TabPane } = Tabs;
@@ -88,7 +89,11 @@ export default function Search() {
   const renderItem = (item: Item, type: ItemType, content: JSX.Element) => (
     <li key={item._id}>
       <div
-        className={classNames(styles.resultItem, 'flex-v-center', 'pointer')}
+        className={classNames(
+          styles.resultItem,
+          CommonClass.FlexVCenter,
+          CommonClass.Pointer
+        )}
         onKeyUp={noop}
         role="button"
         onClick={() => {
@@ -149,7 +154,7 @@ export default function Search() {
   );
 
   return (
-    <div className={classNames(styles.search, 'flex-v-center')}>
+    <div className={classNames(styles.search, CommonClass.FlexVCenter)}>
       <Popover
         overlayClassName={styles.resultWrap}
         visible={popoverVisible}
@@ -160,7 +165,7 @@ export default function Search() {
         <div className={styles.inputWrap}>
           <input
             placeholder="搜索用户/群组"
-            className={classNames(styles.innerInput, 'inner-input')}
+            className={classNames(styles.innerInput, CommonClass.InnerInput)}
             value={state.keyword}
             onChange={changeHandler}
             onKeyDown={keyDownHandler}

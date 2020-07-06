@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import { Modal, Avatar, Button } from 'antd';
 import { addFriend, ItemType, Item, joinGroup } from '@/services';
 import useAction from '@/hooks/useAction';
+import CommonClass from '@style/constant';
 
 interface InfoProps {
   /** 展示信息类型 */
@@ -46,7 +47,7 @@ export default function Info(props: InfoProps) {
 
   return (
     <Modal onCancel={onClose} closable={false} visible={visible} footer={null}>
-      <div className={classNames('flex-v-center')}>
+      <div className={classNames(CommonClass.FlexVCenter)}>
         <Avatar size={60} src={payload.avatar} />
         <Button
           type="primary"

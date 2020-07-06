@@ -14,6 +14,7 @@ import useCache from '@/hooks/useCache';
 import { noop, removeItem } from '@/utils';
 import message from '@/utils/message';
 import socket from '@/utils/socket';
+import CommonClass from '@style/constant';
 import styles from './Sidebar.less';
 
 interface BtnItem {
@@ -64,16 +65,16 @@ export default function Sidebar() {
 
   return (
     <div className={styles.sidebar}>
-      <div className={classNames(styles.avatarWrap, 'flex-h-center')}>
+      <div className={classNames(styles.avatarWrap, CommonClass.FlexHCenter)}>
         {isLogin && (
           <Avatar
-            className={classNames(styles.avatar, 'pointer')}
+            className={classNames(styles.avatar, CommonClass.Pointer)}
             src={avatar}
             size={60}
           />
         )}
       </div>
-      <div className={classNames(styles.btnGroupWrap, 'flex-v-center')}>
+      <div className={classNames(styles.btnGroupWrap, CommonClass.FlexVCenter)}>
         {btnGroup.map((item) => {
           if (!isLogin && item.requireLogin) {
             return null;
@@ -81,7 +82,7 @@ export default function Sidebar() {
           return (
             <Tooltip placement="right" title={item.title} key={item.title}>
               <item.Icon
-                className={classNames(styles.btnItem, 'flex-center')}
+                className={classNames(styles.btnItem, CommonClass.FlexCenter)}
                 role="button"
                 onClick={item.handleClick}
               />

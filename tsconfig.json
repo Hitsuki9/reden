@@ -14,7 +14,8 @@
     "jsx": "react",
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./client/*"]
+      "@/*": ["./client/*"],
+      "@style/*": ["./client/assets/styles/*"]
     },
     "module": "commonjs"
   },

@@ -1,5 +1,6 @@
 import React, { ChangeEvent, useRef } from 'react';
 import classNames from 'classnames';
+import CommonClass from '@style/constant';
 import styles from './Cropper.less';
 
 const canvasDefaultSize = 300;
@@ -53,13 +54,18 @@ export default function Cropper() {
     <div>
       <input multiple onChange={changeHandler} type="file" accept="image/*" />
       <div
-        className={classNames(styles.container, 'flex-center')}
+        className={classNames(styles.container, CommonClass.FlexCenter)}
         style={{
           width: `${canvasDefaultSize}px`,
           height: `${canvasDefaultSize}px`
         }}
       >
-        <canvas className="pointer" ref={canvasRef} width={0} height={0} />
+        <canvas
+          className={CommonClass.Pointer}
+          ref={canvasRef}
+          width={0}
+          height={0}
+        />
       </div>
     </div>
   );

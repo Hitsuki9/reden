@@ -3,6 +3,7 @@ import { TeamOutlined } from '@ant-design/icons';
 import classNames from 'classnames';
 import { noop } from '@/utils';
 import useLogin from '@/hooks/useLogin';
+import CommonClass from '@style/constant';
 import styles from './Header.less';
 
 interface HeaderProps {
@@ -23,11 +24,11 @@ export default function Header(props: HeaderProps) {
   const isLogin = useLogin();
 
   return (
-    <div className={classNames(styles.header, 'flex-v-center')}>
+    <div className={classNames(styles.header, CommonClass.FlexVCenter)}>
       <h2 className={styles.name}>{name}</h2>
       {isLogin && type === 'group' && (
         <TeamOutlined
-          className="iconfont"
+          className={CommonClass.Iconfont}
           style={iconStyle}
           role="button"
           onClick={clickHandler}

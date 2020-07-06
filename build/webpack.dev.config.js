@@ -13,7 +13,8 @@ module.exports = {
   },
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, '../client')
+      '@': path.resolve(__dirname, '../client'),
+      '@style': path.resolve(__dirname, '../client/assets/styles')
     },
     modules: ['node_modules'],
     extensions: ['.js', '.tsx', '.ts']
