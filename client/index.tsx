@@ -6,7 +6,6 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import store from './store';
 import Routes from './Routes';
 import { getLocalData, setCssVariable } from './utils';
-import './index.less';
 import '@style/common.less';
 import '@style/theme.less';
 import 'normalize.css';
