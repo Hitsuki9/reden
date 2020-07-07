@@ -1,6 +1,6 @@
 import Bowser from 'bowser';
 
-const UA = window.navigator.userAgent;
+const UA = navigator.userAgent;
 const parser = Bowser.getParser(UA);
 const browser = parser.getBrowser();
 const os = parser.getOS();

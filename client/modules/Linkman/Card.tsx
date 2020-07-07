@@ -21,7 +21,7 @@ const Card: FC<CardProps> = (props) => {
       style={extraStyle}
       className={classNames(style.card, CommonClass.FlexVCenter)}
     >
-      <Avatar src={avatar} size={48} />
+      <Avatar className={CommonClass.Unselectable} src={avatar} size={48} />
       <div className={style.content}>
         <span>{name}</span>
       </div>

@@ -21,8 +21,8 @@ export enum ActionTypes {
   UpdateHistoryMessages = 'UpdateHistoryMessages'
 }
 
-export interface Action<T = { [key: string]: any }> {
-  type: ActionTypes;
+export interface Action<T = Record<string, any>, U = ActionTypes> {
+  type: U;
   payload: T;
 }
 

@@ -9,6 +9,7 @@ import { Popover, Tabs, Avatar, Spin } from 'antd';
 import classNames from 'classnames';
 import useDebounce from '@/hooks/useDebounce';
 import useCache from '@/hooks/useCache';
+import Input from '@/components/Input';
 import Loading from '@/components/Icons/Loading';
 import { bubble, noop, UserOrGroupInfoContext } from '@/utils';
 import { search, Item, ItemType, SearchResult, User, Group } from '@/services';
@@ -162,7 +163,15 @@ export default function Search() {
         placement="bottomLeft"
         content={content}
       >
-        <div className={style.inputWrap}>
+        <Input
+          placeholder="搜索用户/群组"
+          content={state.keyword}
+          onChange={changeHandler}
+          onKeyDown={keyDownHandler}
+          onFocus={() => setPopoverVisible(true)}
+        />
+      </Popover>
+      {/* <div className={style.inputWrap}>
           <input
             placeholder="搜索用户/群组"
             className={classNames(style.innerInput, CommonClass.InnerInput)}
@@ -172,8 +181,7 @@ export default function Search() {
             onFocus={() => setPopoverVisible(true)}
             type="text"
           />
-        </div>
-      </Popover>
+        </div> */}
       <span>＋</span>
     </div>
   );

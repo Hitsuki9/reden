@@ -77,6 +77,7 @@ module.exports = {
       }
     ],
     'react/jsx-curly-newline': 0,
+    'react/jsx-wrap-multilines': [1, { prop: 'ignore' }],
     'react/prop-types': 0,
 
     'jsx-a11y/interactive-supports-focus': 0,

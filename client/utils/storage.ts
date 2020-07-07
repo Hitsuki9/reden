@@ -19,7 +19,7 @@ export enum LocalStorageKeys {
  * @param value 值
  */
 export function setValue(key: string, value: string) {
-  window.localStorage.setItem(key, value);
+  localStorage.setItem(key, value);
 }
 
 /**
@@ -28,7 +28,7 @@ export function setValue(key: string, value: string) {
  * @param defaultValue 默认值
  */
 export function getValue(key: string, defaultValue = 'default') {
-  const value = window.localStorage.getItem(key);
+  const value = localStorage.getItem(key);
   return value || defaultValue;
 }
 
@@ -37,7 +37,7 @@ export function getValue(key: string, defaultValue = 'default') {
  * @param key 键值
  */
 export function removeItem(key: string) {
-  window.localStorage.removeItem(key);
+  localStorage.removeItem(key);
 }
 
 /**

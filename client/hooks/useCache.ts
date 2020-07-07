@@ -5,7 +5,12 @@ import { useRef } from 'react';
  * @param value 缓存值
  * @param useSetter 是否使用 setter
  */
-export default function useCache<T extends any>(
+function useCache<T extends any>(value: T, useSetter?: false): [T, undefined];
+function useCache<T extends any>(
+  value: T,
+  useSetter: true
+): [T, (newValue: T) => void];
+function useCache<T extends any>(
   value: T,
   useSetter = false
 ): [T, ((newValue: T) => void) | undefined] {
@@ -17,3 +22,5 @@ export default function useCache<T extends any>(
     : void 0;
   return [ref.current, setter];
 }
+
+export default useCache;

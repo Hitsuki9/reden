@@ -5,7 +5,8 @@ enum CommonClass {
 
   Pointer = 'pointer',
   InnerInput = 'inner-input',
-  Iconfont = 'iconfont'
+  Iconfont = 'iconfont',
+  Unselectable = 'unselectable'
 }
 
 export default CommonClass;

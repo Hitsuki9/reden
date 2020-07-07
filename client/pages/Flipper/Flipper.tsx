@@ -86,9 +86,7 @@ export default function Flipper() {
               )}
             />
           </div>
-          {i % 2 === 1 && i !== n - 1 && (
-            <span className={style.split}>:</span>
-          )}
+          {i % 2 === 1 && i !== n - 1 && <span className={style.split}>:</span>}
         </Fragment>
       );
     }

@@ -3,6 +3,7 @@ import React, { useReducer } from 'react';
 import classNames from 'classnames';
 import CommonClass from '@style/constant';
 import { UserOrGroupInfoContext } from './utils';
+import { Action } from './store/action';
 import Sidebar from './modules/Sidebar';
 import Chat from './modules/Chat';
 import Dialog from './modules/Dialog';
@@ -11,23 +12,21 @@ import Info from './modules/Info';
 import { Item, ItemType } from './services';
 import style from './App.less';
 
-type State = {
+interface State {
   item: Item;
   visible: boolean;
   type: ItemType;
-};
+}
 
 enum ActionTypes {
   SetVisible = 'SetVisible',
   SetItem = 'SetItem'
 }
 
-type Action<T = { [key: string]: any }> = {
-  type: ActionTypes;
-  payload: T;
-};
-
-function reducer(state: State, action: Action) {
+function reducer(
+  state: State,
+  action: Action<Record<string, any>, ActionTypes>
+) {
   switch (action.type) {
     case ActionTypes.SetVisible:
       const { visible } = action.payload;

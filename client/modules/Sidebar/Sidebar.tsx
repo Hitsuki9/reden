@@ -65,15 +65,21 @@ export default function Sidebar() {
 
   return (
     <div className={style.sidebar}>
+      {/* 头像 */}
       <div className={classNames(style.avatarWrap, CommonClass.FlexHCenter)}>
         {isLogin && (
           <Avatar
-            className={classNames(style.avatar, CommonClass.Pointer)}
+            className={classNames(
+              style.avatar,
+              CommonClass.Pointer,
+              CommonClass.Unselectable
+            )}
             src={avatar}
             size={60}
           />
         )}
       </div>
+      {/* 功能按钮 */}
       <div className={classNames(style.btnGroupWrap, CommonClass.FlexVCenter)}>
         {btnGroup.map((item) => {
           if (!isLogin && item.requireLogin) {

@@ -1,12 +1,12 @@
 import React, { useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Modal, Tabs } from 'antd';
-import Sign from '@/components/Sign';
 import { State } from '@/store/reducer';
 import { SetUserPayload } from '@/store/action';
 import useAction from '@/hooks/useAction';
 import { setValue, noop, platform } from '@/utils';
 import { register, login } from '@/services';
+import Sign from './Sign';
 import style from './Dialog.less';
 
 const { TabPane } = Tabs;
