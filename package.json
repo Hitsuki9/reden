@@ -56,7 +56,7 @@
     "file-loader": "^6.0.0",
     "html-webpack-plugin": "^4.3.0",
     "jest": "^26.1.0",
-    "less": "^3.11.3",
+    "less": "^3.12.0",
     "less-loader": "^6.2.0",
     "nodemon": "^2.0.4",
     "postcss-loader": "^3.0.0",
