@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { FC } from 'react';
 
 interface MessageProps {
   payload: {};
 }
 
-export default function Message(props: MessageProps) {
-  return <div>Message</div>;
-}
+const Message: FC<MessageProps> = () => <div>Message</div>;
+
+export default Message;

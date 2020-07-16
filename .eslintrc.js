@@ -12,7 +12,8 @@ module.exports = {
   },
   globals: {
     __DEV__: 'readonly',
-    __DSN__: 'readonly'
+    __DSN__: 'readonly',
+    __REDUX_DEVTOOLS_EXTENSION__: 'readonly'
   },
   rules: {
     'no-console': [
@@ -29,12 +30,7 @@ module.exports = {
       }
     ],
     'comma-dangle': [1, 'never'],
-    'no-underscore-dangle': [
-      1,
-      {
-        allow: ['__REDUX_DEVTOOLS_EXTENSION__', '_id']
-      }
-    ],
+    'no-underscore-dangle': 0,
     'no-param-reassign': [
       1,
       {

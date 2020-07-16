@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, FC } from 'react';
 import classNames from 'classnames';
 import { Modal, Avatar, Button } from 'antd';
 import { addFriend, ItemType, Item, joinGroup } from '@/services';
@@ -16,8 +16,7 @@ interface InfoProps {
   onClose: () => void;
 }
 
-export default function Info(props: InfoProps) {
-  const { type, visible, payload, onClose } = props;
+const Info: FC<InfoProps> = ({ type, visible, payload, onClose }) => {
   const actions = useAction();
   const infoMap = useMemo(
     () => ({
@@ -58,4 +57,6 @@ export default function Info(props: InfoProps) {
       </div>
     </Modal>
   );
-}
+};
+
+export default Info;

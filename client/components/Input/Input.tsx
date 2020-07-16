@@ -14,34 +14,28 @@ interface InputProps {
   suffix?: JSX.Element;
 }
 
-const Input: FC<InputProps> = (props) => {
-  const {
-    content,
-    onChange: changeHandler,
-    onKeyDown: keyDownHandler = noop,
-    onFocus: focusHandler = noop,
-    placeholder = '',
-    prefix = null,
-    suffix = null
-  } = props;
-
-  return (
-    <div
-      className={classNames(style.input, CommonClass.Unselectable)}
-    >
-      {prefix}
-      <input
-        placeholder={placeholder}
-        className={classNames(style.innerInput, CommonClass.InnerInput)}
-        value={content}
-        onKeyDown={keyDownHandler}
-        onChange={changeHandler}
-        onFocus={focusHandler}
-        type="text"
-      />
-      {suffix}
-    </div>
-  );
-};
+const Input: FC<InputProps> = ({
+  content,
+  onChange: changeHandler,
+  onKeyDown: keyDownHandler = noop,
+  onFocus: focusHandler = noop,
+  placeholder = '',
+  prefix = null,
+  suffix = null
+}) => (
+  <div className={classNames(style.input, CommonClass.Unselectable)}>
+    {prefix}
+    <input
+      placeholder={placeholder}
+      className={classNames(style.innerInput, CommonClass.InnerInput)}
+      value={content}
+      onKeyDown={keyDownHandler}
+      onChange={changeHandler}
+      onFocus={focusHandler}
+      type="text"
+    />
+    {suffix}
+  </div>
+);
 
 export default Input;

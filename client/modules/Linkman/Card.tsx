@@ -13,20 +13,16 @@ interface CardProps {
   extraStyle?: Record<string, string>;
 }
 
-const Card: FC<CardProps> = (props) => {
-  const { name, avatar, extraStyle } = props;
-
-  return (
-    <div
-      style={extraStyle}
-      className={classNames(style.card, CommonClass.FlexVCenter)}
-    >
-      <Avatar className={CommonClass.Unselectable} src={avatar} size={48} />
-      <div className={style.content}>
-        <span>{name}</span>
-      </div>
+const Card: FC<CardProps> = ({ name, avatar, extraStyle }) => (
+  <div
+    style={extraStyle}
+    className={classNames(style.card, CommonClass.FlexVCenter)}
+  >
+    <Avatar className={CommonClass.Unselectable} src={avatar} size={48} />
+    <div className={style.content}>
+      <span>{name}</span>
     </div>
-  );
-};
+  </div>
+);
 
 export default memo(Card);

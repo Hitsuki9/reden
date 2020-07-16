@@ -23,7 +23,7 @@ interface BtnItem {
   /** 按钮图标 */
   Icon: typeof Icon;
   /** 点击事件回调 */
-  handleClick: (event: MouseEvent) => void;
+  clickHandler: (event: MouseEvent) => void;
   /** 是否要求登录 */
   requireLogin: boolean;
 }
@@ -38,7 +38,7 @@ export default function Sidebar() {
     {
       title: 'GitHub',
       Icon: GithubOutlined,
-      handleClick() {
+      clickHandler() {
         window.open('https://github.com/Hitsuki9/fiora');
       },
       requireLogin: false
@@ -46,13 +46,13 @@ export default function Sidebar() {
     {
       title: '设置',
       Icon: SettingOutlined,
-      handleClick: noop, // TODO
+      clickHandler: noop, // TODO
       requireLogin: true
     },
     {
       title: '退出登录',
       Icon: ExportOutlined,
-      handleClick() {
+      clickHandler() {
         actions.logout();
         removeItem('token');
         message.success('您已退出登录');
@@ -90,7 +90,7 @@ export default function Sidebar() {
               <item.Icon
                 className={classNames(style.btnItem, CommonClass.FlexCenter)}
                 role="button"
-                onClick={item.handleClick}
+                onClick={item.clickHandler}
               />
             </Tooltip>
           );

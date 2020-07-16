@@ -1,4 +1,4 @@
-import React, { MouseEvent } from 'react';
+import React, { FC, MouseEvent } from 'react';
 import { TeamOutlined } from '@ant-design/icons';
 import classNames from 'classnames';
 import { noop } from '@/utils';
@@ -12,15 +12,18 @@ interface HeaderProps {
   /** 联系人类型 */
   type: string;
   /** 功能按钮点击事件回调 */
-  clickHandler?: (event: MouseEvent) => void;
+  onClick?: (event: MouseEvent) => void;
 }
 
 const iconStyle = {
   fontSize: '24px'
 };
 
-export default function Header(props: HeaderProps) {
-  const { name = '', type = '', clickHandler = noop } = props;
+const Header: FC<HeaderProps> = ({
+  name = '',
+  type = '',
+  onClick: clickHandler = noop
+}) => {
   const isLogin = useLogin();
 
   return (
@@ -36,4 +39,6 @@ export default function Header(props: HeaderProps) {
       )}
     </div>
   );
-}
+};
+
+export default Header;

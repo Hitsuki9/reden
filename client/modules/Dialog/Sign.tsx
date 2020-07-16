@@ -1,4 +1,4 @@
-import React, { useState, forwardRef, Ref } from 'react';
+import React, { useState, forwardRef, Ref, FC } from 'react';
 import { Form, Input, Button } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import { noop } from '@/utils';
@@ -17,27 +17,26 @@ interface SignProps {
   forwardedRef: Ref<any>;
 }
 
-function Sign(props: SignProps) {
+const Sign: FC<SignProps> = ({
+  btnText = '提交',
+  onFinish: finishHandler = noop,
+  submitFlag = true,
+  name = 'form',
+  forwardedRef
+}) => {
   const [loading, setLoading] = useState(false);
-  const {
-    btnText = '提交',
-    onFinish: handleFinish = noop,
-    submitFlag = true,
-    name = 'form',
-    forwardedRef
-  } = props;
 
-  const finishHandler = async (values: Record<string, any>) => {
+  const _finishHandler = async (values: Record<string, any>) => {
     if (loading || !submitFlag) {
       return;
     }
     setLoading(true);
-    await handleFinish(values.username, values.password);
+    await finishHandler(values.username, values.password);
     setLoading(false);
   };
 
   return (
-    <Form ref={forwardedRef} onFinish={finishHandler} name={name}>
+    <Form ref={forwardedRef} onFinish={_finishHandler} name={name}>
       <Form.Item
         name="username"
         rules={[{ required: true, message: '请填写用户名' }]}
@@ -76,17 +75,19 @@ function Sign(props: SignProps) {
       </Form.Item>
     </Form>
   );
-}
+};
 
-export default forwardRef((props: Partial<SignProps>, ref: Ref<any>) => {
-  const { btnText, onFinish, submitFlag, name } = props;
-  return (
+export default forwardRef(
+  (
+    { btnText, onFinish: finishHandler, submitFlag, name }: Partial<SignProps>,
+    ref: Ref<any>
+  ) => (
     <Sign
       btnText={btnText}
-      onFinish={onFinish}
+      onFinish={finishHandler}
       submitFlag={submitFlag}
       forwardedRef={ref}
       name={name}
     />
-  );
-});
+  )
+);

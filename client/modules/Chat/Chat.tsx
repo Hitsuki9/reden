@@ -31,7 +31,7 @@ export default function Chat() {
     await sendMessage(linkman._id, linkman.type, 'text', content);
   };
 
-  const clickHandle = () => {
+  const clickHandler = () => {
     setShowDrawer(true);
   };
 
@@ -53,7 +53,7 @@ export default function Chat() {
             <Header
               name={linkman.name}
               type={linkman.type}
-              clickHandler={clickHandle}
+              onClick={clickHandler}
             />
           )}
           <div className={style.chatPanel}>

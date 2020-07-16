@@ -6,13 +6,8 @@ const loggerMiddleware: Middleware = () => (next) => (action) => {
   return next(action);
 };
 
-// @ts-ignore
-const store = (window.__REDUX_DEVTOOLS_EXTENSION__
-  ? compose(
-      applyMiddleware(loggerMiddleware),
-      // @ts-ignore
-      window.__REDUX_DEVTOOLS_EXTENSION__()
-    )
+const store = (__REDUX_DEVTOOLS_EXTENSION__
+  ? compose(applyMiddleware(loggerMiddleware), __REDUX_DEVTOOLS_EXTENSION__())
   : applyMiddleware(loggerMiddleware))(createStore)(reducer);
 
 store[Symbol.observable]().subscribe({
