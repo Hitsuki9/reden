@@ -1527,10 +1527,10 @@
     "@types/bson" "*"
     "@types/node" "*"
 
-"@types/mongoose@^5.7.31":
-  version "5.7.31"
-  resolved "https://registry.yarnpkg.com/@types/mongoose/-/mongoose-5.7.31.tgz#1076167766aa33733563746b9b67ff5fdb761825"
-  integrity sha512-pC9CHR/gjAbGDC4NUNkJh4+EpDhoCNkSOA8a017wltorOwpqGu674nGdxGn1aP2w/DsRrSRtdrrwZnUaTmzRkQ==
+"@types/mongoose@^5.7.34":
+  version "5.7.34"
+  resolved "https://registry.yarnpkg.com/@types/mongoose/-/mongoose-5.7.34.tgz#37d226fbb00b91319ca70014d0240d09a7164187"
+  integrity sha512-AGzGNS+/eu6IAaMU38wis5ZWlePJhIIo9BKr2/qgkZylgWmX/eO21vNl7QWEstXb80r3US2ZwEnFYjBWIDXfBQ==
   dependencies:
     "@types/mongodb" "*"
     "@types/node" "*"
