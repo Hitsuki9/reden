@@ -1,4 +1,4 @@
-# fiora
+# parler
 
 💬 An interesting chat application
 

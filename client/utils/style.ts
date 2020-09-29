@@ -78,7 +78,6 @@ export function setCssVariable(color: string, textColor: string) {
   for (let i = 0; i <= 10; i++) {
     const cssVariables =
       `--primary-color-${i}: rgba(${color}, ${i / 10});` +
-      // `--primary-color-${i}_5: rgba(${color}, ${(i + 0.5) / 10});` +
       `--primary-light-color-${i}: hsla(${lightColor}, ${i / 10});` +
       `--primary-dark-color-${i}: hsla(${darkColor}, ${i / 10});` +
       `--primary-text-color-${i}: rgba(${textColor}, ${i / 10});`;

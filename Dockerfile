@@ -1,6 +1,6 @@
 FROM node:12
 
-WORKDIR /usr/app/fiora
+WORKDIR /usr/app/parler
 
 COPY build ./build
 COPY client ./client

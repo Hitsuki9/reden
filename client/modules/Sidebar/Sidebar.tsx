@@ -39,7 +39,7 @@ export default function Sidebar() {
       title: 'GitHub',
       Icon: GithubOutlined,
       clickHandler() {
-        window.open('https://github.com/Hitsuki9/fiora');
+        window.open('https://github.com/Hitsuki9/parler');
       },
       requireLogin: false
     },

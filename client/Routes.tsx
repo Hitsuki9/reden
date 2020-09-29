@@ -21,6 +21,12 @@ const routes: [string, LazyExoticComponent<() => JSX.Element>][] = [
   [
     'uploader',
     lazy(() => import(/* webpackChunkName: "uploader" */ '@/pages/Uploader'))
+  ],
+  [
+    'awesome-css',
+    lazy(() =>
+      import(/* webpackChunkName: "awesome-css" */ '@/pages/AwesomeCSS')
+    )
   ]
 ];
 
@@ -39,13 +45,25 @@ export default function Routes() {
         const [path, RouteChild] = route;
         return (
           <Route key={path} exact path={`/${path}`}>
-            <div className={CommonClass.FlexCenter} style={{ height: '100vh' }}>
-              <Button type="primary" onClick={() => history.push('/')}>
+            <div
+              style={{
+                height: '100vh',
+                display: 'flex',
+                flexDirection: 'column'
+              }}
+            >
+              <Button
+                style={{ alignSelf: 'flex-start' }}
+                type="primary"
+                onClick={() => history.push('/')}
+              >
                 Home
               </Button>
-              <Suspense fallback={Loading()}>
-                <RouteChild />
-              </Suspense>
+              <div className={CommonClass.FlexCenter} style={{ flexGrow: 1 }}>
+                <Suspense fallback={Loading()}>
+                  <RouteChild />
+                </Suspense>
+              </div>
             </div>
           </Route>
         );

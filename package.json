@@ -1,9 +1,9 @@
 {
-  "name": "fiora",
+  "name": "parler",
   "version": "0.0.1",
   "description": "💬 An interesting chat application",
   "scripts": {
-    "client": "cross-env NODE_ENV=development webpack-dev-server --config build/webpack.dev.config.js",
+    "client": "webpack-dev-server --config build/webpack.dev.config.js",
     "server": "cross-env NODE_ENV=development nodemon server/index.ts",
     "start": "concurrently \"npm:server\" \"npm:client\"",
     "build": "webpack --config build/webpack.dev.config.js",
@@ -12,12 +12,20 @@
     "test": "jest"
   },
   "keywords": [
-    "fiora",
+    "parler",
     "chat",
     "socket"
   ],
   "author": "Hitsuki9",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Hitsuki9/parler.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Hitsuki9/parler/issues"
+  },
+  "homepage": "https://github.com/Hitsuki9/parler#readme",
   "devDependencies": {
     "@babel/core": "^7.9.6",
     "@babel/plugin-proposal-class-properties": "^7.8.3",
@@ -25,6 +33,7 @@
     "@babel/preset-env": "^7.9.6",
     "@babel/preset-react": "^7.9.4",
     "@babel/preset-typescript": "^7.9.0",
+    "@hitsuki9/prettier-config": "^1.0.0",
     "@types/bcryptjs": "^2.4.2",
     "@types/classnames": "^2.2.10",
     "@types/jest": "^25.2.2",
@@ -97,12 +106,5 @@
     "socket.io-client": "^2.3.0",
     "spark-md5": "^3.0.1"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Hitsuki9/fiora.git"
-  },
-  "bugs": {
-    "url": "https://github.com/Hitsuki9/fiora/issues"
-  },
-  "homepage": "https://github.com/Hitsuki9/fiora#readme"
+  "prettier": "@hitsuki9/prettier-config"
 }

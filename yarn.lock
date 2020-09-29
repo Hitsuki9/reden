@@ -982,6 +982,11 @@
     exec-sh "^0.3.2"
     minimist "^1.2.0"
 
+"@hitsuki9/prettier-config@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@hitsuki9/prettier-config/-/prettier-config-1.0.0.tgz#027ac8429c37fe9d0b226064c399372082eb0769"
+  integrity sha512-hLAWu1Td/8WsfFAQIZNxIm4v4+g7Tp9W6I7iEZFh8lKWxziMEjG3sMJcfOwyP+BsfHgDq+u2BrvOVmcl2qOPGA==
+
 "@istanbuljs/load-nyc-config@^1.0.0":
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/@istanbuljs/load-nyc-config/-/load-nyc-config-1.0.0.tgz#10602de5570baea82f8afbfa2630b24e7a8cfe5b"
