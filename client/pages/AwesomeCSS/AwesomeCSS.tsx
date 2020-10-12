@@ -1,10 +1,10 @@
 import React from 'react';
-import TripLoading from './TripLoading';
+import ParallaxButton from './ParallaxButton';
 
 export default function AwesomeCSS() {
   return (
     <>
-      <TripLoading />
+      <ParallaxButton />
     </>
   );
 }
