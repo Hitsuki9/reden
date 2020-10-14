@@ -10,7 +10,6 @@ export default function ParallaxButton() {
       width,
       height
     } = (pb.current as HTMLDivElement).getBoundingClientRect());
-    console.log('render');
   });
 
   const moveHandler = (event: MouseEvent) => {
