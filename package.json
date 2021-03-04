@@ -28,7 +28,7 @@
     "@types/classnames": "^2.2.10",
     "@types/jest": "^26.0.9",
     "@types/jsonwebtoken": "^8.5.0",
-    "@types/koa": "^2.11.3",
+    "@types/koa": "^2.13.1",
     "@types/mongoose": "^5.7.36",
     "@types/react": "^16.9.49",
     "@types/react-dom": "^16.9.8",
