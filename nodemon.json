@@ -1,3 +1,0 @@
-{
-  "ignore": ["client/*", "build/*", "test/*", "config/client.ts", "public/*"]
-}
