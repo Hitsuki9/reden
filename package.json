@@ -15,7 +15,7 @@
   "license": "MIT",
   "dependencies": {
     "@reduxjs/toolkit": "^1.5.1",
-    "chalk": "^4.1.0",
+    "chalk": "^4.1.1",
     "dayjs": "^1.10.4",
     "dotenv": "^8.2.0",
     "graphql": "^15.5.0",
