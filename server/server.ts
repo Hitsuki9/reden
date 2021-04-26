@@ -1,9 +1,16 @@
+import 'reflect-metadata';
 import { createServer } from 'http';
 import Koa from 'koa';
-import { createWebSocketServer } from './ws';
+import { ApolloServer } from 'apollo-server-koa';
+import { getSchema } from './lib/graphql';
 
-const app = new Koa();
-const server = createServer(app.callback());
-const ws = createWebSocketServer(server);
+export default async function startServer() {
+  const app = new Koa();
+  const schema = await getSchema();
+  const apollo = new ApolloServer({ schema });
 
-export default server;
+  apollo.applyMiddleware({ app, path: '/api/graphql' });
+
+  const server = createServer(app.callback());
+  server.listen(process.env.PORT);
+}

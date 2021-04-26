@@ -1,6 +1,5 @@
 import type { Server } from 'http';
 import WebSocket from 'ws';
-import { compose } from './utils';
 
 export interface Middleware {}
 
