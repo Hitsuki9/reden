@@ -679,10 +679,10 @@
     "@babel/plugin-transform-react-jsx-source" "^7.12.13"
     react-refresh "^0.9.0"
 
-"@windicss/plugin-utils@0.15.7":
-  version "0.15.7"
-  resolved "https://registry.yarnpkg.com/@windicss/plugin-utils/-/plugin-utils-0.15.7.tgz#3865e1a7b48806fac048865a3ab35912958f712d"
-  integrity sha512-++2POqhrvL589Xv8X6ZX7sCG2Jb9rzbbGQCvClhoOxhPFFkPuLnZtGB+KIa2l1QarPXUQCaSjQ+zxFiu6IgI/g==
+"@windicss/plugin-utils@0.15.9":
+  version "0.15.9"
+  resolved "https://registry.yarnpkg.com/@windicss/plugin-utils/-/plugin-utils-0.15.9.tgz#acd84c806550cf231089bb673db301be228dc3f1"
+  integrity sha512-Dlq7GpmnRjTXQ3Ip21g5gulxO1rFmjKP1n42lZLQP+3JrUQY0zzazQZxU/2fgMt/rJW16wRYj9u80+8mN4Cp/A==
   dependencies:
     debug "^4.3.2"
     fast-glob "^3.2.5"
@@ -3843,12 +3843,12 @@ vary@^1.1.2:
   resolved "https://registry.yarnpkg.com/vary/-/vary-1.1.2.tgz#2299f02c6ded30d4a5961b0b9f74524a18f634fc"
   integrity sha1-IpnwLG3tMNSllhsLn3RSShj2NPw=
 
-vite-plugin-windicss@^0.15.7:
-  version "0.15.7"
-  resolved "https://registry.yarnpkg.com/vite-plugin-windicss/-/vite-plugin-windicss-0.15.7.tgz#6999c7a971a3bde887c2f701e56adc56953435d9"
-  integrity sha512-RYASJYA6l2p3MgQ6M6GU44zP0iC5cBkuTJhhrmHaRREleL9fNpblBwdS0lbvcr5Q4LT6AGpmmTlF50iIwo3JkQ==
+vite-plugin-windicss@^0.15.9:
+  version "0.15.9"
+  resolved "https://registry.yarnpkg.com/vite-plugin-windicss/-/vite-plugin-windicss-0.15.9.tgz#5f40823288d8ba2d3bb576a83f62e2d219cc5b44"
+  integrity sha512-PvJF/xLxKBQcHV7WL9cyo2OT2ZuAiBl2HCBbrHKSA43hFEWng9WfjLDa5ZcNKBAHmoeI6JpDo8ts9P27zlkXxQ==
   dependencies:
-    "@windicss/plugin-utils" "0.15.7"
+    "@windicss/plugin-utils" "0.15.9"
     chalk "^4.1.0"
     debug "^4.3.2"
     windicss "^2.5.14"
