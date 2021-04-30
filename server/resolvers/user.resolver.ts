@@ -17,8 +17,8 @@ class User {
 
 @Resolver()
 export default class UserResolver {
-  @Query()
-  user(): User {
+  @Query(() => User)
+  user() {
     return {
       id: 1,
       username: 'Jackson',
