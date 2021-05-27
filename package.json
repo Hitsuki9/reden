@@ -15,7 +15,7 @@
   "license": "MIT",
   "dependencies": {
     "@reduxjs/toolkit": "^1.5.1",
-    "apollo-server-koa": "^2.23.0",
+    "apollo-server-koa": "^2.25.0",
     "chalk": "^4.1.0",
     "class-validator": "^0.13.1",
     "dayjs": "^1.10.4",
