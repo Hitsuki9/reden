@@ -30,7 +30,7 @@
     "type-graphql": "^1.1.1",
     "typeorm": "^0.2.34",
     "winston": "^3.3.3",
-    "ws": "^7.4.6"
+    "ws": "^7.5.2"
   },
   "devDependencies": {
     "@hitsuki9/prettier-config": "^1.0.0",
