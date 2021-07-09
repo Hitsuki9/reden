@@ -14,7 +14,7 @@
   "author": "Hitsuki9",
   "license": "MIT",
   "dependencies": {
-    "@reduxjs/toolkit": "^1.5.1",
+    "@reduxjs/toolkit": "^1.6.0",
     "apollo-server-koa": "^2.23.0",
     "chalk": "^4.1.0",
     "class-validator": "^0.13.1",
