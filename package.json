@@ -18,7 +18,7 @@
     "apollo-server-koa": "^2.23.0",
     "chalk": "^4.1.0",
     "class-validator": "^0.13.1",
-    "dayjs": "^1.10.4",
+    "dayjs": "^1.10.6",
     "dotenv": "^10.0.0",
     "graphql": "^15.5.1",
     "koa": "^2.13.1",
