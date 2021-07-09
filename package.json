@@ -28,7 +28,7 @@
     "react-redux": "^7.2.3",
     "reflect-metadata": "^0.1.13",
     "type-graphql": "^1.1.1",
-    "typeorm": "^0.2.32",
+    "typeorm": "^0.2.34",
     "winston": "^3.3.3",
     "ws": "^7.4.6"
   },
