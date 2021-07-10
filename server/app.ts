@@ -1,11 +1,8 @@
-import dotenv from 'dotenv';
-import startServer from './server';
-
-dotenv.config();
+import { startServer } from './server';
 
 (async () => {
   try {
-    await startServer();
+    startServer();
   } catch (err) {
     console.log(err);
     process.exit(1);

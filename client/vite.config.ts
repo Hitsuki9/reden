@@ -3,8 +3,10 @@ import reactRefresh from '@vitejs/plugin-react-refresh';
 import WindiCSS from 'vite-plugin-windicss';
 
 export default defineConfig({
-  alias: {
-    '@': __dirname
+  resolve: {
+    alias: {
+      '@': __dirname
+    }
   },
-  plugins: [WindiCSS(), reactRefresh()]
+  plugins: [reactRefresh(), WindiCSS()]
 });
