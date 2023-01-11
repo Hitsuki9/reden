@@ -18,7 +18,7 @@
     "@reduxjs/toolkit": "^1.6.0",
     "apollo-server-koa": "^2.25.2",
     "chalk": "^4.1.1",
-    "class-validator": "^0.13.1",
+    "class-validator": "^0.14.0",
     "dayjs": "^1.10.6",
     "dotenv": "^10.0.0",
     "graphql": "^15.5.1",
